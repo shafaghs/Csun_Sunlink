@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/submenu_all"
+        android:title="@string/title_A">
+    </item>
+    <item
+        android:id="@+id/submenu_mr"
+        android:title="@string/title_MR">
+    </item>
+    <item
+        android:id="@+id/submenu_ft"
+        android:title="@string/title_FT">
+    </item>
+    <item
+        android:id="@+id/submenu_pt"
+        android:title="@string/title_PT">
+    </item>
+    <item
+        android:id="@+id/submenu_int"
+        android:title="@string/title_I">
+    </item>
+
+
+</menu>

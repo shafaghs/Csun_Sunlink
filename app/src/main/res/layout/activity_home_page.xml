@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical"
+    android:weightSum="100">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <TextView
+            android:id="@+id/headerHomePage"
+            style="@style/HomePageMenyBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="15dp"
+            android:layout_weight="75" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circleView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="bottom"
+            android:src="@drawable/defaultpicture" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryLight1"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/profile_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="20"
+            android:background="@null"
+            android:src="@drawable/profile" />
+
+        <ImageButton
+            android:id="@+id/search_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="20"
+            android:background="@null"
+            android:src="@drawable/search" />
+
+        <ImageButton
+            android:id="@+id/careercenter_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="20"
+            android:background="@null"
+            android:src="@drawable/careercenter" />
+
+        <ImageButton
+            android:id="@+id/resources_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="20"
+            android:background="@null"
+            android:src="@drawable/resources" />
+
+        <ImageButton
+            android:id="@+id/settings_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="20"
+            android:background="@null"
+            android:src="@drawable/settings" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+
+        <Button
+            style="@style/HomePageMenyBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="10"
+            android:background="@color/colorPrimary"
+            android:gravity="center_vertical|center_horizontal|center"
+            android:text="Upcoming Events" />
+
+        <Button
+            android:id="@+id/eventsc_button"
+            android:layout_width="53dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:background="@color/colorPrimary"
+            android:keepScreenOn="true"
+            android:text="v"
+            android:textColor="@color/colorPrimaryLight" />
+
+
+    </LinearLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimaryLight1"></TableLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+
+        <Button
+            style="@style/HomePageMenyBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="10"
+            android:background="@color/colorPrimary"
+            android:gravity="center_vertical|center_horizontal|center"
+            android:text="Latests Job Posts" />
+
+        <Button
+            android:id="@+id/jobc_button"
+            android:layout_width="53dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:background="@color/colorPrimary"
+            android:onClick="showMenu"
+            android:text="v"
+            android:textColor="@color/colorPrimaryLight" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/home_page_job_listing"
+        android:layout_width="fill_parent"
+        android:layout_height="240dp"/>
+
+
+</LinearLayout>

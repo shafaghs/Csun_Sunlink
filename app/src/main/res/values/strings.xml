@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">Csun Career Center</string>
+    <string name="logIn">Sign In</string>
+    <string name="signUp">Sign Up</string>
+    <string name="login_username">Enter your CSUN email address like example@my.csun.edu  and password to sign in</string>
+    <string name="login_email">example@my.csun.edu</string>
+    <string name="login_password">Password</string>
+    <string name="login_confirm_password">Confirm Password</string>
+    <string name="login_linkin">Sign in with linkin account</string>
+    <string name="login_facebook">Sign in with Facebook account</string>
+    <string name="signup_username">Please enter your CSUN email address and contact the CSUN Career Center for your temporary login password. Career Center hours: M–TH 9–5 F 9–4, (818) 677–2878 </string>
+    <string name="signup_linkin">Sign up with linkin account</string>
+    <string name="signup_facebook">Sign up with Facebook account</string>
+    <string name="change_password">Enter your new password</string>
+    <string name="or">OR</string>
+    <string name="invalid_userPass">Username or Password is incorrect, try again.</string>
+    <string name="Both_filled">Both fields should be filled</string>
+    <string name="same_value">Password and Confirm Password should contain same value.</string>
+    <string name="save">Save</string>
+    <string name="apply">Apply</string>
+    <string name="job_description_title">Job Description</string>
+    <string name="job_duties">Job Duties</string>
+    <string name="essential_skills">Essential Skills</string>
+    <string name="desired_skills">Desired Skills</string>
+
+    <string name="profile_hp">Profile</string>
+    <string name="search_hp">Search</string>
+    <string name="my_career_center_hp">My Career Center</string>
+    <string name="resources_hp">Resources</string>
+    <string name="settings_hp">Settings</string>
+    <string name="spinner_jobs">More</string>
+    <string name="home_page">Home</string>
+
+    <!-- Job menu -->
+    <string name="title_A">All</string>
+    <string name="title_MR">Major Related</string>
+    <string name="title_FT">Full Time</string>
+    <string name="title_PT">Part Time</string>
+    <string name="title_I">Internships</string>
+    <string name="title_At">Attending</string>
+    <string name="search_by_jobtitle">Search by job title</string>
+
+    <!-- Menu Drawer -->
+    <string name="openDrawer">Open drawer</string>
+    <string name="closeDrawer">CloseDrawer</string>
+
+
+</resources>

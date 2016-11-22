@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <RelativeLayout
+            style="@style/containerStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/search_detail_job_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/search_detail_company_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/search_detail_job_title"
+                android:gravity="center"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/search_detail_position_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/search_detail_company_name"
+                android:gravity="center"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/search_detail_company_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/search_detail_position_type"
+                android:gravity="center"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/search_detail_posted_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/search_detail_company_add"
+                android:gravity="center"
+                android:textColor="@color/black"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/search_detail_posted_date"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/search_detail_save_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/save"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/search_detail_apply_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/apply"
+                    android:textAllCaps="false" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/containerStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/search_detail_job_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/job_description_title"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/search_detail_job_des_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/search_detail_job_description"
+                android:textColor="@color/black"
+                android:paddingBottom="12dp"
+                android:paddingStart="17dp"/>
+
+            <TextView
+                android:id="@+id/search_detail_job_duty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/search_detail_job_des_detail"
+                android:text="@string/job_duties"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/search_detail_job_duty_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/search_detail_job_duty"
+                android:textColor="@color/black"
+                android:paddingBottom="12dp"
+                android:paddingStart="17dp"/>
+
+            <TextView
+                android:id="@+id/search_detail_essential_skills"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/search_detail_job_duty_detail"
+                android:text="@string/essential_skills"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/search_detail_ess_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/search_detail_essential_skills"
+                android:textColor="@color/black"
+                android:paddingBottom="12dp"
+                android:paddingStart="17dp"/>
+
+            <TextView
+                android:id="@+id/search_detail_desired_skills"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/search_detail_ess_detail"
+                android:text="@string/desired_skills"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/search_detail_des_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/search_detail_desired_skills"
+                android:textColor="@color/black"
+                android:paddingStart="17dp"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+</ScrollView>
