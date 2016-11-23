@@ -2,21 +2,23 @@ package com.csun_sunlink.csuncareercenter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ContextThemeWrapper;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.csun_sunlink.csuncareercenter.Fragments.HomePageJobListingFragment;
 import com.csun_sunlink.csuncareercenter.Search.SearchStart;
@@ -30,6 +32,14 @@ public class HomePage extends AppCompatActivity{
     //Variables:
     boolean floatingMenu; //true - jobs, false - events
 
+    // InfoSessions:
+    ImageAdapter mImageAdapter;
+    ViewPager mViewPager;
+    int[] mResources = {
+            R.drawable.first,
+            R.drawable.second,
+            R.drawable.third,
+    };
     //private final CURRENTUSER = getCurrentUser();
     /*this is data to test home page class*/
     private String userName = "Matt Ross";
@@ -53,12 +63,37 @@ public class HomePage extends AppCompatActivity{
     Button eventcategories;
     Button jobcategories;
 
+    //Drawer
+
+    String TITLES[] = {"Home","Profile","Search","My Career Center","Resources","Settings"};
+    int ICONS[] = {R.drawable.profile,R.drawable.profile,R.drawable.search,R.drawable.careercenter,R.drawable.resources, R.drawable.settings};
+
+    //Similarly we Create a String Resource for the name and email in the header view
+    //And we also create a int resource for profile picture in the header view
+
+    String NAME = "Olga Kup";
+    String EMAIL = "olgakup@yahoo.com";
+    int PROFILE = R.drawable.defaultpicture;
+    private Toolbar toolbar;
+    RecyclerView mRecyclerView;
+    RecyclerView.Adapter mAdapter;
+    RecyclerView.LayoutManager mLayoutManager;
+    DrawerLayout Drawer;
+    ActionBarDrawerToggle mDrawerToggle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+        //Infosessions:
+        mImageAdapter = new ImageAdapter(this);
+
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(mImageAdapter);
+
         // Get Curent User: currentUser = ParseUser.getCurrentUser(); + check if the user !null
-        createHeader();
+        /*createHeader();
         TextView header = (TextView) findViewById(R.id.headerHomePage);
         header.setText(screenHeader);
 
@@ -69,7 +104,7 @@ public class HomePage extends AppCompatActivity{
         Bitmap circularBitmap = ProfileImageDrawable.getRoundedCornerBitmap(bitmap, 100);
 
         ImageView circularImageView = (ImageView)findViewById(R.id.imageView);
-        circularImageView.setImageBitmap(circularBitmap);
+        circularImageView.setImageBitmap(circularBitmap); */
 
         //Main Menu Buttons:
         //Profile:
@@ -139,12 +174,41 @@ public class HomePage extends AppCompatActivity{
                 showMenu(v);
             }
         });
-
+        //Fragment:
         HomePageJobListingFragment jobListing=new HomePageJobListingFragment();
         FragmentManager manager=getSupportFragmentManager();//create an instance of fragment manager
         FragmentTransaction transaction=manager.beginTransaction();//create an instance of Fragment-transaction
         transaction.add(R.id.home_page_job_listing, jobListing, "Job Listing");
         transaction.commit();
+
+        //DRAWER:
+        mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView);
+        mRecyclerView.setHasFixedSize(true);
+        mAdapter = new MenuDrawerAdapter(TITLES,ICONS,NAME,EMAIL,PROFILE);
+        mRecyclerView.setAdapter(mAdapter);
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        Drawer = (DrawerLayout) findViewById(R.id.DrawerLayout);
+        mDrawerToggle = new ActionBarDrawerToggle(this,Drawer,toolbar, R.string.openDrawer,
+                R.string.closeDrawer){
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                // Code here will execute once drawer is closed
+            }
+
+
+
+        }; // Drawer Toggle Object Made
+        Drawer.setDrawerListener(mDrawerToggle); // Drawer Listener set to the Drawer toggle
+        mDrawerToggle.syncState();               // Finally we set the drawer toggle sync State
+
 
     }
 
@@ -161,9 +225,9 @@ public class HomePage extends AppCompatActivity{
 
     }
 
-    public void createHeader() {
+    /*public void createHeader() {
         this.screenHeader = this.userName + "\n" + this.userDegree;
-    }
+    } */
 
     public void showMenu(View v) {
         Context wrapper = new ContextThemeWrapper(this, R.style.PopupMenu);
