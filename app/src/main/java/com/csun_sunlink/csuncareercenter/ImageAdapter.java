@@ -24,7 +24,8 @@ public class ImageAdapter extends PagerAdapter{
 
         @Override
         public int getCount() {
-            return mResources.length;
+            //return mResources.length;
+            return 3;
         }
 
         @Override
@@ -48,5 +49,4 @@ public class ImageAdapter extends PagerAdapter{
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((LinearLayout) object);
         }
-    }
 }
