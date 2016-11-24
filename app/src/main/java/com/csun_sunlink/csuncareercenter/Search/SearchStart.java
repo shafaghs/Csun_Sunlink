@@ -26,7 +26,7 @@ public class SearchStart extends AppCompatActivity {
     private SearchView searchView;
 
     //Drawer
-    
+
     private Toolbar toolbar;
     RecyclerView mRecyclerView;
     RecyclerView.Adapter mAdapter;
