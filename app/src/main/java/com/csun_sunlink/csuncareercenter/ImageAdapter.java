@@ -14,6 +14,11 @@ import android.widget.LinearLayout;
 
 public class ImageAdapter extends PagerAdapter{
 
+    int[] mResources = {
+            R.drawable.first,
+            R.drawable.second,
+            R.drawable.third,
+    };
         Context mContext;
         LayoutInflater mLayoutInflater;
 
@@ -24,8 +29,7 @@ public class ImageAdapter extends PagerAdapter{
 
         @Override
         public int getCount() {
-            //return mResources.length;
-            return 3;
+            return mResources.length;
         }
 
         @Override
@@ -38,7 +42,7 @@ public class ImageAdapter extends PagerAdapter{
             View itemView = mLayoutInflater.inflate(R.layout.pager_item, container, false);
 
             ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
-            //imageView.setImageResource(mResources[position]);
+            imageView.setImageResource(mResources[position]);
 
             container.addView(itemView);
 

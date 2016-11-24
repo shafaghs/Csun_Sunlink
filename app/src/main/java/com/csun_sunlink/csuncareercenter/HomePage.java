@@ -35,11 +35,7 @@ public class HomePage extends AppCompatActivity{
     // InfoSessions:
     ImageAdapter mImageAdapter;
     ViewPager mViewPager;
-    int[] mResources = {
-            R.drawable.first,
-            R.drawable.second,
-            R.drawable.third,
-    };
+
     //private final CURRENTUSER = getCurrentUser();
     /*this is data to test home page class*/
     private String userName = "Matt Ross";
@@ -66,7 +62,7 @@ public class HomePage extends AppCompatActivity{
     //Drawer
 
     String TITLES[] = {"Home","Profile","Search","My Career Center","Resources","Settings"};
-    int ICONS[] = {R.drawable.profile,R.drawable.profile,R.drawable.search,R.drawable.careercenter,R.drawable.resources, R.drawable.settings};
+    int ICONS[] = {R.drawable.ic_home_white_48dp,R.drawable.ic_person_white_48dp,R.drawable.ic_search_white_48dp,R.drawable.ic_business_center_white_48dp,R.drawable.ic_business_center_white_48dp, R.drawable.ic_settings_white_48dp};
 
     //Similarly we Create a String Resource for the name and email in the header view
     //And we also create a int resource for profile picture in the header view
@@ -88,7 +84,6 @@ public class HomePage extends AppCompatActivity{
 
         //Infosessions:
         mImageAdapter = new ImageAdapter(this);
-
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mImageAdapter);
 
@@ -175,11 +170,11 @@ public class HomePage extends AppCompatActivity{
             }
         });
         //Fragment:
-        HomePageJobListingFragment jobListing=new HomePageJobListingFragment();
+        /*HomePageJobListingFragment jobListing=new HomePageJobListingFragment();
         FragmentManager manager=getSupportFragmentManager();//create an instance of fragment manager
         FragmentTransaction transaction=manager.beginTransaction();//create an instance of Fragment-transaction
         transaction.add(R.id.home_page_job_listing, jobListing, "Job Listing");
-        transaction.commit();
+        transaction.commit();*/
 
         //DRAWER:
         mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView);
