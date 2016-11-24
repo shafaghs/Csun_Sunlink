@@ -6,7 +6,7 @@
         android:id="@+id/job_listing_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lightGrey">
+        android:background="@color/white">
 
     </ListView>
 </LinearLayout>
