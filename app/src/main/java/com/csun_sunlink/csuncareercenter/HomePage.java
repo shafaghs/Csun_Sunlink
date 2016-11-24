@@ -170,11 +170,11 @@ public class HomePage extends AppCompatActivity{
             }
         });
         //Fragment:
-        /*HomePageJobListingFragment jobListing=new HomePageJobListingFragment();
+        HomePageJobListingFragment jobListing=new HomePageJobListingFragment();
         FragmentManager manager=getSupportFragmentManager();//create an instance of fragment manager
         FragmentTransaction transaction=manager.beginTransaction();//create an instance of Fragment-transaction
         transaction.add(R.id.home_page_job_listing, jobListing, "Job Listing");
-        transaction.commit();*/
+        transaction.commit();
 
         //DRAWER:
         mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView);
