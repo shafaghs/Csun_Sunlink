@@ -22,7 +22,7 @@
         android:paddingTop="4dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:id="@+id/rowText" />
 
 </LinearLayout>

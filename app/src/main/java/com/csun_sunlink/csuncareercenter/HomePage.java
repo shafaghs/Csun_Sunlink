@@ -60,16 +60,6 @@ public class HomePage extends AppCompatActivity{
     Button jobcategories;
 
     //Drawer
-
-    String TITLES[] = {"Home","Profile","Search","My Career Center","Resources","Settings"};
-    int ICONS[] = {R.drawable.ic_home_white_48dp,R.drawable.ic_person_white_48dp,R.drawable.ic_search_white_48dp,R.drawable.ic_business_center_white_48dp,R.drawable.ic_business_center_white_48dp, R.drawable.ic_settings_white_48dp};
-
-    //Similarly we Create a String Resource for the name and email in the header view
-    //And we also create a int resource for profile picture in the header view
-
-    String NAME = "Olga Kup";
-    String EMAIL = "olgakup@yahoo.com";
-    int PROFILE = R.drawable.defaultpicture;
     private Toolbar toolbar;
     RecyclerView mRecyclerView;
     RecyclerView.Adapter mAdapter;
@@ -170,16 +160,16 @@ public class HomePage extends AppCompatActivity{
             }
         });
         //Fragment:
-        /*HomePageJobListingFragment jobListing=new HomePageJobListingFragment();
+        HomePageJobListingFragment jobListing=new HomePageJobListingFragment();
         FragmentManager manager=getSupportFragmentManager();//create an instance of fragment manager
         FragmentTransaction transaction=manager.beginTransaction();//create an instance of Fragment-transaction
         transaction.add(R.id.home_page_job_listing, jobListing, "Job Listing");
-        transaction.commit();*/
+        transaction.commit();
 
         //DRAWER:
         mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView);
         mRecyclerView.setHasFixedSize(true);
-        mAdapter = new MenuDrawerAdapter(TITLES,ICONS,NAME,EMAIL,PROFILE);
+        mAdapter = new MenuDrawerAdapter();
         mRecyclerView.setAdapter(mAdapter);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -201,7 +191,7 @@ public class HomePage extends AppCompatActivity{
 
 
         }; // Drawer Toggle Object Made
-        Drawer.setDrawerListener(mDrawerToggle); // Drawer Listener set to the Drawer toggle
+        Drawer.addDrawerListener(mDrawerToggle); // Drawer Listener set to the Drawer toggle
         mDrawerToggle.syncState();               // Finally we set the drawer toggle sync State
 
 
