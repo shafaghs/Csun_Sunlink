@@ -2,21 +2,24 @@ package com.csun_sunlink.csuncareercenter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ContextThemeWrapper;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.csun_sunlink.csuncareercenter.Fragments.HomePageJobListingFragment;
 import com.csun_sunlink.csuncareercenter.Search.SearchStart;
@@ -25,7 +28,7 @@ import com.csun_sunlink.csuncareercenter.Search.SearchStart;
  * Created by olgak on 11/7/16.
  */
 
-public class HomePage extends AppCompatActivity{
+public class HomePage extends AppCompatActivity {
 
     //Variables:
     boolean floatingMenu; //true - jobs, false - events
@@ -36,11 +39,11 @@ public class HomePage extends AppCompatActivity{
     private String userDegree = "Computer Science";
     private String screenHeader;
     private String event1 = "Event1";
-    private String date1 ="11/1/16";
+    private String date1 = "11/1/16";
     private String event2 = "Event2";
-    private String date2 ="11/2/16";
+    private String date2 = "11/2/16";
     private String event3 = "Event3";
-    private String date3 ="11/3/16";
+    private String date3 = "11/3/16";
 
     //Buttons:
     ImageButton prflButton;
@@ -53,27 +56,42 @@ public class HomePage extends AppCompatActivity{
     Button eventcategories;
     Button jobcategories;
 
+    //Drawer
+
+    String TITLES[] = {"Home","Profile","Search","My Career Center","Resources","Settings"};
+    int ICONS[] = {R.drawable.profile,R.drawable.profile,R.drawable.search,R.drawable.careercenter,R.drawable.resources, R.drawable.settings};
+
+    //Similarly we Create a String Resource for the name and email in the header view
+    //And we also create a int resource for profile picture in the header view
+
+    String NAME = "Olga Kup";
+    String EMAIL = "olgakup@yahoo.com";
+    int PROFILE = R.drawable.defaultpicture;
+    private Toolbar toolbar;
+    RecyclerView mRecyclerView;
+    RecyclerView.Adapter mAdapter;
+    RecyclerView.LayoutManager mLayoutManager;
+    DrawerLayout Drawer;
+    ActionBarDrawerToggle mDrawerToggle;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         // Get Curent User: currentUser = ParseUser.getCurrentUser(); + check if the user !null
-        createHeader();
-        TextView header = (TextView) findViewById(R.id.headerHomePage);
-        header.setText(screenHeader);
+
 
         //Profile picture:
         //check if no profile picture on file use defualt:
 
-        Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(),R.drawable.defaultpicture);
+        /*Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(),R.drawable.defaultpicture);
         Bitmap circularBitmap = ProfileImageDrawable.getRoundedCornerBitmap(bitmap, 100);
-
         ImageView circularImageView = (ImageView)findViewById(R.id.imageView);
-        circularImageView.setImageBitmap(circularBitmap);
+        circularImageView.setImageBitmap(circularBitmap); */
 
         //Main Menu Buttons:
-        //Profile:
-        prflButton =(ImageButton)findViewById(R.id.profile_button);
+//Profile:
+        prflButton = (ImageButton) findViewById(R.id.profile_button);
         prflButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,16 +100,16 @@ public class HomePage extends AppCompatActivity{
             }
         });
         //Search:
-        srchButton =(ImageButton)findViewById(R.id.search_button);
+        srchButton = (ImageButton) findViewById(R.id.search_button);
         srchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),SearchStart.class);
+                Intent intent = new Intent(v.getContext(), SearchStart.class);
                 startActivity(intent);
             }
         });
         //Career Center:
-        careerButton =(ImageButton)findViewById(R.id.careercenter_button);
+        careerButton = (ImageButton) findViewById(R.id.careercenter_button);
         careerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,7 +118,7 @@ public class HomePage extends AppCompatActivity{
             }
         });
         //Resources:
-        rsrcButton = (ImageButton)findViewById(R.id.resources_button);
+        rsrcButton = (ImageButton) findViewById(R.id.resources_button);
         rsrcButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,7 +127,7 @@ public class HomePage extends AppCompatActivity{
             }
         });
         //Settings:
-        sttngButton =(ImageButton)findViewById(R.id.settings_button);
+        sttngButton = (ImageButton) findViewById(R.id.settings_button);
         sttngButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,7 +137,7 @@ public class HomePage extends AppCompatActivity{
         });
 
         //Upcoming Events:
-        eventcategories = (Button)findViewById(R.id.eventsc_button);
+        eventcategories = (Button) findViewById(R.id.eventsc_button);
         eventcategories.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,7 +149,7 @@ public class HomePage extends AppCompatActivity{
 
 
         //Job Posts:
-        jobcategories = (Button)findViewById(R.id.jobc_button);
+        jobcategories = (Button) findViewById(R.id.jobc_button);
         jobcategories.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,30 +158,68 @@ public class HomePage extends AppCompatActivity{
             }
         });
 
-        HomePageJobListingFragment jobListing=new HomePageJobListingFragment();
-        FragmentManager manager=getSupportFragmentManager();//create an instance of fragment manager
-        FragmentTransaction transaction=manager.beginTransaction();//create an instance of Fragment-transaction
+        HomePageJobListingFragment jobListing = new HomePageJobListingFragment();
+        FragmentManager manager = getSupportFragmentManager();//create an instance of fragment manager
+        FragmentTransaction transaction = manager.beginTransaction();//create an instance of Fragment-transaction
         transaction.add(R.id.home_page_job_listing, jobListing, "Job Listing");
         transaction.commit();
+
+
+        //DRAWER:
+        mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView);
+        mRecyclerView.setHasFixedSize(true);
+        mAdapter = new MenuDrawerAdapter(TITLES, ICONS, NAME, EMAIL, PROFILE);
+        mRecyclerView.setAdapter(mAdapter);
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        Drawer = (DrawerLayout) findViewById(R.id.DrawerLayout);
+        mDrawerToggle = new ActionBarDrawerToggle(this, Drawer, toolbar, R.string.openDrawer,
+                R.string.closeDrawer) {
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                // Code here will execute once drawer is closed
+            }
+
+
+        }; // Drawer Toggle Object Made
+        Drawer.setDrawerListener(mDrawerToggle); // Drawer Listener set to the Drawer toggle
+        mDrawerToggle.syncState(); // Finally we set the drawer toggle sync State
 
     }
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater menuInflater = getMenuInflater();
-        if (!floatingMenu) {
-            menuInflater.inflate(R.menu.eventcategoriesmenuhomepage, menu);
-        }
-        // else {
-        //    menuInflater.inflate(R.menu.jobcategoriesmenuhomepage, menu);
-        // }
-
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        //getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     public void createHeader() {
         this.screenHeader = this.userName + "\n" + this.userDegree;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        //if (id == R.id.action_settings) {
+        //    return true;
+        //}
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     public void showMenu(View v) {
         Context wrapper = new ContextThemeWrapper(this, R.style.PopupMenu);
@@ -172,10 +228,19 @@ public class HomePage extends AppCompatActivity{
         //popup.setOnMenuItemClickListener(this);
         if (!floatingMenu) {
             inflater.inflate(R.menu.eventcategoriesmenuhomepage, popup.getMenu());
-        }
-        else {
+        } else {
             inflater.inflate(R.menu.jobcategoriesmenuhomepage, popup.getMenu());
         }
         popup.show();
+    }
+
+    //Fragment:
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater menuInflater = getMenuInflater();
+        if (!floatingMenu) {
+            menuInflater.inflate(R.menu.eventcategoriesmenuhomepage, menu);
+        }
     }
 }
