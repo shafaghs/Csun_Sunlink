@@ -35,6 +35,7 @@
             android:name=".SignUpContinue"
             android:label="Sign Up">
         </activity>
+
         <activity
             android:name=".HomePage"
             android:label="Home Page">

@@ -25,6 +25,13 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.Vi
         private int profile;        //int Resource for header view profile picture
         private String email;
 
+    String titles[] = {"Home","Profile","Search","My Career Center","Resources","Settings"};
+    //Testing Purposes:
+    int icons[] = {R.drawable.ic_home_white_48dp,R.drawable.ic_person_white_48dp,R.drawable.ic_search_white_48dp,R.drawable.ic_business_center_white_48dp,R.drawable.ic_business_center_white_48dp, R.drawable.ic_settings_white_48dp};
+    String newName = "Olga Kup";
+    String newEmail = "olgakup@yahoo.com";
+    int newProfile = R.drawable.defaultpicture;
+
 
         public static class ViewHolder extends RecyclerView.ViewHolder {
             int Holderid;
@@ -56,12 +63,12 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.Vi
         }
 
         // Constructor:
-        MenuDrawerAdapter(String Titles[],int Icons[],String newname,String newemail, int newprofile){
-            this.mNavTitles = Titles;
-            this.mIcons = Icons;
-            this.name = newname;
-            this.email = newemail;
-            this.profile = newprofile;
+       public MenuDrawerAdapter(){
+            this.mNavTitles = titles;
+            this.mIcons = icons;
+            this.name = newName;
+            this.email = newEmail;
+            this.profile = newProfile;
 
         }
 
