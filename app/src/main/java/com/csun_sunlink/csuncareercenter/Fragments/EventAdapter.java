@@ -40,13 +40,12 @@ public class EventAdapter extends ArrayAdapter {
         ItemHolder itemHolder;
         if(row == null){
             LayoutInflater layoutInflater = (LayoutInflater)this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = layoutInflater.inflate(R.layout.row_layout,parent,false);
+            row = layoutInflater.inflate(R.layout.event_row_listing_layout,parent,false);
             itemHolder = new ItemHolder();
-            itemHolder.eventTitle = (TextView)row.findViewById(R.id.search_job_title);
-            itemHolder.eventDate= (TextView)row.findViewById(R.id.search_company_name);
-            itemHolder.eventTime = (TextView)row.findViewById(R.id.search_company_area);
-            itemHolder.eventInfo = (TextView)row.findViewById(R.id.search_posted_date);
-            itemHolder.eventId = (TextView)row.findViewById(R.id.search_job_id);
+            itemHolder.eventTitle = (TextView)row.findViewById(R.id.search_event_title);
+            itemHolder.eventDate= (TextView)row.findViewById(R.id.event_date);
+            itemHolder.eventLocation = (TextView)row.findViewById(R.id.event_location);
+            itemHolder.eventId = (TextView)row.findViewById(R.id.search_event_id);
             row.setTag(itemHolder);
         }
         else
@@ -56,13 +55,14 @@ public class EventAdapter extends ArrayAdapter {
         EventInfo itemInfo =(EventInfo) this.getItem(position);
         itemHolder.eventTitle.setText(itemInfo.geteventTitle());
         itemHolder.eventDate.setText(itemInfo.geteventDate());
-        itemHolder.eventTime.setText(itemInfo.geteventLocation());
-        itemHolder.eventInfo.setText(itemInfo.geteventInfo());
+        itemHolder.eventLocation.setText(itemInfo.geteventLocation());
+       // itemHolder.eventInfo.setText(itemInfo.geteventInfo());
         itemHolder.eventId.setText(itemInfo.geteventId());
         return row;
     }
 
     static class ItemHolder{
-        TextView eventTitle,eventDate,eventTime,eventInfo,eventId;
+        TextView eventTitle,eventDate,eventLocation,eventInfo,eventId;
+
     }
 }

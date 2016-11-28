@@ -75,6 +75,7 @@ public class FragmentBgTask extends AsyncTask<String, Void, String> {
                     e.printStackTrace();
                 }
                 break;
+
             case "eventListing":
                 try {
                 URL url = new URL(eventUrl);
@@ -172,10 +173,9 @@ public class FragmentBgTask extends AsyncTask<String, Void, String> {
 
             case "eventListing":
                 try {
-                    String eventId, eventDate, eventLocation, eventTitle, eventInfo;
-
-                    JSONObject jsonObj = new JSONObject(finalResult);
-                    JSONArray jsonArray = jsonObj.getJSONArray("server_res");
+                    String eventId, eventTitle, eventLocation, eventType, dateStart, eventInfo;
+                    JSONObject jsonObj1 = new JSONObject(finalResult);
+                    JSONArray jsonArray = jsonObj1.getJSONArray("server_res");
                     int count = 0;
                     EventAdapter itemAdapter;
                     itemAdapter = new EventAdapter(ctx, R.layout.row_layout);
@@ -183,26 +183,27 @@ public class FragmentBgTask extends AsyncTask<String, Void, String> {
                     listView.setAdapter(itemAdapter);
                     while (count < jsonArray.length()) {
                         JSONObject jsonObject = jsonArray.getJSONObject(count);
-                        eventTitle = jsonObject.getString("event_title");
                         eventId = jsonObject.getString("event_id");
-                        eventInfo = jsonObject.getString("event_info");
+                        eventTitle = jsonObject.getString("event_title");
                         eventLocation = jsonObject.getString("event_location");
-                        eventDate = jsonObject.getString("event_start").trim();
+                        eventType = jsonObject.getString("event_type");
+                        eventInfo = jsonObject.getString("event_info");
+                        dateStart = jsonObject.getString("date_start").trim();
                         SimpleDateFormat dfDate = new SimpleDateFormat("MM/dd/yyyy");
                         java.util.Date d = null;
                         java.util.Date d1 = null;
                         Calendar cal = Calendar.getInstance();
                         try {
-                            d = dfDate.parse(eventDate);
+                            d = dfDate.parse(dateStart);
                             d1 = dfDate.parse(dfDate.format(cal.getTime()));
                         } catch (java.text.ParseException e) {
                             e.printStackTrace();
                         }
 
                         //Missing a method thats chekcing if user saved event:
-                        //Also need to impmemtn order
+                        //Also need to impment order
 
-                        EventInfo eventI = new EventInfo(eventId, eventTitle, eventDate, eventInfo, eventLocation);
+                        EventInfo eventI = new EventInfo(eventId, eventTitle, dateStart, eventInfo, eventLocation);
                         itemAdapter.add(eventI);
                         count++;
                     }

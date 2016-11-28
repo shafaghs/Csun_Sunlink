@@ -47,7 +47,7 @@ public class EventInfo {
     String geteventLocation() {
         return eventLocation;
     }
-    public void seteventTime(String meventLocation) {
+    public void seteventLocation(String meventLocation) {
         this.eventLocation = meventLocation;
     }
 
