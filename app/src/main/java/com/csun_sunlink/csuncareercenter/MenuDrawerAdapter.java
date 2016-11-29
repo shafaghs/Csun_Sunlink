@@ -27,7 +27,7 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.Vi
 
     String titles[] = {"Home","Profile","Search","My Career Center","Resources","Settings"};
     //Testing Purposes:
-    int icons[] = {R.drawable.ic_home_white_48dp,R.drawable.ic_person_white_48dp,R.drawable.ic_search_white_48dp,R.drawable.ic_business_center_white_48dp,R.drawable.ic_business_center_white_48dp, R.drawable.ic_settings_white_48dp};
+    int icons[] = {R.drawable.ic_home_white_48dp,R.drawable.ic_person_white_48dp,R.drawable.ic_search_white_48dp,R.drawable.ic_business_center_white_48dp,R.drawable.ic_library_books_white_48dp, R.drawable.ic_settings_white_48dp};
     String newName = "Olga Kup";
     String newEmail = "olgakup@yahoo.com";
     int newProfile = R.drawable.defaultpicture;
