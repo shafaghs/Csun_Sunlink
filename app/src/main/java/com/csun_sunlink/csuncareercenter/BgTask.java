@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -19,19 +20,17 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+
 import android.content.SharedPreferences;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class BgTask extends AsyncTask<String, Void, String> {
-
+class BgTask extends AsyncTask<String, Void, String> {
     private Context ctx;
     private View rootView;
-    String userName="",userEmail="",userPass="";
-    //IPV4:192.168.0.4
-
-    private final String loginUrl = "http://10.0.2.2/CsunSunlink/login.php";
-    private final String signUpUrl = "http://10.0.2.2/CsunSunlink/signUp.php";
-    private final String registerUrl = "http://10.0.2.2/CsunSunlink/register.php";
+    private String userName, userEmail, userPass;
 
     BgTask(Context ctx, View rootView) {
         this.ctx = ctx;
@@ -40,7 +39,10 @@ public class BgTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        String method="", response = "", line,emailAdd="";
+        final String loginUrl = "http://10.0.2.2/CsunSunlink/login.php";
+        final String signUpUrl = "http://10.0.2.2/CsunSunlink/signUp.php";
+        final String registerUrl = "http://10.0.2.2/CsunSunlink/register.php";
+        String method, response = "", line, result;
         method = params[0];
         switch (method) {
             case "signUp":
@@ -82,9 +84,9 @@ public class BgTask extends AsyncTask<String, Void, String> {
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
                     String date = (DateFormat.format("dd-MM-yyyy hh:mm:ss", new java.util.Date()).toString());
                     String data = URLEncoder.encode("userEmail", "UTF-8") + "=" + URLEncoder.encode(userEmail, "UTF-8") + "&" +
-                            URLEncoder.encode("userPass", "UTF-8") + "=" + URLEncoder.encode(userPass, "UTF-8")+ "&" +
+                            URLEncoder.encode("userPass", "UTF-8") + "=" + URLEncoder.encode(userPass, "UTF-8") + "&" +
                             URLEncoder.encode("date", "UTF-8") + "=" + URLEncoder.encode(date, "UTF-8");
-                    Log.i("data",userEmail+","+userPass+","+date);
+                    Log.i("data", userEmail + "," + userPass + "," + date);
                     bufferedWriter.write(data);
                     bufferedWriter.flush();
                     bufferedWriter.close();
@@ -117,16 +119,18 @@ public class BgTask extends AsyncTask<String, Void, String> {
                     bufferedWriter.flush();
                     bufferedWriter.close();
                     os.close();
-                    InputStream Is = urlConnection.getInputStream();
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(Is, "iso-8859-1"));
-                    while ((line = bufferedReader.readLine()) != null) {
-                        response += line;
+                    InputStream inputStream = urlConnection.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    while ((result = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(result).append("\n");
                     }
-                    Is.close();
-                    Log.i("response",response);
-                    return response;
+                    bufferedReader.close();
+                    inputStream.close();
+                    urlConnection.disconnect();
+                    return stringBuilder.toString().trim();
                 } catch (IOException e) {
-                    Log.i("response",e.toString());
+                    Log.i("response", e.toString());
                 }
                 break;
         }
@@ -138,7 +142,19 @@ public class BgTask extends AsyncTask<String, Void, String> {
         Intent intent;
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(ctx.getApplicationContext());
         SharedPreferences.Editor editor = pref.edit();
-        switch (result) {
+        String method = "empty", firstName, familyName,email,userId;
+        JSONObject jsonObj;
+        JSONObject jsonObject=null;
+        JSONArray jsonArray;
+        try {
+            jsonObj = new JSONObject(result);
+            jsonArray = jsonObj.getJSONArray("server_res");
+            jsonObject = jsonArray.getJSONObject(0);
+            method = jsonObject.getString("result_type");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        switch (method) {
             case "redundantUser":
                 EditText signUpEmailError = (EditText) rootView.findViewById(R.id.sign_up_email);
                 signUpEmailError.setError("This email address is already registered, use sign in page");
@@ -162,10 +178,23 @@ public class BgTask extends AsyncTask<String, Void, String> {
             case "validUser":
                 intent = new Intent(ctx, HomePage.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                editor.putString("user_email", userName);
+                try {
+                    firstName = jsonObject.getString("first_name");
+                    familyName = jsonObject.getString("family_name");
+                    email = jsonObject.getString("user_email");
+                    userId = jsonObject.getString("user_id") ;
+                    editor.putString("user_email", email);
+                    editor.putString("first_name", firstName);
+                    editor.putString("family_name", familyName);
+                    editor.putString("user_id", userId);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 editor.apply();
                 ctx.startActivity(intent);
                 break;
+            case "empty":
+                Log.w("invalid", "invalid query");
         }
     }
 

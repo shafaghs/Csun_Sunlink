@@ -41,6 +41,14 @@ public class SearchStart extends AppCompatActivity {
         rootView = findViewById(android.R.id.content);
         ctx = this.getApplicationContext();
 
+       /* toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }*/
+
         searchView = (SearchView) findViewById(R.id.search_start_searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -64,7 +72,7 @@ public class SearchStart extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 String jobId= ((TextView) view.findViewById(R.id.search_job_id)).getText().toString();
                 bundle.putString("jobId",jobId);
-                String address= ((TextView) view.findViewById(R.id.search_company_area)).getText().toString();
+                String address= ((TextView) view.findViewById(R.id.event_location)).getText().toString();
                 bundle.putString("address",address);
                 String postedDate= ((TextView) view.findViewById(R.id.search_posted_date)).getText().toString();
                 bundle.putString("postedDate",postedDate);

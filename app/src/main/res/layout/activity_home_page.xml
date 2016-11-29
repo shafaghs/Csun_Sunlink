@@ -79,10 +79,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@color/colorPrimary"
-            android:layout_weight="1">
+            android:layout_height="30dp">
 
             <Button
                 android:layout_width="wrap_content"
@@ -92,7 +91,7 @@
                 style="@style/HomePageMenyBar"
                 android:layout_gravity="center"
                 android:gravity="center_vertical|center_horizontal|center"
-                android:layout_weight="10"
+                android:layout_weight="5"
                 android:id="@+id/button" />
 
             <Button
@@ -112,11 +111,12 @@
             android:id="@+id/home_page_event_listing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="50"/>
+            android:layout_weight="50"
+            android:background="@color/white" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:background="@color/colorPrimary"
             android:orientation="horizontal">
 
@@ -124,11 +124,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
-                android:text="Latests Job Posts"
                 style="@style/HomePageMenyBar"
                 android:layout_gravity="center"
                 android:gravity="center_vertical|center_horizontal|center"
-                android:layout_weight="10"/>
+                android:layout_weight="10"
+                android:text="Latest Job Posts" />
 
             <Button
                 android:layout_width="53dp"
@@ -145,7 +145,9 @@
             android:id="@+id/home_page_job_listing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="50"/>
+            android:layout_weight="50"
+            android:layout_gravity="bottom"
+            android:background="@color/white" />
 
 
     </LinearLayout>

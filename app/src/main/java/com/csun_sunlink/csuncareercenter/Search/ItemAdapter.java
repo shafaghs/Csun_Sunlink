@@ -44,7 +44,7 @@ public class ItemAdapter extends ArrayAdapter {
             itemHolder = new ItemHolder();
             itemHolder.jobTitle = (TextView)row.findViewById(R.id.search_job_title);
             itemHolder.companyName = (TextView)row.findViewById(R.id.search_company_name);
-            itemHolder.companyArea = (TextView)row.findViewById(R.id.search_company_area);
+            itemHolder.companyArea = (TextView)row.findViewById(R.id.event_location);
             itemHolder.postedDate = (TextView)row.findViewById(R.id.search_posted_date);
             itemHolder.jobId = (TextView)row.findViewById(R.id.search_job_id);
             row.setTag(itemHolder);

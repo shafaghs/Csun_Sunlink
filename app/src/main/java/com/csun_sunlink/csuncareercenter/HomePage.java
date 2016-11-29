@@ -75,8 +75,8 @@ public class HomePage extends AppCompatActivity{
 
         //Infosessions:
         mImageAdapter = new ImageAdapter(this);
-      //  mViewPager = (ViewPager) findViewById(R.id.pager);
-       // mViewPager.setAdapter(mImageAdapter);
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(mImageAdapter);
 
 
         //Main Menu Buttons:
@@ -155,7 +155,7 @@ public class HomePage extends AppCompatActivity{
         FragmentTransaction transaction=manager.beginTransaction();//create an instance of Fragment-transaction
 
         transaction.add(R.id.home_page_job_listing, jobListing, "Job Listing");
-       // transaction.add(R.id.home_page_event_listing, eventListing, "Event Listing");
+        transaction.add(R.id.home_page_event_listing, eventListing, "Event Listing");
         transaction.commit();
 
         //DRAWER:
