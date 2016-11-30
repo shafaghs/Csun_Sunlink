@@ -1,7 +1,9 @@
 package com.csun_sunlink.csuncareercenter.Search;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -49,10 +51,22 @@ public class SearchDetail extends AppCompatActivity {
         saveJob = (Button) findViewById(R.id.search_detail_save_button);
         applyJob = (Button) findViewById(R.id.search_detail_apply_button);
 
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        final String userId = pref.getString("user_id","");
+
+        jobId = getIntent().getExtras().getString("jobId");
+        address = getIntent().getExtras().getString("address");
+        differenceDate = getIntent().getExtras().getString("postedDate");
+
+        rootView = findViewById(android.R.id.content);
+        ctx = this.getApplicationContext();
+
         saveJob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!userId.equals("")){
 
+                }
             }
         });
 
@@ -62,14 +76,6 @@ public class SearchDetail extends AppCompatActivity {
 
             }
         });
-
-        jobId = getIntent().getExtras().getString("jobId");
-        address = getIntent().getExtras().getString("address");
-        differenceDate = getIntent().getExtras().getString("postedDate");
-
-
-        rootView = findViewById(android.R.id.content);
-        ctx = this.getApplicationContext();
 
         if (!jobId.equals("")) {
             SearchDetailBgTask bgTask = new SearchDetailBgTask(ctx, rootView);

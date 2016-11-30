@@ -11,6 +11,8 @@ public class SignIn extends AppCompatActivity {
     private EditText signInUserName, signInPassword;
     private Context ctx;
     private View rootView;
+    private String method,signInUserNameString, signInPasswordString;
+    private Button signIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,15 +22,13 @@ public class SignIn extends AppCompatActivity {
         rootView = findViewById(android.R.id.content);
         ctx = this.getApplicationContext();
 
-        Button signIn = (Button) findViewById(R.id.signin_signin);
+        signIn = (Button) findViewById(R.id.signin_signin);
         signInUserName = (EditText) findViewById(R.id.signin_email);
         signInPassword = (EditText) findViewById(R.id.signin_password);
 
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String method = "signIn";
-                String signInUserNameString, signInPasswordString;
                 if (isEmpty(signInUserName) || isEmpty(signInPassword)) {
                     if (isEmpty(signInUserName)) {
                         signInUserName.setError("You should fill email address");

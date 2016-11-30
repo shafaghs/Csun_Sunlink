@@ -1,5 +1,7 @@
 package com.csun_sunlink.csuncareercenter;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,8 +30,8 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.Vi
     String titles[] = {"Home","Profile","Search","My Career Center","Resources","Settings"};
     //Testing Purposes:
     int icons[] = {R.drawable.ic_home_white_48dp,R.drawable.ic_person_white_48dp,R.drawable.ic_search_white_48dp,R.drawable.ic_business_center_white_48dp,R.drawable.ic_library_books_white_48dp, R.drawable.ic_settings_white_48dp};
-    String newName = "Olga Kup";
-    String newEmail = "olgakup@yahoo.com";
+    String newName;
+    String newEmail;
     int newProfile = R.drawable.defaultpicture;
 
 
@@ -74,6 +76,12 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.Vi
 
         @Override
         public MenuDrawerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(parent.getContext());
+            String fName = pref.getString("first_name","");
+            String lName = pref.getString("family_name","");
+            String name = fName + " " +lName;
+            newName = name;
+            newEmail = pref.getString("user_email","");
             if (viewType == TYPE_ITEM) {
                 View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.drawer_list_item,parent,false);
                 ViewHolder vhItem = new ViewHolder(v,viewType);
@@ -98,8 +106,8 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.Vi
             else{
 
                 holder.profile.setImageResource(profile);
-                holder.Name.setText(name);
-                holder.email.setText(email);
+                holder.Name.setText(newName);
+                holder.email.setText(newEmail);
             }
         }
 

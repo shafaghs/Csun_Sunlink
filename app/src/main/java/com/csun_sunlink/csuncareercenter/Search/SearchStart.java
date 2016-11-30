@@ -41,6 +41,14 @@ public class SearchStart extends AppCompatActivity {
         rootView = findViewById(android.R.id.content);
         ctx = this.getApplicationContext();
 
+       /* toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }*/
+
         searchView = (SearchView) findViewById(R.id.search_start_searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

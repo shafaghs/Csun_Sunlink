@@ -16,8 +16,8 @@
     <string name="invalid_userPass">Username or Password is incorrect, try again.</string>
     <string name="Both_filled">Both fields should be filled</string>
     <string name="same_value">Password and Confirm Password should contain same value.</string>
-    <string name="save">Save</string>
-    <string name="apply">Apply</string>
+    <string name="save">Save to Favorite</string>
+    <string name="apply">Apply on Company Site</string>
     <string name="job_description_title">Job Description</string>
     <string name="job_duties">Job Duties</string>
     <string name="essential_skills">Essential Skills</string>
