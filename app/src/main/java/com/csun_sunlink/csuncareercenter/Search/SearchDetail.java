@@ -23,6 +23,7 @@ public class SearchDetail extends AppCompatActivity {
     String jobId, address,method, differenceDate;
     private View rootView;
     private Context ctx;
+    private String companyId;
 
     //Drawer
     private Toolbar toolbar;
@@ -57,6 +58,7 @@ public class SearchDetail extends AppCompatActivity {
         jobId = getIntent().getExtras().getString("jobId");
         address = getIntent().getExtras().getString("address");
         differenceDate = getIntent().getExtras().getString("postedDate");
+        companyId = getIntent().getExtras().getString("companyId");
 
         rootView = findViewById(android.R.id.content);
         ctx = this.getApplicationContext();
@@ -79,7 +81,7 @@ public class SearchDetail extends AppCompatActivity {
 
         if (!jobId.equals("")) {
             SearchDetailBgTask bgTask = new SearchDetailBgTask(ctx, rootView);
-            bgTask.execute(jobId,address,differenceDate);
+            bgTask.execute(jobId,address,differenceDate,companyId);
         }
 
         //DRAWER:

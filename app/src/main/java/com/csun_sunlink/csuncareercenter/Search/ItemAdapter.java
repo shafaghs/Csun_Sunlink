@@ -47,6 +47,7 @@ public class ItemAdapter extends ArrayAdapter {
             itemHolder.companyArea = (TextView)row.findViewById(R.id.event_location);
             itemHolder.postedDate = (TextView)row.findViewById(R.id.search_posted_date);
             itemHolder.jobId = (TextView)row.findViewById(R.id.search_job_id);
+            itemHolder.companyId = (TextView)row.findViewById(R.id.search_company_id);
             row.setTag(itemHolder);
         }
         else
@@ -59,10 +60,11 @@ public class ItemAdapter extends ArrayAdapter {
         itemHolder.companyArea.setText(itemInfo.getCompanyAddress());
         itemHolder.postedDate.setText(itemInfo.getPostedDate());
         itemHolder.jobId.setText(itemInfo.getJobId());
+        itemHolder.companyId.setText(itemInfo.getCompanyId());
         return row;
     }
 
     static class ItemHolder{
-        TextView jobTitle,companyName,companyArea,postedDate,jobId;
+        TextView jobTitle,companyName,companyArea,postedDate,jobId,companyId;
     }
 }

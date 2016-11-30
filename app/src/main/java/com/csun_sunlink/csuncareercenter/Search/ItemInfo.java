@@ -2,14 +2,19 @@ package com.csun_sunlink.csuncareercenter.Search;
 
 public class ItemInfo {
 
-    private String jobTitle,jobDuties,jobSummary,essentialSkills,postedDate,companyName,companyAddress,jobId;
+    private String jobTitle,jobDuties,jobSummary,essentialSkills,postedDate,companyName,companyAddress,jobId,companyId;
 
-    public ItemInfo(String mJobId, String mJobTitle, String mCompanyName, String mPostedDate, String mCompanyAddress) {
+    public ItemInfo(String mJobId, String mJobTitle, String mCompanyName, String mPostedDate, String mCompanyAddress,String companyId) {
         this.jobId = mJobId;
         this.jobTitle = mJobTitle;
         this.companyName = mCompanyName;
         this.postedDate = mPostedDate;
         this.companyAddress = mCompanyAddress;
+        this.companyId=companyId;
+    }
+
+    String getCompanyId() {
+        return companyId;
     }
 
     String getJobId() {

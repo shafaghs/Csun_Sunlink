@@ -70,6 +70,8 @@ public class SearchStart extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Bundle bundle = new Bundle();
+                String companyId=((TextView) view.findViewById(R.id.search_company_id)).getText().toString();
+                bundle.putString("companyId",companyId);
                 String jobId= ((TextView) view.findViewById(R.id.search_job_id)).getText().toString();
                 bundle.putString("jobId",jobId);
                 String address= ((TextView) view.findViewById(R.id.event_location)).getText().toString();

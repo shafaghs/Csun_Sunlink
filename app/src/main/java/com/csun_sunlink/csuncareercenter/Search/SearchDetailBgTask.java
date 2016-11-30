@@ -1,9 +1,12 @@
 package com.csun_sunlink.csuncareercenter.Search;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.csun_sunlink.csuncareercenter.R;
 import org.json.JSONArray;
@@ -17,6 +20,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
@@ -24,6 +28,7 @@ class SearchDetailBgTask extends AsyncTask<String, Void, String> {
     private Context ctx;
     private View rootView;
     private String address,differenceDate;
+    private String companyId;
 
     SearchDetailBgTask(Context ctx, View rootView) {
         this.ctx = ctx;
@@ -37,6 +42,7 @@ class SearchDetailBgTask extends AsyncTask<String, Void, String> {
         jobIdKey = params[0];
         address = params[1];
         differenceDate = params[2];
+        companyId = params[3];
         try {
             URL url = new URL(searchDetailUrl);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -99,12 +105,52 @@ class SearchDetailBgTask extends AsyncTask<String, Void, String> {
             jobDutiesTextView.setText(jsonObject.getString("job_duties"));
             essentialSkillsTextView.setText(jsonObject.getString("essential_skills"));
             desiredSkillsTextView.setText(jsonObject.getString("desired_skills"));
+            getImage(companyId);
+
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
+    private void getImage(String cId) {
+        String id = cId;
+        class GetImage extends AsyncTask<String,Void,Bitmap>{
+            ProgressDialog loading;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected void onPostExecute(Bitmap b) {
+                super.onPostExecute(b);
+                ImageView imageView = (ImageView) rootView.findViewById(R.id.company_logo);
+                imageView.setImageBitmap(b);
+            }
+
+            @Override
+            protected Bitmap doInBackground(String... params) {
+                String id = params[0];
+                String add = "http://10.0.2.2/CsunSunlink/getCompanyImage.php?id="+id;
+                URL url = null;
+                Bitmap image = null;
+                try {
+                    url = new URL(add);
+                    image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return image;
+            }
+        }
+
+        GetImage gi = new GetImage();
+        gi.execute(id);
+    }
 
     @Override
     protected void onProgressUpdate(Void... values) {

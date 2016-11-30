@@ -4,11 +4,9 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ListView;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -19,10 +17,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
 import com.csun_sunlink.csuncareercenter.R;
 
 class SearchBgTask extends AsyncTask<String, Void, String> {
@@ -39,7 +35,6 @@ class SearchBgTask extends AsyncTask<String, Void, String> {
         final String searchUrl = "http://10.0.2.2/CsunSunlink/search.php";
         String searchKey, result;
         searchKey = params[0];
-
         try {
             URL url = new URL(searchUrl);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -73,7 +68,7 @@ class SearchBgTask extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String finalResult) {
         String companyStreet, companyStreet1, companyCityName, companyZipcode, companyState, companyCountry, jobId;
-        String jobTitle, postedDate, companyName;
+        String jobTitle, postedDate, companyName,companyId;
         String differenceDate;
         ListView listView;
         try {
@@ -115,6 +110,7 @@ class SearchBgTask extends AsyncTask<String, Void, String> {
                 companyState = jsonObject.getString("state_name");
                 companyCountry = jsonObject.getString("country_name");
                 jobId = jsonObject.getString("job_id");
+                companyId = jsonObject.getString("job_id");
                 StringBuilder address = new StringBuilder();
                 address.append(companyStreet).append(",");
                 if (!companyStreet1.equals("null")) {
@@ -127,7 +123,7 @@ class SearchBgTask extends AsyncTask<String, Void, String> {
                 }
                 address.append("\n").append(companyCountry).append(",");
                 address.append(companyZipcode).append(".");
-                ItemInfo itemInfo = new ItemInfo(jobId, jobTitle, companyName, differenceDate, address.toString());
+                ItemInfo itemInfo = new ItemInfo(jobId, jobTitle, companyName, differenceDate, address.toString(),companyId);
                 itemAdapter.add(itemInfo);
                 count++;
             }

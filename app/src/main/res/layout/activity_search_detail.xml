@@ -19,6 +19,14 @@
         android:orientation="vertical"
         >
 
+        <ImageView
+            android:layout_marginTop="10dp"
+            android:foregroundGravity="left"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/company_logo"
+            android:layout_gravity="center"/>
+
         <RelativeLayout
             style="@style/containerStyle"
             android:layout_width="match_parent"
@@ -28,7 +36,7 @@
 
             <TextView
                 android:id="@+id/search_detail_job_title"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:paddingStart="10dp"
