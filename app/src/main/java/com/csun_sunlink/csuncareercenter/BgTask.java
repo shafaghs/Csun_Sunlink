@@ -7,9 +7,7 @@ import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -20,9 +18,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-
 import android.content.SharedPreferences;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,7 +26,7 @@ import org.json.JSONObject;
 class BgTask extends AsyncTask<String, Void, String> {
     private Context ctx;
     private View rootView;
-    private String userName, userEmail, userPass;
+    private String userEmail;
 
     BgTask(Context ctx, View rootView) {
         this.ctx = ctx;
@@ -39,15 +35,16 @@ class BgTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        final String loginUrl = "http://10.0.2.2/CsunSunlink/login.php";
         final String signUpUrl = "http://10.0.2.2/CsunSunlink/signUp.php";
         final String registerUrl = "http://10.0.2.2/CsunSunlink/register.php";
-        String method, response = "", line, result;
+        final String loginUrl = "http://10.0.2.2/CsunSunlink/login.php";
+        String method, userPass;
+        String result;
+
         method = params[0];
         switch (method) {
             case "signUp":
-                userName = params[1];
-                userPass = params[2];
+                userEmail = params[1];
                 try {
                     URL url = new URL(signUpUrl);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -55,19 +52,21 @@ class BgTask extends AsyncTask<String, Void, String> {
                     urlConnection.setDoOutput(true);
                     OutputStream os = urlConnection.getOutputStream();
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-                    String data = URLEncoder.encode("userName", "UTF-8") + "=" + URLEncoder.encode(userName, "UTF-8") + "&" +
-                            URLEncoder.encode("userPass", "UTF-8") + "=" + URLEncoder.encode(userPass, "UTF-8");
+                    String data = URLEncoder.encode("userEmail", "UTF-8") + "=" + URLEncoder.encode(userEmail, "UTF-8");
                     bufferedWriter.write(data);
                     bufferedWriter.flush();
                     bufferedWriter.close();
                     os.close();
-                    InputStream Is = urlConnection.getInputStream();
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(Is, "iso-8859-1"));
-                    while ((line = bufferedReader.readLine()) != null) {
-                        response += line;
+                    InputStream inputStream = urlConnection.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    while ((result = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(result).append("\n");
                     }
-                    Is.close();
-                    return response;
+                    bufferedReader.close();
+                    inputStream.close();
+                    urlConnection.disconnect();
+                    return stringBuilder.toString().trim();
                 } catch (IOException e) {
                     Log.i("error", e.toString());
                 }
@@ -86,25 +85,26 @@ class BgTask extends AsyncTask<String, Void, String> {
                     String data = URLEncoder.encode("userEmail", "UTF-8") + "=" + URLEncoder.encode(userEmail, "UTF-8") + "&" +
                             URLEncoder.encode("userPass", "UTF-8") + "=" + URLEncoder.encode(userPass, "UTF-8") + "&" +
                             URLEncoder.encode("date", "UTF-8") + "=" + URLEncoder.encode(date, "UTF-8");
-                    Log.i("data", userEmail + "," + userPass + "," + date);
                     bufferedWriter.write(data);
                     bufferedWriter.flush();
                     bufferedWriter.close();
                     os.close();
-                    InputStream Is = urlConnection.getInputStream();
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(Is, "iso-8859-1"));
-                    while ((line = bufferedReader.readLine()) != null) {
-                        response += line;
+                    InputStream inputStream = urlConnection.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    while ((result = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(result).append("\n");
                     }
-                    Is.close();
-                    Log.i("error", response);
-                    return response;
+                    bufferedReader.close();
+                    inputStream.close();
+                    urlConnection.disconnect();
+                    return stringBuilder.toString().trim();
                 } catch (IOException e) {
                     Log.i("error", e.toString());
                 }
                 break;
             case "logIn":
-                userName = params[1];
+                userEmail = params[1];
                 userPass = params[2];
                 try {
                     URL url = new URL(loginUrl);
@@ -113,7 +113,7 @@ class BgTask extends AsyncTask<String, Void, String> {
                     urlConnection.setDoOutput(true);
                     OutputStream os = urlConnection.getOutputStream();
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-                    String data = URLEncoder.encode("userName", "UTF-8") + "=" + URLEncoder.encode(userName, "UTF-8") + "&" +
+                    String data = URLEncoder.encode("userName", "UTF-8") + "=" + URLEncoder.encode(userEmail, "UTF-8") + "&" +
                             URLEncoder.encode("userPass", "UTF-8") + "=" + URLEncoder.encode(userPass, "UTF-8");
                     bufferedWriter.write(data);
                     bufferedWriter.flush();
@@ -156,12 +156,13 @@ class BgTask extends AsyncTask<String, Void, String> {
         }
         switch (method) {
             case "redundantUser":
-                EditText signUpEmailError = (EditText) rootView.findViewById(R.id.sign_up_email);
-                signUpEmailError.setError("This email address is already registered, use sign in page");
+                TextView signUpEmailError = (TextView) rootView.findViewById(R.id.sign_up_email_error);
+                signUpEmailError.setVisibility(View.VISIBLE);
+                signUpEmailError.setText(R.string.redundant_email);
                 break;
             case "validEmail":
                 intent = new Intent(ctx, SignUpContinue.class);
-                intent.putExtra("EmailAddress", userName);
+                intent.putExtra("EmailAddress", userEmail);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 ctx.startActivity(intent);
                 break;
@@ -172,7 +173,8 @@ class BgTask extends AsyncTask<String, Void, String> {
                 ctx.startActivity(intent);
                 break;
             case "invalidUser":
-                TextView errorText = (TextView) rootView.findViewById(R.id.signin_error);
+                TextView errorText = (TextView) rootView.findViewById(R.id.sign_in_error);
+                errorText.setVisibility(View.VISIBLE);
                 errorText.setText(R.string.invalid_userPass);
                 break;
             case "validUser":
