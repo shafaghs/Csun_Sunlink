@@ -36,7 +36,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_profile_page);
+        setContentView(R.layout.activity_profile_page);
 
 
         //Edit Buttons:
@@ -73,12 +73,14 @@ public class ProfileActivity extends AppCompatActivity {
         //Fragments:
         ProfilePersonalFragment personalF = new ProfilePersonalFragment();
         ProfileAcademicFragment academicF = new ProfileAcademicFragment();
+        ProfileProfessionalFragment profF = new ProfileProfessionalFragment();
 
         FragmentManager manager=getSupportFragmentManager();//create an instance of fragment manager
         FragmentTransaction transaction=manager.beginTransaction();//create an instance of Fragment-transaction
 
         transaction.add(R.id.personal_frame_layout, personalF, "Personal");
         transaction.add(R.id.academic_frame_layout,academicF, "Academic");
+        transaction.add(R.id.professional_frame_layout, profF, "Professsional");
         transaction.commit();
 
         //DRAWER:
