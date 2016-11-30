@@ -44,7 +44,14 @@
     <string name="openDrawer">Open drawer</string>
     <string name="closeDrawer">CloseDrawer</string>
 
+    <string name="empty_email_error_message">You should fill email address</string>
+    <string name="empty_password_error_message">You should fill password</string>
+    <string name="email_format_error">Your email format is not correct, it should be abc@my.csun.edu</string>
+    <string name="password_incorrect_error">Password is not correct, try again</string>
     <string name="redundant_email">This email address is already registered. Make sure you type it correctly.</string>
+    <string name="password_length">New password should be at least 6 characters</string>
+    <string name="fill_email_field">You should fill email address</string>
+    <string name="fill_pass_field">You should fill password</string>
 
 
 </resources>
