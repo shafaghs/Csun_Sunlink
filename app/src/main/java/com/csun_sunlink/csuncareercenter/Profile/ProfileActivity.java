@@ -6,15 +6,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 
-import com.csun_sunlink.csuncareercenter.Fragments.HomePageEventListingFragment;
-import com.csun_sunlink.csuncareercenter.MenuDrawerAdapter;
 import com.csun_sunlink.csuncareercenter.R;
 
 /**
@@ -74,11 +70,15 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        //Personal Fragment:
-        ProfilePersonalFragment personalF=new ProfilePersonalFragment();
+        //Fragments:
+        ProfilePersonalFragment personalF = new ProfilePersonalFragment();
+        ProfileAcademicFragment academicF = new ProfileAcademicFragment();
+
         FragmentManager manager=getSupportFragmentManager();//create an instance of fragment manager
         FragmentTransaction transaction=manager.beginTransaction();//create an instance of Fragment-transaction
+
         transaction.add(R.id.personal_frame_layout, personalF, "Personal");
+        transaction.add(R.id.academic_frame_layout,academicF, "Academic");
         transaction.commit();
 
         //DRAWER:

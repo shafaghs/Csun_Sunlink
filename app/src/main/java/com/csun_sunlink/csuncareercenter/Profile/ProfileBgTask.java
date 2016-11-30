@@ -38,7 +38,7 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
     ListView listView;
     String searchKey;
 
-    //Strings for Headers:
+    //Strings for Personal:
     private String first = "null";
     private String last = "null";
     private String middle = "null";
@@ -54,6 +54,14 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
     private String geoPreference = "null";
     private String workAuth= "null";
 
+    //Strings for Academic:
+    String major="null";
+    String graduationYear = "null";
+    String prevEdu = "null";
+    String gpa ="null";
+    String apType =" null";
+    String degreeLevel = "null";
+
     ProfileBgTask(Context ctx, ListView rootView) {
         this.ctx = ctx;
         this.listView = rootView;
@@ -63,7 +71,7 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
         //PHP FILEs
         final String personalUrl = "http://10.0.2.2/CsunSunlink/personalFragment.php";
-        final String academicUrl = "http://10.0.2.2/CsunSunlink/eventListing.php";
+        final String academicUrl = "http://10.0.2.2/CsunSunlink/academicFragment.php";
         final String professionalUrl = "http://10.0.2.2/CsunSunlink/eventListing.php";
         String result;
         searchKey = params[0];
@@ -167,13 +175,89 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String finalResult) {
 
         switch (searchKey) {
-            /*case "academicFragment":
-                try {
+            case "academicFragment":
+                try {  JSONObject jsonObj = new JSONObject(finalResult);
+                    JSONArray jsonArray = jsonObj.getJSONArray("server_res");
+                    int count = 0;
+
+                    ProfileInfoAdapter itemAdapter;
+                    itemAdapter = new ProfileInfoAdapter(ctx, R.layout.row_layout);
+                    listView.setAdapter(itemAdapter);
+
+                    while (count < jsonArray.length()) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(count);
+                        //Major:
+                        this.major =jsonObject.getString("major");
+                        if (this.major != "null"){
+                            ProfileInfo newInfo = new ProfileInfo("Major", this.major);
+                            itemAdapter.add(newInfo);
+                        }
+                        else {
+                            ProfileInfo newInfo = new ProfileInfo("Major ", " ");
+                            itemAdapter.add(newInfo);
+                        }
+                        //GPA:
+                        if (jsonObject.getString("gpa") != "null") {
+                            this.gpa = jsonObject.getString("gpa");
+                            ProfileInfo newInfo = new ProfileInfo("GPA ", this.gpa);
+                            itemAdapter.add(newInfo);
+                        }
+                        else {
+                            ProfileInfo newInfo = new ProfileInfo("GPA ", " ");
+                            itemAdapter.add(newInfo);
+                        }
+
+                        //Graduation Date:
+                        if (jsonObject.getString("graduation_date") != "null") {
+                            this.graduationYear = jsonObject.getString("graduation_date");
+                            ProfileInfo newInfo = new ProfileInfo("Graduating in ", this.graduationYear);
+                            itemAdapter.add(newInfo);
+                        }
+                        else {
+                            ProfileInfo newInfo = new ProfileInfo("Graduating in ", " ");
+                            itemAdapter.add(newInfo);
+                        }
+
+                        //Graduation Date:
+                        if (jsonObject.getString("previous_education") != "null") {
+                            this.prevEdu = jsonObject.getString("previous_education");
+                            ProfileInfo newInfo = new ProfileInfo("Previous Education ", this.prevEdu);
+                            itemAdapter.add(newInfo);
+                        }
+                        else {
+                            ProfileInfo newInfo = new ProfileInfo("Previous Education ", " ");
+                            itemAdapter.add(newInfo);
+                        }
+
+                        //Applicant Type:
+
+                        if (jsonObject.getString("a_t_titles") != "null") {
+                            this.apType = jsonObject.getString("a_t_titles");
+                            ProfileInfo newInfo = new ProfileInfo("Applicant Type ", this.apType);
+                            itemAdapter.add(newInfo);
+                        }
+                        else {
+                            ProfileInfo newInfo = new ProfileInfo("Applicant Type ", " ");
+                            itemAdapter.add(newInfo);
+                        }
+                        // Degree Level
+                        if (jsonObject.getString("d_l_title") != "null") {
+                            this.degreeLevel= jsonObject.getString("d_l_title");
+                            ProfileInfo newInfo = new ProfileInfo("Degree Level ", this.degreeLevel);
+                            itemAdapter.add(newInfo);
+                        }
+                        else {
+                            ProfileInfo newInfo = new ProfileInfo("Degree Level ", " ");
+                            itemAdapter.add(newInfo);
+                        }
+
+                        count++;
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-                break;*/
+                break;
 
             case "personalFragment":
                 try {
