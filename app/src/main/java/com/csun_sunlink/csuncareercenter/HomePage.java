@@ -22,6 +22,7 @@ import android.widget.ImageButton;
 
 import com.csun_sunlink.csuncareercenter.Fragments.HomePageEventListingFragment;
 import com.csun_sunlink.csuncareercenter.Fragments.HomePageJobListingFragment;
+import com.csun_sunlink.csuncareercenter.Profile.ProfileActivity;
 import com.csun_sunlink.csuncareercenter.Search.SearchStart;
 
 /**
@@ -36,18 +37,6 @@ public class HomePage extends AppCompatActivity{
     // InfoSessions:
     ImageAdapter mImageAdapter;
     ViewPager mViewPager;
-
-    //private final CURRENTUSER = getCurrentUser();
-    /*this is data to test home page class*/
-    private String userName = "Matt Ross";
-    private String userDegree = "Computer Science";
-    private String screenHeader;
-    private String event1 = "Event1";
-    private String date1 ="11/1/16";
-    private String event2 = "Event2";
-    private String date2 ="11/2/16";
-    private String event3 = "Event3";
-    private String date3 ="11/3/16";
 
     //Buttons:
     ImageButton prflButton;
@@ -85,8 +74,8 @@ public class HomePage extends AppCompatActivity{
         prflButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Intent intent = new Intent(HomePage.this, ProfileActivity.class);
-                // startActivity(intent);
+                Intent intent = new Intent(HomePage.this, ProfileActivity.class);
+                startActivity(intent);
             }
         });
         //Search:

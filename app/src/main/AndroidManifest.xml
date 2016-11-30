@@ -54,6 +54,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Search.SearchStart" />
         </activity>
+        <activity
+            android:name=".Profile.ProfileActivity"
+            android:label="Profile">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomePage" />
+        </activity>
     </application>
 
 </manifest>
