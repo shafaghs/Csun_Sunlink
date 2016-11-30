@@ -190,7 +190,7 @@ public class FragmentBgTask extends AsyncTask<String, Void, String> {
                         eventInfo = jsonObject.getString("event_info");
                         dateStart = jsonObject.getString("date_start").trim();
                         SimpleDateFormat dfDate = new SimpleDateFormat("MM/dd/yyyy");
-                        java.util.Date d = null;
+                       /* java.util.Date d = null;
                         java.util.Date d1 = null;
                         Calendar cal = Calendar.getInstance();
                         try {
@@ -198,7 +198,7 @@ public class FragmentBgTask extends AsyncTask<String, Void, String> {
                             d1 = dfDate.parse(dfDate.format(cal.getTime()));
                         } catch (java.text.ParseException e) {
                             e.printStackTrace();
-                        }
+                        } */
 
                         //Missing a method thats chekcing if user saved event:
                         //Also need to impment order
