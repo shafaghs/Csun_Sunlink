@@ -161,7 +161,7 @@ public class FragmentBgTask extends AsyncTask<String, Void, String> {
 
                         }
                         address.append("\n").append(companyCountry).append(".");
-                        ItemInfo itemInfo = new ItemInfo(jobId, jobTitle, companyName, differenceDate, address.toString());
+                        ItemInfo itemInfo = new ItemInfo(jobId, jobTitle, companyName, differenceDate, address.toString(),"");
                         itemAdapter.add(itemInfo);
                         count++;
                     }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white" >
+
+    <ImageView
+        android:id="@+id/inside_imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dip"
+        android:layout_marginTop="5dip"
+
+        android:src="@drawable/career" />
+
+    <ImageView
+        android:src="@drawable/search"
+        android:id="@+id/outside_imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/inside_imageview"
+        android:layout_alignBottom="@id/inside_imageview"
+        android:layout_alignLeft="@id/inside_imageview"
+        android:layout_alignRight="@id/inside_imageview"
+        android:scaleType="fitXY" />
+</RelativeLayout>
