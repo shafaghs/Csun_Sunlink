@@ -3,22 +3,22 @@ package com.csun_sunlink.csuncareercenter;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
+import android.widget.TextView;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SignUp extends AppCompatActivity {
     private EditText signUpEmail,signUpPassword;
+    private TextView signUpEmailError,signUpPasswordError;
     String signUpEmailText,signUpPasswordText,method="";
     private Context ctx;
     private View rootView;
 
     private Pattern pattern;
-    private Matcher matcher;
+
     private static final String EMAIL_PATTERN =
             "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                     + "my.csun.edu";
@@ -28,11 +28,13 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        rootView = findViewById(android.R.id.content);
         ctx = this.getApplicationContext();
+        rootView = findViewById(android.R.id.content);
 
         signUpEmail = (EditText) findViewById(R.id.sign_up_email);
         signUpPassword = (EditText) findViewById(R.id.sign_up_password);
+        signUpEmailError = (TextView) findViewById(R.id.sign_up_email_error);
+        signUpPasswordError = (TextView) findViewById(R.id.sign_up_password_error);
 
         Button signUpSubmit = (Button) findViewById(R.id.sign_up_submit);
 
@@ -43,25 +45,31 @@ public class SignUp extends AppCompatActivity {
                 signUpEmailText = signUpEmail.getText().toString().trim();
                 signUpPasswordText = signUpPassword.getText().toString().trim();
                 if(signUpEmailText.equals("") && signUpPasswordText.equals("")){
-                    signUpEmail.setError("You should fill email address");
+                    signUpEmailError.setVisibility(View.VISIBLE);
+                    signUpEmailError.setText(R.string.empty_email_error_message);
                     signUpEmail.setBackgroundResource(R.drawable.error);
-                    signUpPassword.setError("You should fill password");
+                    signUpPasswordError.setVisibility(View.VISIBLE);
+                    signUpPasswordError.setText(R.string.empty_password_error_message);
                     signUpPassword.setBackgroundResource(R.drawable.error);
                 }
                 else if(signUpEmailText.equals("")){
-                    signUpEmail.setError("You should fill email address");
+                    signUpEmailError.setVisibility(View.VISIBLE);
+                    signUpEmailError.setText(R.string.empty_email_error_message);
                     signUpEmail.setBackgroundResource(R.drawable.error);
                 }
                 else if(signUpPasswordText.equals("")){
-                    signUpPassword.setError("You should fill password");
+                    signUpPasswordError.setVisibility(View.VISIBLE);
+                    signUpPasswordError.setText(R.string.empty_password_error_message);
                     signUpPassword.setBackgroundResource(R.drawable.error);
                 }
                 else if(!checkFormat(signUpEmailText)){
-                    signUpEmail.setError("Your email format is not correct, it should be abc@my.csun.edu");
+                    signUpEmailError.setVisibility(View.VISIBLE);
+                    signUpEmailError.setText(R.string.email_format_error);
                     signUpEmail.setBackgroundResource(R.drawable.error);
                 }
                 else if (!signUpPasswordText.equals("123")){
-                    signUpPassword.setError("Password is not correct, try again");
+                    signUpPasswordError.setVisibility(View.VISIBLE);
+                    signUpPasswordError.setText(R.string.password_incorrect_error);
                     signUpPassword.setBackgroundResource(R.drawable.error);
                 }
                 else{
@@ -69,15 +77,14 @@ public class SignUp extends AppCompatActivity {
                     signUpPassword.setBackgroundResource(R.drawable.normal);
                     method = "signUp";
                     BgTask bgTask = new BgTask(ctx,rootView);
-                    bgTask.execute(method,signUpEmailText,signUpPasswordText);
+                    bgTask.execute(method,signUpEmailText);
                 }
             }
         });
-
     }
 
     boolean checkFormat(String emailText){
-        matcher = pattern.matcher(emailText);
+        Matcher matcher = pattern.matcher(emailText);
         return matcher.matches();
     }
 }
