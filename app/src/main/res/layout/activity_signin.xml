@@ -32,7 +32,7 @@
                 android:textSize="@dimen/textsize" />
 
             <TextView
-                android:id="@+id/signin_error"
+                android:id="@+id/sign_in_error"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimary" />
