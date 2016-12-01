@@ -18,6 +18,7 @@
         android:textSize="12sp"
         tools:text="Save"
         android:background="@color/colorPrimaryDark"
-        tools:gravity="center" />
+        tools:gravity="center"
+        android:id="@+id/save_edit_button"/>
 
 </LinearLayout>
