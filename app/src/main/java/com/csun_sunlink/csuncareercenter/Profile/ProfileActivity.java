@@ -23,6 +23,7 @@ public class ProfileActivity extends AppCompatActivity {
     //Fragments
     FragmentTransaction transaction;
     ProfilePersonalFragment personalF;
+    UserPersonal currPersonal;
 
     //Buttons:
     Button editPersonal;
@@ -63,9 +64,12 @@ public class ProfileActivity extends AppCompatActivity {
         editPersonal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               removeFragment(personalF);
-                // Intent intent = new Intent(HomePage.this, ProfileActivity.class);
-                // startActivity(intent);
+                currPersonal = personalF.getUserCurr();
+                ProfileEditPersonalFragment editpersonal = new ProfileEditPersonalFragment();
+                editpersonal.setUser(currPersonal);
+                //Replace fragments:
+
+
             }
         });
         //Academic:

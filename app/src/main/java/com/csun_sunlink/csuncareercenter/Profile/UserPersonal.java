@@ -4,7 +4,7 @@ package com.csun_sunlink.csuncareercenter.Profile;
  * Created by bigmatt76 on 11/30/16.
  */
 
-public class User {
+public class UserPersonal {
     private String userID = " ";
     private String firstName = " ";
     private String lastName = " ";
@@ -16,8 +16,11 @@ public class User {
     private String geopref = " ";
     private String workAuth = " ";
 
-    public User() {
+    public UserPersonal() {
 
+    }
+    protected void setUserID(String newID) {
+        this.userID = newID;
     }
 
     protected void setFirstName(String newFirstName) {
@@ -57,14 +60,15 @@ public class User {
             this.workAuth = newWorkAuth;
         }
     }
-
+    protected String getID() {
+        return this.userID;
+    }
     protected String getFirstName() {
         return this.firstName;
     }
     protected String getEmail(){
         return this.email;
     }
-
     protected String getLastName() {
         return this.lastName;
     }

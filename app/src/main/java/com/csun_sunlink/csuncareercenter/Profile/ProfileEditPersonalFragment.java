@@ -10,32 +10,31 @@ import android.widget.ListView;
 
 import com.csun_sunlink.csuncareercenter.R;
 
-;
-
 /**
- * Created by bigmatt76 on 11/28/16.
+ * Created by olgak on 11/30/16.
  */
 
-public class ProfilePersonalFragment extends Fragment {
+public class ProfileEditPersonalFragment extends Fragment {
 
     private View rootView;
     private Context ctx;
-    protected UserPersonal userCurr;
+    protected UserPersonal currUser;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_job_listing_home_page, container, false);
+        View view = inflater.inflate(R.layout.fragement_edit_profile, container, false);
         // Inflate the layout for this fragment
-        ListView listView =(ListView) view.findViewById(R.id.job_listing_fragment);
+        ListView listView =(ListView) view.findViewById(R.id.edit_list);
         ctx = getActivity().getApplicationContext();
 
         ProfileBgTask bgTask = new ProfileBgTask(ctx, listView);
-        bgTask.execute("personalFragment");
-        userCurr = bgTask.getUserPersonal();
+        bgTask.execute("edutPersonalFragment");
+
         return view;
     }
 
-    public UserPersonal getUserCurr(){
-        return this.userCurr;
+    public void setUser(UserPersonal newu) {
+        this.currUser=newu;
     }
+
 }

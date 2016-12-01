@@ -35,7 +35,7 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
     ListView listView;
     String searchKey;
 
-    User currUser = new User();
+    UserPersonal currUser = new UserPersonal();
 
     //Strings for Personal:
     private String first = "null";
@@ -277,84 +277,52 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
 
                     while (count < jsonArray.length()) {
                         JSONObject jsonObject = jsonArray.getJSONObject(count);
+                        //ID:
+                        currUser.setUserID(jsonObject.getString("user_id"));
+
                         //Name:
                         currUser.setFirstName(jsonObject.getString("first_name"));
                         currUser.setLastName(jsonObject.getString("family_name"));
                         currUser.setMiddleName(jsonObject.getString("middle_name"));
                         this.name = constructNameString(currUser.getFirstName(), currUser.getLastName(), currUser.getMiddleName());
-                        if (name != "null"){
-                            ProfileInfo newInfo = new ProfileInfo("Name ", this.name);
-                            itemAdapter.add(newInfo);
-                        }
-                        else {
-                            ProfileInfo newInfo = new ProfileInfo("Name ", " ");
-                            itemAdapter.add(newInfo);
-                        }
+                        ProfileInfo newInfoName = new ProfileInfo("Name ", this.name);
+                        itemAdapter.add(newInfoName);
+
                         //Email:
-                        if (jsonObject.getString("user_email") != "null") {
-                            currUser.setEmail(jsonObject.getString("user_email"));
-                            ProfileInfo newInfo = new ProfileInfo("Email ", currUser.getEmail());
-                            itemAdapter.add(newInfo);
-                        }
-                        else {
-                            ProfileInfo newInfo = new ProfileInfo("Email ", " ");
-                            itemAdapter.add(newInfo);
-                        }
+                        currUser.setEmail(jsonObject.getString("user_email"));
+                        ProfileInfo newInfoEmail = new ProfileInfo("Email ", currUser.getEmail());
+                        itemAdapter.add(newInfoEmail);
 
                         //Phone Number:
-                        if (jsonObject.getString("user_phone_number") != "null") {
-                            this.phone = jsonObject.getString("user_phone_number");
-                            ProfileInfo newInfo = new ProfileInfo("Phone ", this.phone);
-                            itemAdapter.add(newInfo);
-                        }
-                        else {
-                            ProfileInfo newInfo = new ProfileInfo("Phone ", " ");
-                            itemAdapter.add(newInfo);
-                        }
+                        currUser.setPhone(jsonObject.getString("user_phone_number"));
+                        ProfileInfo newInfoPhone = new ProfileInfo("Phone ", currUser.getPhone());
+                        itemAdapter.add(newInfoPhone);
 
-                        //Address:
+                        //Address: (REmineder later on should be changed for edit field each should be saved separetly in USER clas)
                         this.street1=jsonObject.getString("street");
                         this.street2=jsonObject.getString("street2");
                         this.city=jsonObject.getString("city_name");
                         currUser.setAddress(constructAddress(street1, street2, city));
-                        ProfileInfo newInfo1 = new ProfileInfo("Address ", currUser.getAddress());
-                            itemAdapter.add(newInfo1);
+                        ProfileInfo newInfoAddress = new ProfileInfo("Address ", currUser.getAddress());
+                        itemAdapter.add(newInfoAddress);
 
 
                         //Status:
+                        currUser.setStatus(jsonObject.getString("status_title"));
+                        ProfileInfo newInfoStatus = new ProfileInfo("Status ", currUser.getStatus());
+                        itemAdapter.add(newInfoStatus);
 
-                        if (jsonObject.getString("status_title") != "null") {
-                            this.statusOfJobsSearch = jsonObject.getString("status_title");
-                            ProfileInfo newInfo = new ProfileInfo("Status ", this.statusOfJobsSearch);
-                            itemAdapter.add(newInfo);
-                        }
-                        else {
-                            ProfileInfo newInfo = new ProfileInfo("Status ", " ");
-                            itemAdapter.add(newInfo);
-                        }
                         // Geo Preference
-                        if (jsonObject.getString("state_name") != "null") {
-                            this.geoPreference = jsonObject.getString("state_name");
-                            ProfileInfo newInfo = new ProfileInfo("Geographic Preferences ", this.geoPreference);
-                            itemAdapter.add(newInfo);
-                        }
-                        else {
-                            ProfileInfo newInfo = new ProfileInfo("Geographic Preferences ", " ");
-                            itemAdapter.add(newInfo);
-                        }
+                        currUser.setGeoPref(jsonObject.getString("state_name"));
+                        ProfileInfo newInfoGeoPref = new ProfileInfo("Geographic Preferences ", currUser.getGeopref());
+                        itemAdapter.add(newInfoGeoPref);
+
                         //Work Authorization:
-
-                        if (jsonObject.getString("w_a_title") != "null") {
-                            this.workAuth = jsonObject.getString("w_a_title");
-                            ProfileInfo newInfo = new ProfileInfo("Work \nAuthorization ", this.workAuth);
+                        currUser.setWorkAuth(jsonObject.getString("w_a_title"));
+                            ProfileInfo newInfo = new ProfileInfo("Work \nAuthorization ", currUser.getWorkAuth());
                             itemAdapter.add(newInfo);
-                        }
-                        else{
-                            ProfileInfo newInfo = new ProfileInfo("Work Authorization ", " ");
-                            itemAdapter.add(newInfo);
-                        }
-
-                        count++;}
+                        count++;
+                    }
                     listView.setAdapter(itemAdapter);
                     setListViewHeightBasedOnItsChildren(listView);
                 } catch (JSONException e) {
@@ -462,7 +430,7 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
         return address;
     }
 
-    //Method to make sure all information is shown for each adapterL
+    //Method to make sure all information is shown for each adapter
     public static void setListViewHeightBasedOnItsChildren(ListView listView) {
 
         if (listView.getAdapter() == null) {
@@ -483,5 +451,10 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
                 .getCount() - 1));
         listView.setLayoutParams(params);
         listView.requestLayout();
+    }
+
+    //Methods to return UserPersonalinfo:
+    public UserPersonal getUserPersonal(){
+        return this.currUser;
     }
 }
