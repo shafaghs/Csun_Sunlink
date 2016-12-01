@@ -35,6 +35,8 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
     ListView listView;
     String searchKey;
 
+    User currUser = new User();
+
     //Strings for Personal:
     private String first = "null";
     private String last = "null";
@@ -276,10 +278,10 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
                     while (count < jsonArray.length()) {
                         JSONObject jsonObject = jsonArray.getJSONObject(count);
                         //Name:
-                        this.first =jsonObject.getString("first_name");
-                        this.last =jsonObject.getString("family_name");
-                        this.middle = jsonObject.getString("middle_name");
-                        this.name = constructNameString(this.first, this.last, this. middle);
+                        currUser.setFirstName(jsonObject.getString("first_name"));
+                        currUser.setLastName(jsonObject.getString("family_name"));
+                        currUser.setMiddleName(jsonObject.getString("middle_name"));
+                        this.name = constructNameString(currUser.getFirstName(), currUser.getLastName(), currUser.getMiddleName());
                         if (name != "null"){
                             ProfileInfo newInfo = new ProfileInfo("Name ", this.name);
                             itemAdapter.add(newInfo);
@@ -290,8 +292,8 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
                         }
                         //Email:
                         if (jsonObject.getString("user_email") != "null") {
-                            this.email = jsonObject.getString("user_email");
-                            ProfileInfo newInfo = new ProfileInfo("Email ", this.email);
+                            currUser.setEmail(jsonObject.getString("user_email"));
+                            ProfileInfo newInfo = new ProfileInfo("Email ", currUser.getEmail());
                             itemAdapter.add(newInfo);
                         }
                         else {
@@ -314,15 +316,10 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
                         this.street1=jsonObject.getString("street");
                         this.street2=jsonObject.getString("street2");
                         this.city=jsonObject.getString("city_name");
-                        this.address=constructAddress(street1, street2, city);
-                        if (this.address != "null") {
-                            ProfileInfo newInfo = new ProfileInfo("Address ", this.address);
-                            itemAdapter.add(newInfo);
-                        }
-                        else {
-                            ProfileInfo newInfo = new ProfileInfo("Address ", " ");
-                            itemAdapter.add(newInfo);
-                        }
+                        currUser.setAddress(constructAddress(street1, street2, city));
+                        ProfileInfo newInfo1 = new ProfileInfo("Address ", currUser.getAddress());
+                            itemAdapter.add(newInfo1);
+
 
                         //Status:
 
@@ -357,8 +354,7 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
                             itemAdapter.add(newInfo);
                         }
 
-                        count++;
-                    }
+                        count++;}
                     listView.setAdapter(itemAdapter);
                     setListViewHeightBasedOnItsChildren(listView);
                 } catch (JSONException e) {
