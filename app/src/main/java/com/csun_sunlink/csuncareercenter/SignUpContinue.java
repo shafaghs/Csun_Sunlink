@@ -1,14 +1,12 @@
 package com.csun_sunlink.csuncareercenter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 
 public class SignUpContinue extends AppCompatActivity {
     String signUpPasswordText,signUpConfirmPasswordText,signUpEmailText;
@@ -44,10 +42,14 @@ public class SignUpContinue extends AppCompatActivity {
                 signUpPasswordText = signUpPassword.getText().toString().trim();
                 signUpConfirmPasswordText = signUpConfirmPassword.getText().toString().trim();
                 if(signUpPasswordText.equals("") || signUpConfirmPasswordText.equals("")){
+                    error.setVisibility(View.VISIBLE);
                     error.setText(R.string.Both_filled);
-                    error.setTextColor(Color.RED);
                 }else if(!signUpPasswordText.equals(signUpConfirmPasswordText)){
+                    error.setVisibility(View.VISIBLE);
                     error.setText(R.string.same_value);
+                }else if(signUpPasswordText.length() != 6 || signUpConfirmPasswordText.length() !=6){
+                    error.setVisibility(View.VISIBLE);
+                    error.setText(R.string.password_length);
                 }else{
                     String method = "register";
                     BgTask bgTask = new BgTask(ctx,rootView);
@@ -55,6 +57,5 @@ public class SignUpContinue extends AppCompatActivity {
                 }
             }
         });
-
     }
 }

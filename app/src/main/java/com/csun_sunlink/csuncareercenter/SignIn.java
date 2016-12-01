@@ -6,13 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class SignIn extends AppCompatActivity {
     private EditText signInUserName, signInPassword;
     private Context ctx;
     private View rootView;
+    private TextView errorMessage;
     private String method,signInUserNameString, signInPasswordString;
-    private Button signIn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,20 +24,23 @@ public class SignIn extends AppCompatActivity {
         rootView = findViewById(android.R.id.content);
         ctx = this.getApplicationContext();
 
-        signIn = (Button) findViewById(R.id.signin_signin);
+        Button signIn = (Button) findViewById(R.id.signin_signin);
         signInUserName = (EditText) findViewById(R.id.signin_email);
         signInPassword = (EditText) findViewById(R.id.signin_password);
+        errorMessage = (TextView) findViewById(R.id.sign_in_error);
 
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isEmpty(signInUserName) || isEmpty(signInPassword)) {
                     if (isEmpty(signInUserName)) {
-                        signInUserName.setError("You should fill email address");
+                        errorMessage.setVisibility(View.VISIBLE);
+                        errorMessage.setText(R.string.fill_email_field);
                         signInUserName.setBackgroundResource(R.drawable.error);
                     }
                     if (isEmpty(signInPassword)) {
-                        signInPassword.setError("You should fill password");
+                        errorMessage.setVisibility(View.VISIBLE);
+                        errorMessage.setText(R.string.fill_pass_field);
                         signInPassword.setBackgroundResource(R.drawable.error);
                     }
                 } else {

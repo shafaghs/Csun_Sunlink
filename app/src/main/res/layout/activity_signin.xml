@@ -35,7 +35,8 @@
                 android:id="@+id/sign_in_error"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="@color/colorPrimary"
+                android:visibility="gone"/>
 
             <EditText
                 android:id="@+id/signin_email"

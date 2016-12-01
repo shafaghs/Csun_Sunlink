@@ -110,7 +110,7 @@ class SearchBgTask extends AsyncTask<String, Void, String> {
                 companyState = jsonObject.getString("state_name");
                 companyCountry = jsonObject.getString("country_name");
                 jobId = jsonObject.getString("job_id");
-                companyId = jsonObject.getString("job_id");
+                companyId = jsonObject.getString("company_id");
                 StringBuilder address = new StringBuilder();
                 address.append(companyStreet).append(",");
                 if (!companyStreet1.equals("null")) {
