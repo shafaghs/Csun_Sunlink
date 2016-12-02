@@ -1,8 +1,14 @@
 package com.csun_sunlink.csuncareercenter.Fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import com.csun_sunlink.csuncareercenter.R;
 import com.csun_sunlink.csuncareercenter.Search.ItemAdapter;
@@ -18,6 +24,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
@@ -152,7 +159,10 @@ public class FragmentBgTask extends AsyncTask<String, Void, String> {
 
                             }
                             address.append("\n").append(companyCountry).append(".");
-                            ItemInfo itemInfo = new ItemInfo(jobId, jobTitle, companyName, differenceDate, address.toString(), companyId);
+                            String encodedImage= jsonObject.getString("company_logo");
+                            byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
+                            Bitmap companyLogo = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                            ItemInfo itemInfo = new ItemInfo(jobId, jobTitle, companyName, differenceDate, address.toString(), companyId,companyLogo);
                             itemAdapter.add(itemInfo);
                             count++;
                         }

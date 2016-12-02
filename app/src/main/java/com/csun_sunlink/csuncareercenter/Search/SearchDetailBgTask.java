@@ -106,8 +106,6 @@ class SearchDetailBgTask extends AsyncTask<String, Void, String> {
             essentialSkillsTextView.setText(jsonObject.getString("essential_skills"));
             desiredSkillsTextView.setText(jsonObject.getString("desired_skills"));
             getImage(companyId);
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         }

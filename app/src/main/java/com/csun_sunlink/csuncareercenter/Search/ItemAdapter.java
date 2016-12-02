@@ -1,10 +1,12 @@
 package com.csun_sunlink.csuncareercenter.Search;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +50,8 @@ public class ItemAdapter extends ArrayAdapter {
             itemHolder.postedDate = (TextView)row.findViewById(R.id.search_posted_date);
             itemHolder.jobId = (TextView)row.findViewById(R.id.search_job_id);
             itemHolder.companyId = (TextView)row.findViewById(R.id.search_company_id);
+            itemHolder.companyLogo = (ImageView)row.findViewById(R.id.job_listing_fragment_company_logo);
+
             row.setTag(itemHolder);
         }
         else
@@ -61,10 +65,12 @@ public class ItemAdapter extends ArrayAdapter {
         itemHolder.postedDate.setText(itemInfo.getPostedDate());
         itemHolder.jobId.setText(itemInfo.getJobId());
         itemHolder.companyId.setText(itemInfo.getCompanyId());
+        itemHolder.companyLogo.setImageBitmap(itemInfo.getCompanyLogo());
         return row;
     }
 
     static class ItemHolder{
         TextView jobTitle,companyName,companyArea,postedDate,jobId,companyId;
+        ImageView companyLogo;
     }
 }

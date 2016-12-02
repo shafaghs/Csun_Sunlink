@@ -1,16 +1,26 @@
 package com.csun_sunlink.csuncareercenter.Search;
 
+import android.graphics.Bitmap;
+
 public class ItemInfo {
 
-    private String jobTitle,jobDuties,jobSummary,essentialSkills,postedDate,companyName,companyAddress,jobId,companyId;
+    private String jobTitle,jobDuties,jobSummary,essentialSkills,postedDate,companyName,
+            companyAddress,jobId,companyId;
+    Bitmap companyLogo;
 
-    public ItemInfo(String mJobId, String mJobTitle, String mCompanyName, String mPostedDate, String mCompanyAddress,String companyId) {
+    public ItemInfo(String mJobId, String mJobTitle, String mCompanyName, String mPostedDate,
+                    String mCompanyAddress,String companyId,Bitmap companyLogo) {
         this.jobId = mJobId;
         this.jobTitle = mJobTitle;
         this.companyName = mCompanyName;
         this.postedDate = mPostedDate;
         this.companyAddress = mCompanyAddress;
         this.companyId=companyId;
+        this.companyLogo=companyLogo;
+    }
+
+    Bitmap getCompanyLogo() {
+        return companyLogo;
     }
 
     String getCompanyId() {
