@@ -24,6 +24,7 @@ import com.csun_sunlink.csuncareercenter.Fragments.HomePageEventListingFragment;
 import com.csun_sunlink.csuncareercenter.Fragments.HomePageJobListingFragment;
 import com.csun_sunlink.csuncareercenter.Profile.ProfileActivity;
 import com.csun_sunlink.csuncareercenter.Search.SearchStart;
+import com.csun_sunlink.csuncareercenter.Search.SearchStartTab;
 
 /**
  * Created by olgak on 11/7/16.
@@ -92,8 +93,8 @@ public class HomePage extends AppCompatActivity{
         careerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Intent intent = new Intent(HomePage.this, CareerCenterActivity.class);
-                // startActivity(intent);
+                 Intent intent = new Intent(HomePage.this, SearchStartTab.class);
+                 startActivity(intent);
             }
         });
         //Resources:

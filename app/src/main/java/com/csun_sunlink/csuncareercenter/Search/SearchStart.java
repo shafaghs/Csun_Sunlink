@@ -8,7 +8,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.SearchView;
 import android.view.View;
@@ -18,15 +19,14 @@ import android.widget.TextView;
 import com.csun_sunlink.csuncareercenter.MenuDrawerAdapter;
 import com.csun_sunlink.csuncareercenter.R;
 
-public class SearchStart extends AppCompatActivity {
-    ListView listView;
+public class SearchStart extends AppCompatActivity{
     private String searchKey;
     private View rootView;
     private Context ctx;
     private SearchView searchView;
 
     //Drawer
-    private Toolbar toolbar;
+    //Toolbar toolbar;
     RecyclerView mRecyclerView;
     RecyclerView.Adapter mAdapter;
     RecyclerView.LayoutManager mLayoutManager;
@@ -41,13 +41,18 @@ public class SearchStart extends AppCompatActivity {
         rootView = findViewById(android.R.id.content);
         ctx = this.getApplicationContext();
 
+      //  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+       // setSupportActionBar(toolbar);
+        // Create the adapter that will return a fragment for each of the three
+        // primary sections of the activity.
+
        /* toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+*/
         if(getSupportActionBar() != null){
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }*/
+        }
 
         searchView = (SearchView) findViewById(R.id.search_start_searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -66,18 +71,18 @@ public class SearchStart extends AppCompatActivity {
         });
 
         ListView result = (ListView) findViewById(R.id.search_result_list);
-        result.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        result.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Bundle bundle = new Bundle();
-                String companyId=((TextView) view.findViewById(R.id.search_company_id)).getText().toString();
-                bundle.putString("companyId",companyId);
-                String jobId= ((TextView) view.findViewById(R.id.search_job_id)).getText().toString();
-                bundle.putString("jobId",jobId);
-                String address= ((TextView) view.findViewById(R.id.event_location)).getText().toString();
-                bundle.putString("address",address);
-                String postedDate= ((TextView) view.findViewById(R.id.search_posted_date)).getText().toString();
-                bundle.putString("postedDate",postedDate);
+                String companyId = ((TextView) view.findViewById(R.id.search_company_id)).getText().toString();
+                bundle.putString("companyId", companyId);
+                String jobId = ((TextView) view.findViewById(R.id.search_job_id)).getText().toString();
+                bundle.putString("jobId", jobId);
+                String address = ((TextView) view.findViewById(R.id.event_location)).getText().toString();
+                bundle.putString("address", address);
+                String postedDate = ((TextView) view.findViewById(R.id.search_posted_date)).getText().toString();
+                bundle.putString("postedDate", postedDate);
                 Intent intent = new Intent(getApplication(), SearchDetail.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -92,8 +97,8 @@ public class SearchStart extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         Drawer = (DrawerLayout) findViewById(R.id.DrawerLayout);
-        mDrawerToggle = new ActionBarDrawerToggle(this,Drawer,toolbar, R.string.openDrawer,
-                R.string.closeDrawer){
+        mDrawerToggle = new ActionBarDrawerToggle(this, Drawer,  R.string.openDrawer,
+                R.string.closeDrawer) {
 
             @Override
             public void onDrawerOpened(View drawerView) {
@@ -105,11 +110,25 @@ public class SearchStart extends AppCompatActivity {
                 super.onDrawerClosed(drawerView);
                 // Code here will execute once drawer is closed
             }
-
-
-
         }; // Drawer Toggle Object Made
         Drawer.addDrawerListener(mDrawerToggle); // Drawer Listener set to the Drawer toggle
         mDrawerToggle.syncState();               // Finally we set the drawer toggle sync State
+
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }

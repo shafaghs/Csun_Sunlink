@@ -6,12 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <!-- Shafagh's code -->
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    >
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -25,7 +24,8 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:id="@+id/company_logo"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:contentDescription="@string/company_logo" />
 
         <RelativeLayout
             style="@style/containerStyle"
@@ -39,6 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="start"
+                android:textSize="@dimen/text_size"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:textStyle="bold"
@@ -50,6 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/search_detail_job_title"
                 android:gravity="start"
+                android:textSize="@dimen/middle_text_size"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:textColor="@color/black"/>
@@ -60,6 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/search_detail_company_name"
                 android:gravity="start"
+                android:textSize="@dimen/small_text_size"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:textColor="@color/black"/>
@@ -70,6 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/search_detail_position_type"
                 android:gravity="start"
+                android:textSize="@dimen/small_text_size"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:textColor="@color/black"/>
@@ -80,6 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/search_detail_company_add"
                 android:gravity="start"
+                android:textSize="@dimen/small_text_size"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:textColor="@color/black"/>

@@ -51,5 +51,13 @@
     <string name="password_length">New password should be at least 6 characters</string>
     <string name="fill_email_field">You should fill email address</string>
     <string name="fill_pass_field">You should fill password</string>
+    <string name="unsave_job">UnSave</string>
+    <string name="save_job">Save to Favorite</string>
+    <string name="company_logo">Company Logo</string>
+
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_search_start_tab">SearchStartTab</string>
+    <string name="action_settings">Settings</string>
+
 
 </resources>
