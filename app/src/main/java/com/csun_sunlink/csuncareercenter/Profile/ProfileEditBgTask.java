@@ -42,7 +42,7 @@ public class ProfileEditBgTask extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
         //PHP FILES
 
-        final String personaleditUrl = "http://10.0.2.2/CsunSunlink/personalFragment.php";
+        final String personaleditUrl = "http://10.0.2.2/CsunSunlink/editPersonalFragment.php";
 
         String result;
         searchKey = params[0];
