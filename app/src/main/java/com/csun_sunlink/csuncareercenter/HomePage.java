@@ -16,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -178,7 +179,7 @@ public class HomePage extends AppCompatActivity{
 
     }
 
-    @Override
+   /* @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater menuInflater = getMenuInflater();
@@ -189,7 +190,7 @@ public class HomePage extends AppCompatActivity{
         //    menuInflater.inflate(R.menu.jobcategoriesmenuhomepage, menu);
         // }
 
-    }
+    } */
 
     /*public void createHeader() {
         this.screenHeader = this.userName + "\n" + this.userDegree;
@@ -208,4 +209,6 @@ public class HomePage extends AppCompatActivity{
         }
         popup.show();
     }
+
+
 }

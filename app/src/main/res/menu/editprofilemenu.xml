@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/pmenu_personal"
+        android:title="Personal">
+    </item>
+    <item
+        android:id="@+id/pmenu_academic"
+        android:title="Academic">
+    </item>
+    <item
+        android:id="@+id/pmenu_professional"
+        android:title="Professional">
+    </item>
+
+</menu>

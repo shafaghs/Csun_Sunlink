@@ -70,10 +70,7 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.Vi
        public MenuDrawerAdapter(){
             this.mNavTitles = titles;
             this.mIcons = icons;
-            this.name = newName;
-            this.email = newEmail;
             this.profile = newProfile;
-
         }
 
         @Override

@@ -1,6 +1,6 @@
 package com.csun_sunlink.csuncareercenter.Profile;
 
-;import android.content.Context;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,8 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.csun_sunlink.csuncareercenter.Fragments.FragmentBgTask;
 import com.csun_sunlink.csuncareercenter.R;
+
+;
 
 /**
  * Created by bigmatt76 on 11/28/16.
@@ -19,6 +20,7 @@ public class ProfilePersonalFragment extends Fragment {
 
     private View rootView;
     private Context ctx;
+    protected UserPersonal userCurr;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -29,7 +31,11 @@ public class ProfilePersonalFragment extends Fragment {
 
         ProfileBgTask bgTask = new ProfileBgTask(ctx, listView);
         bgTask.execute("personalFragment");
-
+        userCurr = bgTask.getUserPersonal();
         return view;
+    }
+
+    public UserPersonal getUserCurr(){
+        return this.userCurr;
     }
 }
