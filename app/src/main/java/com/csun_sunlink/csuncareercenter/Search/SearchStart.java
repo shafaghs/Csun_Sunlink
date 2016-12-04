@@ -24,6 +24,7 @@ public class SearchStart extends AppCompatActivity {
     private View rootView;
     private Context ctx;
     private SearchView searchView;
+    private String method;
 
     //Drawer
     private Toolbar toolbar;

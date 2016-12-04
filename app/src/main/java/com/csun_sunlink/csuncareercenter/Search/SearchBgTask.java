@@ -1,6 +1,5 @@
 package com.csun_sunlink.csuncareercenter.Search;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,7 +18,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
@@ -72,7 +70,7 @@ class SearchBgTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String finalResult) {
-        String companyStreet, companyStreet1, companyCityName, companyZipcode, companyState, companyCountry, jobId;
+        String companyCityName, companyState, companyCountry, jobId;
         String jobTitle, postedDate, companyName,companyId;
         String differenceDate;
         ListView listView;
@@ -108,26 +106,17 @@ class SearchBgTask extends AsyncTask<String, Void, String> {
                     differenceDate = Integer.toString(diffInDays)+" d";
 
                 companyName = jsonObject.getString("company_name");
-                companyStreet = jsonObject.getString("company_street");
-                companyStreet1 = jsonObject.getString("company_street1");
                 companyCityName = jsonObject.getString("city_name");
-                companyZipcode = jsonObject.getString("zipcode");
                 companyState = jsonObject.getString("state_name");
                 companyCountry = jsonObject.getString("country_name");
                 jobId = jsonObject.getString("job_id");
                 companyId = jsonObject.getString("company_id");
                 StringBuilder address = new StringBuilder();
-                address.append(companyStreet).append(",");
-                if (!companyStreet1.equals("null")) {
-                    address.append(companyStreet1).append(",");
-                }
                 address.append(companyCityName).append(",");
                 if (!companyState.equals("null")) {
                     address.append(companyState).append(",");
-
                 }
-                address.append("\n").append(companyCountry).append(",");
-                address.append(companyZipcode).append(".");
+                address.append(companyCountry).append(".");
 
                 String encodedImage= jsonObject.getString("company_logo");
                 byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
@@ -141,46 +130,6 @@ class SearchBgTask extends AsyncTask<String, Void, String> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    Bitmap image = null;
-    private Bitmap getImage(String cId) {
-        String id = cId;
-
-        class GetImage extends AsyncTask<String,Void,Bitmap>{
-            ProgressDialog loading;
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-            }
-
-            @Override
-            protected void onPostExecute(Bitmap b) {
-                super.onPostExecute(b);
-            }
-
-            @Override
-            protected Bitmap doInBackground(String... params) {
-                String id = params[0];
-                String add = "http://10.0.2.2/CsunSunlink/getCompanyImage.php?id="+id;
-                URL url = null;
-
-                try {
-                    url = new URL(add);
-                    image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                return image;
-            }
-        }
-
-        GetImage gi = new GetImage();
-        gi.execute(id);
-        return image;
     }
 
     @Override

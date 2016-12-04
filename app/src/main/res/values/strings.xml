@@ -51,5 +51,7 @@
     <string name="password_length">New password should be at least 6 characters</string>
     <string name="fill_email_field">You should fill email address</string>
     <string name="fill_pass_field">You should fill password</string>
+    <string name="un_save">Unsave</string>
+    <string name="save_to_favorit">Save to Favorite</string>
 
 </resources>

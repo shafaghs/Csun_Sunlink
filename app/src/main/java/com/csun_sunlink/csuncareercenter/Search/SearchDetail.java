@@ -20,7 +20,7 @@ import com.csun_sunlink.csuncareercenter.R;
 public class SearchDetail extends AppCompatActivity {
     private TextView jobTitle, companyName, positionType, companyAdd, postedDate, jobDes, jobDuties, essentialSkills, desiredSkills;
     private Button saveJob, applyJob;
-    String jobId, address,method, differenceDate;
+    String jobId, address, method, differenceDate;
     private View rootView;
     private Context ctx;
     private String companyId;
@@ -53,7 +53,7 @@ public class SearchDetail extends AppCompatActivity {
         applyJob = (Button) findViewById(R.id.search_detail_apply_button);
 
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        final String userId = pref.getString("user_id","");
+        final String userId = pref.getString("user_id", "");
 
         jobId = getIntent().getExtras().getString("jobId");
         address = getIntent().getExtras().getString("address");
@@ -66,8 +66,17 @@ public class SearchDetail extends AppCompatActivity {
         saveJob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!userId.equals("")){
-
+                if (!userId.equals("") && !jobId.equals("")) {
+                    if (saveJob.getText().toString().equals("Save to Favorite")) {
+                        method = "saveJob";
+                        SearchDetailBgTask bgTask = new SearchDetailBgTask(ctx, rootView);
+                        bgTask.execute(method,jobId,userId);
+                    }
+                    if (saveJob.getText().toString().equals("Unsave")) {
+                        method = "unSaveJob";
+                        SearchDetailBgTask bgTask = new SearchDetailBgTask(ctx, rootView);
+                        bgTask.execute(method,jobId,userId);
+                    }
                 }
             }
         });
@@ -79,9 +88,10 @@ public class SearchDetail extends AppCompatActivity {
             }
         });
 
-        if (!jobId.equals("")) {
+        if (!jobId.equals("") && !userId.equals("")) {
+            method = "showJobDetail";
             SearchDetailBgTask bgTask = new SearchDetailBgTask(ctx, rootView);
-            bgTask.execute(jobId,address,differenceDate,companyId);
+            bgTask.execute(method, jobId, userId, address, differenceDate);
         }
 
         //DRAWER:
@@ -92,8 +102,8 @@ public class SearchDetail extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         Drawer = (DrawerLayout) findViewById(R.id.DrawerLayout);
-        mDrawerToggle = new ActionBarDrawerToggle(this,Drawer,toolbar, R.string.openDrawer,
-                R.string.closeDrawer){
+        mDrawerToggle = new ActionBarDrawerToggle(this, Drawer, toolbar, R.string.openDrawer,
+                R.string.closeDrawer) {
 
             @Override
             public void onDrawerOpened(View drawerView) {
@@ -105,7 +115,6 @@ public class SearchDetail extends AppCompatActivity {
                 super.onDrawerClosed(drawerView);
                 // Code here will execute once drawer is closed
             }
-
 
 
         }; // Drawer Toggle Object Made
