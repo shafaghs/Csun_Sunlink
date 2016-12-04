@@ -1,28 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp">
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
+<TableLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="15dp">
 
-    <TextView
+    <!-- First Name -->
+     <TableRow>
+        <TextView
+            android:layout_height="wrap_content"
+            android:id="@+id/field_fname"
+            android:text="First Name"
+            android:textSize="14dp"
+            android:layout_width="110dp"
+            android:textColor="@color/black"
+            android:paddingLeft="10dp" />
+
+         <EditText
+             android:layout_width="250dp"
+             android:layout_height="wrap_content"
+             android:textColor="@color/black"
+             android:text="pass name here"
+             android:textSize="14dp"
+             android:paddingLeft="10dp"
+             android:id = "@+id/edit_firstname_field"
+             android:layout_gravity="center_vertical"
+             android:textStyle="normal|bold" />
+
+     </TableRow>
+    <!-- Middle Name -->
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_height="wrap_content"
+            android:id="@+id/field_mname"
+            android:text="Middle Name"
+            android:textSize="14dp"
+            android:layout_width="110dp"
+            android:textColor="@color/black"
+            android:paddingLeft="10dp" />
+
+        <EditText
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="sub"
+            android:textSize="14dp"
+            android:paddingLeft="10dp"
+            android:id = "@+id/edit_middlename_field"
+            android:layout_gravity="center_vertical"
+            android:textStyle="normal|bold"
+            android:layout_width="wrap_content" />
+    </TableRow>
+    <!--Last Name -->
+    <TableRow>
+        <TextView
+            android:layout_height="wrap_content"
+            android:id="@+id/field_lname"
+            android:text="Last Name"
+            android:textSize="14dp"
+            android:layout_width="110dp"
+            android:textColor="@color/black"
+            android:paddingLeft="10dp" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="sub"
+            android:textSize="14dp"
+            android:paddingLeft="10dp"
+            android:id = "@+id/edit_lastname_field"
+            android:layout_gravity="center_vertical"
+            android:textStyle="normal|bold" />
+    </TableRow>
+
+    <!-- Phone -->
+    <TableRow>
+        <TextView
+            android:layout_height="wrap_content"
+            android:id="@+id/field_phone"
+            android:text="Phone"
+            android:textSize="14dp"
+            android:layout_width="110dp"
+            android:textColor="@color/black"
+            android:paddingLeft="10dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="sub"
+            android:textSize="14dp"
+            android:paddingLeft="10dp"
+            android:id = "@+id/edit_phone_field"
+            android:layout_gravity="center_vertical"
+            android:textStyle="normal|bold" />
+    </TableRow>
+
+    <!--Address -->
+    <TableRow>
+        <TextView
+            android:layout_height="wrap_content"
+            android:id="@+id/field_address"
+            android:text="Address"
+            android:textSize="14dp"
+            android:layout_width="110dp"
+            android:textColor="@color/black"
+            android:paddingLeft="10dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="sub"
+            android:textSize="14dp"
+            android:paddingLeft="10dp"
+            android:id = "@+id/edit_address_field"
+            android:layout_gravity="center_vertical"
+            android:textStyle="normal|bold" />
+    </TableRow>
+
+    <!-- Status -->
+    <TableRow>
+        <TextView
+            android:layout_height="wrap_content"
+            android:id="@+id/field_status"
+            android:text="Status"
+            android:textSize="14dp"
+            android:layout_width="110dp"
+            android:textColor="@color/black"
+            android:paddingLeft="10dp" />
+        <!-- Add status menu choice -->
+
+    </TableRow>
+
+    <!--Geo Pref -->
+    <TableRow>
+        <TextView
+            android:layout_height="wrap_content"
+            android:id="@+id/field_geopref"
+            android:text="Geographical Preference"
+            android:textSize="14dp"
+            android:layout_width="110dp"
+            android:textColor="@color/black"
+            android:paddingLeft="10dp" />
+        <!-- Add here state choice -->
+
+    </TableRow>
+
+    <!--Work Authorization -->
+    <TableRow>
+        <TextView
+            android:layout_height="wrap_content"
+            android:id="@+id/work_authorization"
+            android:text="Work Authorizarion"
+            android:textSize="14dp"
+            android:layout_width="110dp"
+            android:textColor="@color/black"
+            android:paddingLeft="10dp" />
+        <!-- addd choices here -->
+    </TableRow>
+
+</TableLayout>
+
+    <Button
+        android:id="@+id/save_personal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/field_name"
-        android:text="Title:"
-        android:textSize="14dp"
-        android:layout_width="110dp"
-        android:textColor="@color/black"
-        android:paddingLeft="10dp" />
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:text="sub"
-        android:textSize="14dp"
-        android:paddingLeft="10dp"
-        android:id = "@+id/edit_field"
-        android:layout_gravity="center_vertical"
-        android:textStyle="normal|bold" />
+        android:gravity="center_horizontal|center_vertical"
+        android:background="@color/colorPrimaryDark"
+        android:text="Save"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:textSize="14sp" />
+
 
 </LinearLayout>

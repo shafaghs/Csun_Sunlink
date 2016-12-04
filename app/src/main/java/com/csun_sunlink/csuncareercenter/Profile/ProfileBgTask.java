@@ -278,7 +278,7 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
                     while (count < jsonArray.length()) {
                         JSONObject jsonObject = jsonArray.getJSONObject(count);
                         //ID:
-                        currUser.setUserID(jsonObject.getString("user_id"));
+                        //currUser.setUserID(jsonObject.getString("user_id"));
 
                         //Name:
                         currUser.setFirstName(jsonObject.getString("first_name"));

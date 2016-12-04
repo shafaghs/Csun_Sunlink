@@ -1,10 +1,14 @@
 package com.csun_sunlink.csuncareercenter.Profile;
 
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
 /**
  * Created by bigmatt76 on 11/30/16.
  */
 
-public class UserPersonal {
+public class UserPersonal implements Serializable{
     private String userID = " ";
     private String firstName = " ";
     private String lastName = " ";

@@ -2,6 +2,8 @@ package com.csun_sunlink.csuncareercenter.Profile;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -46,21 +48,24 @@ public class ProfileEditBgTask extends AsyncTask<String, Void, String> {
         searchKey = params[0];
         switch (searchKey) {
             case "editPersonalFragment":
+
                 try {
                     URL url = new URL(personaleditUrl);
-                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                    //send request
-                    httpURLConnection.setRequestMethod("POST");
-                    httpURLConnection.setDoOutput(true);
-                    OutputStream outputStream = httpURLConnection.getOutputStream();
-                    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                    String data = URLEncoder.encode("editpersonal", "UTF-8") + "=" + URLEncoder.encode(searchKey, "UTF-8");
+                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                    urlConnection.setRequestMethod("POST");
+                    urlConnection.setDoOutput(true);
+                    OutputStream os = urlConnection.getOutputStream();
+                    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                    String data =
+                            URLEncoder.encode("firstName", "UTF-8") + "=" + URLEncoder.encode(currUser.getFirstName(), "UTF-8") + "&" +
+                            URLEncoder.encode("lastName", "UTF-8") + "=" + URLEncoder.encode(currUser.getLastName(), "UTF-8") + "&" +
+                            URLEncoder.encode("middleName", "UTF-8") + "=" + URLEncoder.encode(currUser.getMiddleName(), "UTF-8")+ "&" +
+                            URLEncoder.encode("phone","UTF-8") + "= " + URLEncoder.encode(currUser.getPhone(), "UTF-8");
                     bufferedWriter.write(data);
                     bufferedWriter.flush();
                     bufferedWriter.close();
-                    outputStream.close();
-                    //get result
-                    InputStream inputStream = httpURLConnection.getInputStream();
+                    os.close();
+                    InputStream inputStream = urlConnection.getInputStream();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                     StringBuilder stringBuilder = new StringBuilder();
                     while ((result = bufferedReader.readLine()) != null) {
@@ -68,10 +73,10 @@ public class ProfileEditBgTask extends AsyncTask<String, Void, String> {
                     }
                     bufferedReader.close();
                     inputStream.close();
-                    httpURLConnection.disconnect();
+                    urlConnection.disconnect();
                     return stringBuilder.toString().trim();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Log.i("error", e.toString());
                 }
                 break;
         }
@@ -81,69 +86,27 @@ public class ProfileEditBgTask extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String finalResult) {
 
-        switch (searchKey) {
+        /*switch (searchKey) {
             case "editPersonalFragment":
                 try {
 
-                    JSONObject jsonObj = new JSONObject(finalResult);
-                    JSONArray jsonArray = jsonObj.getJSONArray("server_res");
-                    int count = 0;
 
-                    ProfileInfoAdapter itemAdapter;
-                    itemAdapter = new ProfileInfoAdapter(ctx, R.layout.row_layout);
-
-                    while (count < jsonArray.length()) {
-                        JSONObject jsonObject = jsonArray.getJSONObject(count);
-                        //ID:
-                        currUser.setUserID(jsonObject.getString("user_id"));
-
-                        //Name:
-
-
-                        //Email:
-                        currUser.setEmail(jsonObject.getString("user_email"));
-                        ProfileInfo newInfoEmail = new ProfileInfo("Email ", currUser.getEmail());
-                        itemAdapter.add(newInfoEmail);
-
-                        //Phone Number:
-                        currUser.setPhone(jsonObject.getString("user_phone_number"));
-                        ProfileInfo newInfoPhone = new ProfileInfo("Phone ", currUser.getPhone());
-                        itemAdapter.add(newInfoPhone);
-
-                        //Address: (REmineder later on should be changed for edit field each should be saved separetly in USER clas)
-
-
-                        //Status:
-                        currUser.setStatus(jsonObject.getString("status_title"));
-                        ProfileInfo newInfoStatus = new ProfileInfo("Status ", currUser.getStatus());
-                        itemAdapter.add(newInfoStatus);
-
-                        // Geo Preference
-                        currUser.setGeoPref(jsonObject.getString("state_name"));
-                        ProfileInfo newInfoGeoPref = new ProfileInfo("Geographic Preferences ", currUser.getGeopref());
-                        itemAdapter.add(newInfoGeoPref);
-
-                        //Work Authorization:
-                        currUser.setWorkAuth(jsonObject.getString("w_a_title"));
-                        ProfileInfo newInfo = new ProfileInfo("Work \nAuthorization ", currUser.getWorkAuth());
-                        itemAdapter.add(newInfo);
-                        count++;
-                    }
-                    listView.setAdapter(itemAdapter);
-                    setListViewHeightBasedOnItsChildren(listView);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
                 break;
 
-        }
+        } */
+
+
 
     }
 
 
-    public void setUser(UserPersonal newuser) {
-        this.currUser = newuser;
+    public void setUser(UserPersonal newUser) {
+        this.currUser = newUser;
 
     }
+
+
+
+
 
 }
