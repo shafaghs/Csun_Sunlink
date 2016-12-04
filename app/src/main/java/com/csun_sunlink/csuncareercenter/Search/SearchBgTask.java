@@ -70,7 +70,7 @@ class SearchBgTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String finalResult) {
-        String companyStreet, companyStreet1, companyCityName, companyZipcode, companyState, companyCountry, jobId;
+        String companyCityName, companyState, companyCountry, jobId;
         String jobTitle, postedDate, companyName,companyId;
         String differenceDate;
         ListView listView;
@@ -103,29 +103,20 @@ class SearchBgTask extends AsyncTask<String, Void, String> {
                 if (diffInDays == 0)
                     differenceDate = "Today";
                 else
-                    differenceDate = Integer.toString(diffInDays)+" d ago";
+                    differenceDate = Integer.toString(diffInDays)+" d";
 
                 companyName = jsonObject.getString("company_name");
-               // companyStreet = jsonObject.getString("company_street");
-               // companyStreet1 = jsonObject.getString("company_street1");
                 companyCityName = jsonObject.getString("city_name");
-              //  companyZipcode = jsonObject.getString("zipcode");
                 companyState = jsonObject.getString("state_name");
                 companyCountry = jsonObject.getString("country_name");
                 jobId = jsonObject.getString("job_id");
                 companyId = jsonObject.getString("company_id");
                 StringBuilder address = new StringBuilder();
-               /* address.append(companyStreet).append(",");
-                if (!companyStreet1.equals("null")) {
-                    address.append(companyStreet1).append(",");
-                }*/
                 address.append(companyCityName).append(",");
                 if (!companyState.equals("null")) {
                     address.append(companyState).append(",");
-
                 }
-                address.append(companyCountry).append(",");
-               // address.append(companyZipcode).append(".");
+                address.append(companyCountry).append(".");
 
                 String encodedImage= jsonObject.getString("company_logo");
                 byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
