@@ -1,7 +1,11 @@
 package com.csun_sunlink.csuncareercenter.Search;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Base64;
 import android.view.View;
 import android.widget.ListView;
 import org.json.JSONArray;
@@ -15,6 +19,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
@@ -123,13 +128,59 @@ class SearchBgTask extends AsyncTask<String, Void, String> {
                 }
                 address.append("\n").append(companyCountry).append(",");
                 address.append(companyZipcode).append(".");
-                ItemInfo itemInfo = new ItemInfo(jobId, jobTitle, companyName, differenceDate, address.toString(),companyId);
+
+                String encodedImage= jsonObject.getString("company_logo");
+                byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
+                Bitmap companyLogo = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+                ItemInfo itemInfo = new ItemInfo(jobId, jobTitle, companyName, differenceDate,
+                                    address.toString(),companyId, companyLogo);
                 itemAdapter.add(itemInfo);
                 count++;
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    Bitmap image = null;
+    private Bitmap getImage(String cId) {
+        String id = cId;
+
+        class GetImage extends AsyncTask<String,Void,Bitmap>{
+            ProgressDialog loading;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected void onPostExecute(Bitmap b) {
+                super.onPostExecute(b);
+            }
+
+            @Override
+            protected Bitmap doInBackground(String... params) {
+                String id = params[0];
+                String add = "http://10.0.2.2/CsunSunlink/getCompanyImage.php?id="+id;
+                URL url = null;
+
+                try {
+                    url = new URL(add);
+                    image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return image;
+            }
+        }
+
+        GetImage gi = new GetImage();
+        gi.execute(id);
+        return image;
     }
 
     @Override
