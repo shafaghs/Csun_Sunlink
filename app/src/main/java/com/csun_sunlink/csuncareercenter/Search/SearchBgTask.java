@@ -80,7 +80,7 @@ class SearchBgTask extends AsyncTask<String, Void, String> {
             int count = 0;
             ItemAdapter itemAdapter;
             itemAdapter = new ItemAdapter(ctx, R.layout.row_layout);
-            listView = (ListView) rootView.findViewById(R.id.search_result_list);
+            listView = (ListView) rootView.findViewById(R.id.search_result_list1);
             listView.setAdapter(itemAdapter);
             while (count < jsonArray.length()) {
                 JSONObject jsonObject = jsonArray.getJSONObject(count);

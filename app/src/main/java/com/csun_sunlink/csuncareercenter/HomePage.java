@@ -23,7 +23,7 @@ import android.widget.ImageButton;
 import com.csun_sunlink.csuncareercenter.Fragments.HomePageEventListingFragment;
 import com.csun_sunlink.csuncareercenter.Fragments.HomePageJobListingFragment;
 import com.csun_sunlink.csuncareercenter.Profile.ProfileActivity;
-import com.csun_sunlink.csuncareercenter.Search.SearchStart;
+import com.csun_sunlink.csuncareercenter.Search.SearchStart1;
 
 /**
  * Created by olgak on 11/7/16.
@@ -83,7 +83,7 @@ public class HomePage extends AppCompatActivity{
         srchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),SearchStart.class);
+                Intent intent = new Intent(v.getContext(),SearchStart1.class);
                 startActivity(intent);
             }
         });

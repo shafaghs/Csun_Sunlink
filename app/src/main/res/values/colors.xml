@@ -11,5 +11,6 @@
     <color name="colorPrimaryLight1">#f7edf9</color>
     <color name="colorAccent1">#fe4959</color>
     <color name="buttonBlue">#1565c0</color>
+    <color name="yellow">#ebfa10</color>
 
 </resources>

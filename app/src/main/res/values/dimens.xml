@@ -5,4 +5,6 @@
     <dimen name="textsize">15sp</dimen>
     <dimen name="small_text_size">13sp</dimen>
     <dimen name="very_small_text_size">11sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
 </resources>
