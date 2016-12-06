@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,18 +14,17 @@ import android.widget.TextView;
 import com.csun_sunlink.csuncareercenter.R;
 import com.csun_sunlink.csuncareercenter.Search.SearchDetail;
 
-public class HomePageJobListingFragment extends Fragment {
-    private View rootView;
+public class TabFragment1 extends Fragment {
     private Context ctx;
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_job_listing_home_page, container, false);
-        // Inflate the layout for this fragment
-        ListView listView =(ListView) view.findViewById(R.id.job_listing_fragment);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.tab_fragment_1, container, false);
         ctx = getActivity().getApplicationContext();
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ListView result = (ListView) rootView.findViewById(R.id.search_result_list_tab1);
+
+        result.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Bundle bundle = new Bundle();
@@ -43,12 +41,6 @@ public class HomePageJobListingFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-        FragmentBgTask bgTask = new FragmentBgTask(ctx, listView);
-        bgTask.execute("jobListing");
-
-        return view;
+        return rootView;
     }
-
 }
-

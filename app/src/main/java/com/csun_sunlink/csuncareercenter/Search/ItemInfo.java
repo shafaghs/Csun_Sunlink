@@ -6,7 +6,7 @@ public class ItemInfo {
 
     private String jobTitle,jobDuties,jobSummary,essentialSkills,postedDate,companyName,
             companyAddress,jobId,companyId;
-    Bitmap companyLogo;
+    private Bitmap companyLogo;
 
     public ItemInfo(String mJobId, String mJobTitle, String mCompanyName, String mPostedDate,
                     String mCompanyAddress,String companyId,Bitmap companyLogo) {
