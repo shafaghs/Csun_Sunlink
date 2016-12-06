@@ -54,11 +54,7 @@
     <string name="unsave_job">UnSave</string>
     <string name="save_job">Save to Favorite</string>
     <string name="company_logo">Company Logo</string>
-
-    <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_search_start_tab">SearchStartTab</string>
-    <string name="action_settings">Settings</string>
-
     <string name="un_save">Unsave</string>
     <string name="save_to_favorit">Save to Favorite</string>
     <string name="title_activity_search_start1">Search</string>
