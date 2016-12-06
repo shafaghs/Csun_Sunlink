@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,11 +16,14 @@ import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
+import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.csun_sunlink.csuncareercenter.Fragments.HomePageEventListingFragment;
 import com.csun_sunlink.csuncareercenter.Fragments.HomePageJobListingFragment;
@@ -56,12 +60,22 @@ public class HomePage extends AppCompatActivity{
     RecyclerView.Adapter mAdapter;
     RecyclerView.LayoutManager mLayoutManager;
     DrawerLayout Drawer;
+    Context context;
     ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+        //Toolbar
+        //toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+
+        /*if(getSupportActionBar() != null){
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }*/
 
         //Infosessions:
         mImageAdapter = new ImageAdapter(this);
@@ -156,45 +170,11 @@ public class HomePage extends AppCompatActivity{
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         Drawer = (DrawerLayout) findViewById(R.id.DrawerLayout);
-        mDrawerToggle = new ActionBarDrawerToggle(this,Drawer,toolbar, R.string.openDrawer,
-                R.string.closeDrawer){
 
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-                // Code here will execute once drawer is closed
-            }
-
-
-
-        }; // Drawer Toggle Object Made
-        Drawer.addDrawerListener(mDrawerToggle); // Drawer Listener set to the Drawer toggle
-        mDrawerToggle.syncState();               // Finally we set the drawer toggle sync State
 
 
     }
 
-   /* @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater menuInflater = getMenuInflater();
-        if (!floatingMenu) {
-            menuInflater.inflate(R.menu.eventcategoriesmenuhomepage, menu);
-        }
-        // else {
-        //    menuInflater.inflate(R.menu.jobcategoriesmenuhomepage, menu);
-        // }
-
-    } */
-
-    /*public void createHeader() {
-        this.screenHeader = this.userName + "\n" + this.userDegree;
-    } */
 
     public void showMenu(View v) {
         Context wrapper = new ContextThemeWrapper(this, R.style.PopupMenu);
@@ -208,6 +188,32 @@ public class HomePage extends AppCompatActivity{
             inflater.inflate(R.menu.jobcategoriesmenuhomepage, popup.getMenu());
         }
         popup.show();
+    }
+
+
+    //Toolbar Drawer Button:
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.drawer_b:
+                if(Drawer.isDrawerOpen(Gravity.LEFT))
+                    Drawer.closeDrawers();
+                else
+                    Drawer.openDrawer(Gravity.LEFT);
+
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 

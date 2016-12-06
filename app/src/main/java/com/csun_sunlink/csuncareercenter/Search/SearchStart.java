@@ -9,6 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.SearchView;
 import android.view.View;
@@ -41,13 +44,6 @@ public class SearchStart extends AppCompatActivity {
         rootView = findViewById(android.R.id.content);
         ctx = this.getApplicationContext();
 
-       /* toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        if(getSupportActionBar() != null){
-            getSupportActionBar().setHomeButtonEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }*/
 
         searchView = (SearchView) findViewById(R.id.search_start_searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -92,24 +88,30 @@ public class SearchStart extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         Drawer = (DrawerLayout) findViewById(R.id.DrawerLayout);
-        mDrawerToggle = new ActionBarDrawerToggle(this,Drawer,toolbar, R.string.openDrawer,
-                R.string.closeDrawer){
+                    // Finally we set the drawer toggle sync State
+    }
+    //Toolbar Drawer Button:
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
 
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-            }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.drawer_b:
+                if(Drawer.isDrawerOpen(Gravity.LEFT))
+                    Drawer.closeDrawers();
+                else
+                    Drawer.openDrawer(Gravity.LEFT);
 
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-                // Code here will execute once drawer is closed
-            }
+                return true;
 
-
-
-        }; // Drawer Toggle Object Made
-        Drawer.addDrawerListener(mDrawerToggle); // Drawer Listener set to the Drawer toggle
-        mDrawerToggle.syncState();               // Finally we set the drawer toggle sync State
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

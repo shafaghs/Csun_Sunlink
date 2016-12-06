@@ -1,20 +1,23 @@
 package com.csun_sunlink.csuncareercenter;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by olgak on 11/21/16.
  * used to populated side menu adapter
  */
 
-public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.ViewHolder> {
+public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.ViewHolder>  {
 
         //Variables:
         private static final int TYPE_HEADER = 0;
@@ -29,6 +32,7 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.Vi
 
 
 
+
     String titles[] = {"Home","Profile","Search","My Career Center","Resources","Settings"};
     //Testing Purposes:
         int icons[] = {R.drawable.ic_home_white_48dp,R.drawable.ic_person_white_48dp,R.drawable.ic_search_white_48dp,R.drawable.ic_business_center_white_48dp,R.drawable.ic_library_books_white_48dp, R.drawable.ic_settings_white_48dp};
@@ -37,13 +41,14 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.Vi
     int newProfile = R.drawable.defaultpicture;
 
 
-        public static class ViewHolder extends RecyclerView.ViewHolder {
+        public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
             int Holderid;
             TextView textView;
             ImageView imageView;
             ImageView profile;
             TextView Name;
             TextView email;
+            Context contxt;
 
 
             public ViewHolder(View itemView,int ViewType) {
@@ -63,6 +68,12 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.Vi
                 }
             }
 
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(contxt,"The Item Clicked is: "+getAdapterPosition(),Toast.LENGTH_SHORT).show();
+
+            }
 
         }
 
@@ -126,5 +137,7 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.Vi
         private boolean isPositionHeader(int position) {
             return position == 0;
         }
+
+
 
     }
