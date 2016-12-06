@@ -53,7 +53,7 @@
     <string name="fill_pass_field">You should fill password</string>
     <string name="un_save">Unsave</string>
     <string name="save_to_favorit">Save to Favorite</string>
-    <string name="title_activity_search_start1">SearchStart1</string>
+    <string name="title_activity_search_start1">Search</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
