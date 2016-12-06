@@ -145,8 +145,6 @@ class SearchDetailBgTask extends AsyncTask<String, Void, String> {
                     e.printStackTrace();
                 }
                 break;
-
-
         }
         return null;
     }
@@ -191,7 +189,9 @@ class SearchDetailBgTask extends AsyncTask<String, Void, String> {
                     else
                         postedDateTextView.setText(differenceDate);
                     jobDesTextView.setText(jsonObject.getString("job_summary"));
-                    jobDutiesTextView.setText(jsonObject.getString("job_duties"));
+                    String duty = jsonObject.getString("job_duties");
+                    String replacedStr = duty.replace("*", "\u2022");
+                    jobDutiesTextView.setText(replacedStr);
                     essentialSkillsTextView.setText(jsonObject.getString("essential_skills"));
                     desiredSkillsTextView.setText(jsonObject.getString("desired_skills"));
                     String savedJob = jsonObject.getString("saved_job");

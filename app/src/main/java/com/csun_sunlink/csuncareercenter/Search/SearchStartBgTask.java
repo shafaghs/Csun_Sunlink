@@ -117,13 +117,13 @@ class SearchStartBgTask extends AsyncTask<String, Void, String> {
         String jobTitle, postedDate, companyName, companyId;
         ListView listView;
         String differenceDate;
-        JSONObject jsonObj = null;
+        JSONObject jsonObj;
         JSONArray jsonArray = null;
-        JSONObject jsonObject = null;
+        JSONObject jsonObject;
         String answerMethod = "empty";
         ItemAdapter itemAdapter;
         int count = 0;
-        TextView txt = (TextView) rootView.findViewById(R.id.section_label);
+        TextView txt = (TextView) rootView.findViewById(R.id.section_label_tab2);
         try {
             jsonObj = new JSONObject(finalResult);
             jsonArray = jsonObj.getJSONArray("server_res");
@@ -134,10 +134,11 @@ class SearchStartBgTask extends AsyncTask<String, Void, String> {
         }
         switch (answerMethod) {
             case "savedJob":
-                txt.setText("");
+                txt.setText("&#8226;");
                 itemAdapter = new ItemAdapter(ctx, R.layout.row_layout);
-                listView = (ListView) rootView.findViewById(R.id.search_result_list1);
+                listView = (ListView) rootView.findViewById(R.id.search_result_list_tab2);
                 listView.setAdapter(itemAdapter);
+                itemAdapter.notifyDataSetChanged();
                 while (count < jsonArray.length()) {
                     try {
                         jsonObject = jsonArray.getJSONObject(count);
@@ -191,10 +192,10 @@ class SearchStartBgTask extends AsyncTask<String, Void, String> {
                 txt.setText(answerMethod);
                 break;
             case "searchJob":
-                txt.setText("");
                 itemAdapter = new ItemAdapter(ctx, R.layout.row_layout);
-                listView = (ListView) rootView.findViewById(R.id.search_result_list1);
+                listView = (ListView) rootView.findViewById(R.id.search_result_list_tab1);
                 listView.setAdapter(itemAdapter);
+                itemAdapter.notifyDataSetChanged();
                 while (count < jsonArray.length()) {
                     try {
                         jsonObject = jsonArray.getJSONObject(count);

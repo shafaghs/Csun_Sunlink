@@ -29,13 +29,13 @@
                 android:layout_marginStart="2dp"
                 android:text="@string/login_username"
                 android:textColor="@color/black"
-                android:textSize="@dimen/textsize" />
+                android:textSize="@dimen/text_size" />
 
             <TextView
                 android:id="@+id/sign_in_error"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/red"
                 android:visibility="gone"/>
 
             <EditText
@@ -45,7 +45,7 @@
                 android:layout_marginBottom="5dp"
                 android:hint="@string/login_email"
                 android:inputType="textEmailAddress"
-                android:textSize="@dimen/textsize" />
+                android:textSize="@dimen/text_size" />
 
             <EditText
                 android:id="@+id/signin_password"
@@ -54,7 +54,7 @@
                 android:layout_marginBottom="15dp"
                 android:hint="@string/login_password"
                 android:inputType="textPassword"
-                android:textSize="@dimen/textsize" />
+                android:textSize="@dimen/text_size" />
 
             <Button
                 android:id="@+id/signin_signin"
