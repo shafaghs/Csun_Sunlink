@@ -1,16 +1,19 @@
 package com.csun_sunlink.csuncareercenter;
 
+
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.csun_sunlink.csuncareercenter.Profile.ProfileActivity;
+import com.csun_sunlink.csuncareercenter.Search.SearchStart;
 
 /**
  * Created by olgak on 11/21/16.
@@ -29,6 +32,7 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.Vi
         private String name;
         private int profile;        //int Resource for header view profile picture
         private String email;
+        Context context;
 
 
 
@@ -48,12 +52,13 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.Vi
             ImageView profile;
             TextView Name;
             TextView email;
-            Context contxt;
+
+            ItemClickListener clickListener;
 
 
             public ViewHolder(View itemView,int ViewType) {
                 super(itemView);
-
+                itemView.setOnClickListener(this);
                 if(ViewType == TYPE_ITEM) {
                     textView = (TextView) itemView.findViewById(R.id.rowText);
                     imageView = (ImageView) itemView.findViewById(R.id.rowIcon);
@@ -68,11 +73,12 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.Vi
                 }
             }
 
+            public void setClickListener(ItemClickListener itemClickListener) {
+                this.clickListener = itemClickListener;
+            }
             @Override
-            public void onClick(View v) {
-
-                Toast.makeText(contxt,"The Item Clicked is: "+getAdapterPosition(),Toast.LENGTH_SHORT).show();
-
+            public void onClick(View view) {
+                clickListener.onClick(view, getPosition(), false);
             }
 
         }
@@ -119,6 +125,29 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.Vi
                 holder.Name.setText(newName);
                 holder.email.setText(newEmail);
             }
+            holder.setClickListener(new ItemClickListener() {
+                @Override
+                public void onClick(View view, int position, boolean isLongClick) {
+                      switch (position) {
+                          case 1:
+                              Intent intent = new Intent(view.getContext(),HomePage.class);
+                              view.getContext().startActivity(intent);
+                              break;
+                          case 2:
+                              Intent intent2 = new Intent(view.getContext(),ProfileActivity.class);
+                              view.getContext().startActivity(intent2);
+                              break;
+                          case 3:
+                              Intent intent3 = new Intent(view.getContext(),SearchStart.class);
+                              view.getContext().startActivity(intent3);
+                              break;
+
+                          default:
+                              break;
+                      }
+
+                }
+            });
         }
 
         @Override
