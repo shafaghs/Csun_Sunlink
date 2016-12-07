@@ -153,7 +153,7 @@ class SearchDetailBgTask extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String finalResult) {
         TextView jobTitleTextView, companyNameTextView, positionTypeTextView, companyAddTextView,
                 postedDateTextView, jobDesTextView, jobDutiesTextView, essentialSkillsTextView, desiredSkillsTextView;
-        JSONObject jsonObj = null;
+        JSONObject jsonObj;
         JSONArray jsonArray;
         JSONObject jsonObject = null;
         String answerMethod = "empty";
@@ -180,12 +180,15 @@ class SearchDetailBgTask extends AsyncTask<String, Void, String> {
                 desiredSkillsTextView = (TextView) rootView.findViewById(R.id.search_detail_des_detail);
                 ImageView imageView = (ImageView) rootView.findViewById(R.id.company_logo);
                 try {
+                    assert jsonObject != null;
                     jobTitleTextView.setText(jsonObject.getString("job_title"));
                     companyNameTextView.setText(jsonObject.getString("company_name"));
                     positionTypeTextView.setText("part time");
                     companyAddTextView.setText(address);
-                    if (!differenceDate.equals("Today"))
-                        postedDateTextView.setText(differenceDate + "ays ago");
+                    if (!differenceDate.equals("Today")){
+                        String newDifferenceDate = differenceDate.replaceAll("[\\D]", "")+" days ago";
+                        postedDateTextView.setText(newDifferenceDate);
+                    }
                     else
                         postedDateTextView.setText(differenceDate);
                     jobDesTextView.setText(jsonObject.getString("job_summary"));
@@ -234,7 +237,6 @@ class SearchDetailBgTask extends AsyncTask<String, Void, String> {
                 }
                 break;
             case "deletedSuccessfully":
-                ;
                 saveJob.setText(R.string.save_to_favorit);
                 break;
             case "savedSuccessfully":
