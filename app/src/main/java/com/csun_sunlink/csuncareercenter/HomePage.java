@@ -28,7 +28,7 @@ import android.widget.Toast;
 import com.csun_sunlink.csuncareercenter.Fragments.HomePageEventListingFragment;
 import com.csun_sunlink.csuncareercenter.Fragments.HomePageJobListingFragment;
 import com.csun_sunlink.csuncareercenter.Profile.ProfileActivity;
-import com.csun_sunlink.csuncareercenter.Search.SearchStart;
+import com.csun_sunlink.csuncareercenter.Search.SearchStart2;
 
 /**
  * Created by olgak on 11/7/16.
@@ -68,15 +68,6 @@ public class HomePage extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        //Toolbar
-        //toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-
-        /*if(getSupportActionBar() != null){
-            getSupportActionBar().setHomeButtonEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }*/
-
         //Infosessions:
         mImageAdapter = new ImageAdapter(this);
         mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -98,7 +89,7 @@ public class HomePage extends AppCompatActivity{
         srchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),SearchStart.class);
+                Intent intent = new Intent(v.getContext(),SearchStart2.class);
                 startActivity(intent);
             }
         });

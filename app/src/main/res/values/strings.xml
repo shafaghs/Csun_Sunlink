@@ -2,11 +2,11 @@
     <string name="app_name">Csun Career Center</string>
     <string name="logIn">Sign In</string>
     <string name="signUp">Sign Up</string>
-    <string name="login_username">Enter your CSUN email address like example@my.csun.edu  and password to sign in</string>
+    <string name="login_username">Enter your CSUN email address like example@my.csun.edu  and password to sign in </string>
     <string name="login_email">example@my.csun.edu</string>
     <string name="login_password">Password</string>
     <string name="login_confirm_password">Confirm Password</string>
-    <string name="login_linkin">Sign in with linkin account</string>
+    <string name="login_linkin">Sign in with linkedIn account</string>
     <string name="login_facebook">Sign in with Facebook account</string>
     <string name="sign_up_username">Please enter your CSUN email address (like example@my.csun.edu) and contact the CSUN Career Center for your temporary login password.\nCareer Center hours: M–TH 9–5 F 9–4, (818)677–2878 (use 123 as password for test)</string>
     <string name="signup_linkin">Sign up with linkin account</string>
@@ -51,5 +51,14 @@
     <string name="password_length">New password should be at least 6 characters</string>
     <string name="fill_email_field">You should fill email address</string>
     <string name="fill_pass_field">You should fill password</string>
+    <string name="unsave_job">UnSave</string>
+    <string name="save_job">Save to Favorite</string>
+    <string name="company_logo">Company Logo</string>
+    <string name="title_activity_search_start_tab">SearchStartTab</string>
+    <string name="un_save">Unsave</string>
+    <string name="save_to_favorit">Save to Favorite</string>
+    <string name="title_activity_search_start1">Search</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 
 </resources>

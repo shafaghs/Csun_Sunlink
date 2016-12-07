@@ -11,7 +11,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    >
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -25,7 +26,8 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:id="@+id/company_logo"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:contentDescription="@string/company_logo" />
 
         <RelativeLayout
             style="@style/containerStyle"
@@ -41,7 +43,8 @@
                 android:gravity="start"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:textStyle="bold"
+                android:textSize="16.5dp"
+                android:theme="@style/titleText"
                 android:textColor="@color/black"/>
 
             <TextView
@@ -50,6 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/search_detail_job_title"
                 android:gravity="start"
+                android:textSize="16dp"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:textColor="@color/black"/>
@@ -60,6 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/search_detail_company_name"
                 android:gravity="start"
+                android:textSize="15.5dp"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:textColor="@color/black"/>
@@ -70,6 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/search_detail_position_type"
                 android:gravity="start"
+                android:textSize="15dp"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:textColor="@color/black"/>
@@ -80,6 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/search_detail_company_add"
                 android:gravity="start"
+                android:textSize="15dp"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:textColor="@color/black"/>
@@ -142,6 +149,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/search_detail_job_des_detail"
                 android:text="@string/job_duties"
+                android:theme="@style/titleText"
                 android:textColor="@color/black"/>
 
             <TextView
@@ -159,6 +167,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/search_detail_job_duty_detail"
                 android:text="@string/essential_skills"
+                android:theme="@style/titleText"
                 android:textColor="@color/black"/>
 
             <TextView
@@ -176,6 +185,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/search_detail_ess_detail"
                 android:text="@string/desired_skills"
+                android:theme="@style/titleText"
                 android:textColor="@color/black"/>
 
             <TextView

@@ -33,30 +33,30 @@
         </activity>
         <activity
             android:name=".SignUpContinue"
-            android:label="Sign Up">
-        </activity>
-
+            android:label="Sign Up"></activity>
         <activity
             android:name=".HomePage"
             android:label="Home Page">
-        </activity>
-        <activity
-            android:name=".Search.SearchStart"
-            android:label="Search">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".HomePage" />
         </activity>
         <activity
             android:name=".Search.SearchDetail"
             android:label="Search Detail">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Search.SearchStart" />
+                android:value=".Search.SearchStart2" />
         </activity>
         <activity
             android:name=".Profile.ProfileActivity"
             android:label="Profile Main">
+            android:label="Profile">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomePage" />
+        </activity>
+        <activity
+            android:name=".Search.SearchStart2"
+            android:label="@string/title_activity_search_start1"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HomePage" />
