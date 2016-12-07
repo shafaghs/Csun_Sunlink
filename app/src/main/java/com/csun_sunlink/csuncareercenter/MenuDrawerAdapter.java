@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.csun_sunlink.csuncareercenter.Profile.ProfileActivity;
-import com.csun_sunlink.csuncareercenter.Search.SearchStart;
+import com.csun_sunlink.csuncareercenter.Search.SearchStart2;
 
 /**
  * Created by olgak on 11/21/16.
@@ -138,7 +138,7 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.Vi
                               view.getContext().startActivity(intent2);
                               break;
                           case 3:
-                              Intent intent3 = new Intent(view.getContext(),SearchStart.class);
+                              Intent intent3 = new Intent(view.getContext(),SearchStart2.class);
                               view.getContext().startActivity(intent3);
                               break;
 
