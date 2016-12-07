@@ -134,7 +134,7 @@ class SearchStartBgTask extends AsyncTask<String, Void, String> {
         }
         switch (answerMethod) {
             case "savedJob":
-                txt.setText("&#8226;");
+                txt.setText("");
                 itemAdapter = new ItemAdapter(ctx, R.layout.row_layout);
                 listView = (ListView) rootView.findViewById(R.id.search_result_list_tab2);
                 listView.setAdapter(itemAdapter);
@@ -176,8 +176,12 @@ class SearchStartBgTask extends AsyncTask<String, Void, String> {
                         address.append(companyCountry).append(".");
 
                         String encodedImage = jsonObject.getString("company_logo");
-                        byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
-                        Bitmap companyLogo = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                        Bitmap companyLogo;
+                        if(!encodedImage.equals("noImage")){
+                            byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
+                            companyLogo = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                        }else
+                            companyLogo = null;
 
                         ItemInfo itemInfo = new ItemInfo(jobId, jobTitle, companyName, differenceDate,
                                 address.toString(), companyId, companyLogo);

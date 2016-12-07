@@ -56,7 +56,7 @@ public class SearchStart2 extends AppCompatActivity {
         if(viewPager.getCurrentItem()==0 && !searchKey.equals("")){
             method = "searchJob";
             SearchStartBgTask bgTask = new SearchStartBgTask(ctx, rootView);
-            bgTask.execute(method, userId);
+            bgTask.execute(method, searchKey);
         }
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -68,7 +68,7 @@ public class SearchStart2 extends AppCompatActivity {
                     if(!searchKey.equals("")){
                         method = "searchJob";
                         SearchStartBgTask bgTask = new SearchStartBgTask(ctx, rootView);
-                        bgTask.execute(method, userId);
+                        bgTask.execute(method, searchKey);
                     }
                 }
                 if(tab.getPosition()==1){
@@ -118,7 +118,7 @@ public class SearchStart2 extends AppCompatActivity {
             Log.w("onresume",searchKey);
             method = "searchJob";
             SearchStartBgTask bgTask = new SearchStartBgTask(ctx, rootView);
-            bgTask.execute(method, userId);
+            bgTask.execute(method, searchKey);
         }
     }
 
@@ -130,7 +130,7 @@ public class SearchStart2 extends AppCompatActivity {
         if(!searchKey.equals("")){
             method = "searchJob";
             SearchStartBgTask bgTask = new SearchStartBgTask(ctx, rootView);
-            bgTask.execute(method, userId);
+            bgTask.execute(method, searchKey);
         }
     }
 
@@ -142,7 +142,7 @@ public class SearchStart2 extends AppCompatActivity {
         if(!searchKey.equals("")){
             method = "searchJob";
             SearchStartBgTask bgTask = new SearchStartBgTask(ctx, rootView);
-            bgTask.execute(method, userId);
+            bgTask.execute(method, searchKey);
         }
     }
 }
