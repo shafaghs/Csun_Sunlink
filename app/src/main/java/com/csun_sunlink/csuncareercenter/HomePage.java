@@ -51,8 +51,8 @@ public class HomePage extends AppCompatActivity{
     ImageButton sttngButton;
 
     //Buttons for floating menus:
-    Button eventcategories;
-    Button jobcategories;
+    ImageButton eventcategories;
+    ImageButton jobcategories;
 
     //Drawer
     private Toolbar toolbar;
@@ -122,7 +122,7 @@ public class HomePage extends AppCompatActivity{
         });
 
         //Upcoming Events:
-        eventcategories = (Button)findViewById(R.id.eventsc_button);
+        eventcategories = (ImageButton)findViewById(R.id.eventsc_button);
         eventcategories.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,7 +134,7 @@ public class HomePage extends AppCompatActivity{
 
 
         //Job Posts:
-        jobcategories = (Button)findViewById(R.id.jobc_button);
+        jobcategories = (ImageButton)findViewById(R.id.jobc_button);
         jobcategories.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

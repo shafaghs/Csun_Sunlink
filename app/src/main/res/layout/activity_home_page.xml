@@ -94,14 +94,13 @@
                 android:layout_weight="5"
                 android:id="@+id/button" />
 
-            <Button
+            <ImageButton
                 android:layout_width="53dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/eventsc_button"
-                android:text="v"
-                android:textColor="@color/colorPrimaryLight"
+                android:src="@drawable/ic_more_vert_white_18dp"
                 android:background="@color/colorPrimary"
-                android:layout_gravity="right|bottom"
+                android:layout_gravity="right|center"
                 android:keepScreenOn="true" />
 
 
@@ -130,14 +129,13 @@
                 android:layout_weight="10"
                 android:text="Latest Job Posts" />
 
-            <Button
+            <ImageButton
                 android:layout_width="53dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/jobc_button"
-                android:text="v"
-                android:textColor="@color/colorPrimaryLight"
+                android:src="@drawable/ic_more_vert_white_18dp"
                 android:background="@color/colorPrimary"
-                android:layout_gravity="right|bottom"
+                android:layout_gravity="right|center"
                 android:onClick="showMenu" />
         </LinearLayout>
 

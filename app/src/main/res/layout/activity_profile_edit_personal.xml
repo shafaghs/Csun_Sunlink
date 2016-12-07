@@ -135,23 +135,46 @@
     </TableRow>
 
     <!-- Status -->
-    <TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <TextView
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:id="@+id/field_status"
             android:text="Status"
             android:textSize="14dp"
             android:layout_width="110dp"
             android:textColor="@color/black"
             android:paddingLeft="10dp" />
-        <!-- Add status menu choice -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_height="match_parent"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:paddingLeft="10dp"
+                android:id = "@+id/status_text_view"
+                android:layout_gravity="center_vertical"
+                android:textStyle="normal|bold"
+                android:layout_width="220dp" />
+            <Spinner
+                android:id="@+id/status_spinner"
+                android:layout_gravity="right"
+                android:layout_height="wrap_content"
+                android:layout_width="40dp">
+            </Spinner>
+
+        </LinearLayout>
+
 
     </TableRow>
 
     <!--Geo Pref -->
     <TableRow>
         <TextView
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:id="@+id/field_geopref"
             android:text="Geographical Preference"
             android:textSize="14dp"
@@ -159,13 +182,36 @@
             android:textColor="@color/black"
             android:paddingLeft="10dp" />
         <!-- Add here state choice -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="220dp"
+                android:layout_height="match_parent"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:paddingLeft="10dp"
+                android:id = "@+id/state_text_view"
+                android:layout_gravity="center_vertical"
+                android:textStyle="normal|bold"/>
+
+            <Spinner
+                android:id="@+id/state_spinner"
+                android:layout_gravity="right"
+                android:layout_height="wrap_content"
+                android:layout_width="40dp">
+            </Spinner>
+
+        </LinearLayout>
+
 
     </TableRow>
 
     <!--Work Authorization -->
     <TableRow>
         <TextView
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:id="@+id/work_authorization"
             android:text="Work Authorizarion"
             android:textSize="14dp"
@@ -173,16 +219,41 @@
             android:textColor="@color/black"
             android:paddingLeft="10dp" />
         <!-- addd choices here -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="220dp"
+                android:layout_height="match_parent"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:paddingLeft="10dp"
+                android:id = "@+id/work_auth_text_view"
+                android:layout_gravity="center_vertical"
+                android:textStyle="normal|bold"/>
+
+            <Spinner
+                android:id="@+id/workauth_spinner"
+                android:layout_gravity="right"
+                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                >
+            </Spinner>
+
+        </LinearLayout>
+
     </TableRow>
 
 </TableLayout>
 
     <Button
         android:id="@+id/save_personal"
+        style="@style/ButtonStyleFillIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAllCaps="false"
         android:gravity="center_horizontal|center_vertical"
-        android:background="@color/colorPrimaryDark"
         android:text="Save"
         android:textColor="@color/white"
         android:textAlignment="center"

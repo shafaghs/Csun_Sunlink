@@ -1,7 +1,9 @@
 package com.csun_sunlink.csuncareercenter.Profile;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
@@ -38,6 +40,10 @@ public class ProfileEditBgTask extends AsyncTask<String, Void, String> {
     String searchKey;
     UserPersonal currUser;
 
+    ProfileEditBgTask(Context ctx) {
+        this.ctx = ctx;
+    }
+
     @Override
     protected String doInBackground(String... params) {
         //PHP FILES
@@ -50,6 +56,8 @@ public class ProfileEditBgTask extends AsyncTask<String, Void, String> {
             case "editPersonalFragment":
 
                 try {
+
+                    //Get new ids for the personal info:
                     URL url = new URL(personaleditUrl);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestMethod("POST");
@@ -57,10 +65,12 @@ public class ProfileEditBgTask extends AsyncTask<String, Void, String> {
                     OutputStream os = urlConnection.getOutputStream();
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
                     String data =
+                            URLEncoder.encode("userID", "UTF-8") + "=" + URLEncoder.encode(currUser.getID(), "UTF-8") + "&" +
                             URLEncoder.encode("firstName", "UTF-8") + "=" + URLEncoder.encode(currUser.getFirstName(), "UTF-8") + "&" +
                             URLEncoder.encode("lastName", "UTF-8") + "=" + URLEncoder.encode(currUser.getLastName(), "UTF-8") + "&" +
-                            URLEncoder.encode("middleName", "UTF-8") + "=" + URLEncoder.encode(currUser.getMiddleName(), "UTF-8")+ "&" +
+                            URLEncoder.encode("middleName", "UTF-8") + "=" + URLEncoder.encode(currUser.getMiddleName(), "UTF-8") + "&" +
                             URLEncoder.encode("phone","UTF-8") + "= " + URLEncoder.encode(currUser.getPhone(), "UTF-8");
+                            //URLEncoder.encode("waTitle","UTF-8") + "= " + URLEncoder.encode(currUser.getWorkAuth(), "UTF-8");
                     bufferedWriter.write(data);
                     bufferedWriter.flush();
                     bufferedWriter.close();

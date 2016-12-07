@@ -1,7 +1,9 @@
 package com.csun_sunlink.csuncareercenter.Profile;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -36,6 +38,8 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
     String searchKey;
 
     UserPersonal currUser = new UserPersonal();
+        private String currID;
+
 
     //Strings for Personal:
     private String first = "null";
@@ -74,6 +78,9 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... params) {
+
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(ctx);
+        setUserID(pref.getString("user_id",""));
         //PHP FILEs
         final String personalUrl = "http://10.0.2.2/CsunSunlink/personalFragment.php";
         final String academicUrl = "http://10.0.2.2/CsunSunlink/academicFragment.php";
@@ -90,7 +97,9 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
                     httpURLConnection.setDoOutput(true);
                     OutputStream outputStream = httpURLConnection.getOutputStream();
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                    String data = URLEncoder.encode("academic", "UTF-8") + "=" + URLEncoder.encode(searchKey, "UTF-8");
+                    String data = URLEncoder.encode("userID", "UTF-8") + "=" + URLEncoder.encode(this.currID, "UTF-8") + "&" +
+                            URLEncoder.encode("academic", "UTF-8") + "=" + URLEncoder.encode(searchKey, "UTF-8");
+
                     bufferedWriter.write(data);
                     bufferedWriter.flush();
                     bufferedWriter.close();
@@ -120,7 +129,8 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
                     httpURLConnection.setDoOutput(true);
                     OutputStream outputStream = httpURLConnection.getOutputStream();
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                    String data = URLEncoder.encode("personal", "UTF-8") + "=" + URLEncoder.encode(searchKey, "UTF-8");
+                    String data = URLEncoder.encode("userID", "UTF-8") + "=" + URLEncoder.encode(this.currID, "UTF-8") + "&" +
+                            URLEncoder.encode("personal", "UTF-8") + "=" + URLEncoder.encode(searchKey, "UTF-8");
                     bufferedWriter.write(data);
                     bufferedWriter.flush();
                     bufferedWriter.close();
@@ -150,7 +160,8 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
                     httpURLConnection.setDoOutput(true);
                     OutputStream outputStream = httpURLConnection.getOutputStream();
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                    String data = URLEncoder.encode("professional", "UTF-8") + "=" + URLEncoder.encode(searchKey, "UTF-8");
+                    String data = URLEncoder.encode("userID", "UTF-8") + "=" + URLEncoder.encode(this.currID, "UTF-8") + "&" +
+                            URLEncoder.encode("professional", "UTF-8") + "=" + URLEncoder.encode(searchKey, "UTF-8");
                     bufferedWriter.write(data);
                     bufferedWriter.flush();
                     bufferedWriter.close();
@@ -456,5 +467,9 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
     //Methods to return UserPersonalinfo:
     public UserPersonal getUserPersonal(){
         return this.currUser;
+    }
+
+    public void setUserID(String newID) {
+        this.currID = newID;
     }
 }

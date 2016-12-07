@@ -1,8 +1,14 @@
 package com.csun_sunlink.csuncareercenter.Profile;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Parcelable;
+import android.widget.ArrayAdapter;
+
+import com.csun_sunlink.csuncareercenter.R;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by bigmatt76 on 11/30/16.
@@ -19,6 +25,9 @@ public class UserPersonal implements Serializable{
     private String status = " ";
     private String geopref = " ";
     private String workAuth = " ";
+
+    private Context context;
+
 
     public UserPersonal() {
 
@@ -94,6 +103,7 @@ public class UserPersonal implements Serializable{
     protected String getWorkAuth() {
         return this.workAuth;
     }
+
 
 }
 

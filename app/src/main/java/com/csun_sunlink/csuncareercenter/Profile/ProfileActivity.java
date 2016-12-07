@@ -2,7 +2,9 @@ package com.csun_sunlink.csuncareercenter.Profile;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -20,6 +22,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.csun_sunlink.csuncareercenter.MenuDrawerAdapter;
 import com.csun_sunlink.csuncareercenter.R;
@@ -30,6 +33,7 @@ import com.csun_sunlink.csuncareercenter.R;
 
 public class ProfileActivity extends AppCompatActivity {
 
+    String currID;
     //Fragments
     FragmentTransaction transaction;
     ProfilePersonalFragment personalF;
@@ -63,6 +67,17 @@ public class ProfileActivity extends AppCompatActivity {
         transaction.add(R.id.professional_frame_layout, profF, "Professsional");
         transaction.commit();
 
+        //TOP BAR:
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        String fName = pref.getString("first_name","");
+        String lName = pref.getString("family_name","");
+        String name = fName + " " +lName;
+        String email = pref.getString("user_email","");
+        currID = pref.getString("user_id","");
+        TextView newName = (TextView) findViewById(R.id.header_name_profile);
+        newName.setText(name);
+        TextView newEmail = (TextView) findViewById(R.id.header_degree_profile);
+        newEmail.setText(email);
         //Edit Buttons:
 
         //Profile:
@@ -98,7 +113,9 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void editPersonal() {
+
         currPersonal = personalF.getUserCurr();
+        currPersonal.setUserID(currID);
         Intent intent = new Intent(ProfileActivity.this, PersonalEditActivity.class);
        // Bundle mBundle = new Bundle();
         //mBundle.putSerializable(SER_KEY, currPersonal);
