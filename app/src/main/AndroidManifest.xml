@@ -61,14 +61,6 @@
                 android:value=".HomePage" />
         </activity>
         <activity
-            android:name=".Search.SearchStartTab"
-            android:label="@string/title_activity_search_start_tab"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".HomePage" />
-        </activity>
-        <activity
             android:name=".Profile.PersonalEditActivity"
             android:label="Profile Edit">
             <meta-data
