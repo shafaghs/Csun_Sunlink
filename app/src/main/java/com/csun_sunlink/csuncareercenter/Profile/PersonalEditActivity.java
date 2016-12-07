@@ -36,6 +36,7 @@ public class PersonalEditActivity extends AppCompatActivity implements AdapterVi
     EditText fName;
     EditText mName;
     EditText lName;
+    EditText nEmail;
     EditText phone;
     EditText address;
     TextView geoNew;
@@ -68,10 +69,14 @@ public class PersonalEditActivity extends AppCompatActivity implements AdapterVi
         lName = (EditText) findViewById(R.id.edit_lastname_field);
         lName.setText(currUser.getLastName(), TextView.BufferType.EDITABLE);
 
+        //Email
+        nEmail= (EditText) findViewById(R.id.edit_email_field);
+        nEmail.setText(currUser.getEmail(), TextView.BufferType.EDITABLE);
+
         //Phone:
         phone = (EditText) findViewById(R.id.edit_phone_field);
         phone.setText(currUser.getPhone(), TextView.BufferType.EDITABLE);
-        mName = (EditText) findViewById(R.id.edit_middlename_field);
+
 
         //Address:
         address = (EditText) findViewById(R.id.edit_address_field);
@@ -137,7 +142,7 @@ public class PersonalEditActivity extends AppCompatActivity implements AdapterVi
         currUser.setLastName(lName.getText().toString());
         currUser.setPhone(phone.getText().toString());
         currUser.setAddress(address.getText().toString());
-
+        currUser.setEmail(nEmail.getText().toString());
         ProfileEditBgTask bgTask = new ProfileEditBgTask(ctx);
         bgTask.setUser(currUser);
         bgTask.execute("editPersonalFragment");

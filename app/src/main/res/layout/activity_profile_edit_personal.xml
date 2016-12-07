@@ -87,6 +87,28 @@
             android:layout_gravity="center_vertical"
             android:textStyle="normal|bold" />
     </TableRow>
+    <!-- Email -->
+    <TableRow>
+        <TextView
+            android:layout_height="wrap_content"
+            android:id="@+id/field_email"
+            android:text="Phone"
+            android:textSize="14dp"
+            android:layout_width="110dp"
+            android:textColor="@color/black"
+            android:paddingLeft="10dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="sub"
+            android:textSize="14dp"
+            android:paddingLeft="10dp"
+            android:id = "@+id/edit_email_field"
+            android:layout_gravity="center_vertical"
+            android:textStyle="normal|bold" />
+    </TableRow>
 
     <!-- Phone -->
     <TableRow>
