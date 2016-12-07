@@ -45,7 +45,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginStart="2dp"
                 android:text="@string/sign_up_username"
-                android:textSize="@dimen/textsize" />
+                android:textSize="@dimen/text_size" />
 
             <TextView
                 android:id="@+id/sign_up_email_error"
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/red"
-                android:textSize="@dimen/textsize"
+                android:textSize="@dimen/text_size"
                 android:visibility="gone"/>
 
             <EditText
@@ -63,7 +63,7 @@
                 android:layout_marginBottom="5dp"
                 android:hint="@string/login_email"
                 android:inputType="textEmailAddress"
-                android:textSize="@dimen/textsize" />
+                android:textSize="@dimen/text_size" />
 
             <TextView
                 android:id="@+id/sign_up_password_error"
@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/red"
-                android:textSize="@dimen/textsize"
+                android:textSize="@dimen/text_size"
                 android:visibility="gone"/>
 
             <EditText
@@ -81,7 +81,7 @@
                 android:layout_marginBottom="15dp"
                 android:hint="@string/login_password"
                 android:inputType="textPassword"
-                android:textSize="@dimen/textsize" />
+                android:textSize="@dimen/text_size" />
 
             <Button
                 android:id="@+id/sign_up_submit"
