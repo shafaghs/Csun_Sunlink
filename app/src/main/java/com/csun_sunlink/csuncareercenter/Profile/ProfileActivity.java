@@ -37,7 +37,10 @@ public class ProfileActivity extends AppCompatActivity {
     //Fragments
     FragmentTransaction transaction;
     ProfilePersonalFragment personalF;
+    ProfileProfessionalFragment profF;
+
     UserPersonal currPersonal;
+    UserProfessional currPF;
 
     //Buttons:
     Button edit;
@@ -57,7 +60,7 @@ public class ProfileActivity extends AppCompatActivity {
         //Fragments:
         personalF = new ProfilePersonalFragment();
         ProfileAcademicFragment academicF = new ProfileAcademicFragment();
-        ProfileProfessionalFragment profF = new ProfileProfessionalFragment();
+        profF = new ProfileProfessionalFragment();
 
         FragmentManager manager=getSupportFragmentManager();//create an instance of fragment manager
         transaction=manager.beginTransaction();//create an instance of Fragment-transaction
@@ -117,9 +120,17 @@ public class ProfileActivity extends AppCompatActivity {
         currPersonal = personalF.getUserCurr();
         currPersonal.setUserID(currID);
         Intent intent = new Intent(ProfileActivity.this, PersonalEditActivity.class);
-       // Bundle mBundle = new Bundle();
-        //mBundle.putSerializable(SER_KEY, currPersonal);
         intent.putExtra("user", currPersonal);
+        startActivity(intent);
+
+    }
+
+    public void editProfessional() {
+
+        currPF = profF.getUserCurrPF();
+        currPF.setUserID(currID);
+        Intent intent = new Intent(ProfileActivity.this, ProfessionalEditActivity.class);
+        intent.putExtra("user", currPF);
         startActivity(intent);
 
     }
@@ -133,6 +144,9 @@ public class ProfileActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.pmenu_personal:
                         editPersonal();
+                        return true;
+                    case R.id.pmenu_professional:
+                        editProfessional();
                         return true;
                     default:
                         return false;

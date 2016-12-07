@@ -38,6 +38,7 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
     String searchKey;
 
     UserPersonal currUser = new UserPersonal();
+    UserProfessional currPF = new UserProfessional();
         private String currID;
 
 
@@ -288,8 +289,7 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
 
                     while (count < jsonArray.length()) {
                         JSONObject jsonObject = jsonArray.getJSONObject(count);
-                        //ID:
-                        //currUser.setUserID(jsonObject.getString("user_id"));
+
 
                         //Name:
                         currUser.setFirstName(jsonObject.getString("first_name"));
@@ -353,47 +353,25 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
                     while (count < jsonArray.length()) {
                         JSONObject jsonObject = jsonArray.getJSONObject(count);
                         //Personal Statement:
-                        if (jsonObject.getString("statement") != "null"){
-                            this.pStatement = jsonObject.getString("statement");
-                            ProfileInfo newInfo = new ProfileInfo("Personal Statement", this.pStatement);
-                            itemAdapter.add(newInfo);
-                        }
-                        else {
-                            ProfileInfo newInfo = new ProfileInfo("Personal Statement ", " ");
-                            itemAdapter.add(newInfo);
-                        }
+                        currPF.setPS(jsonObject.getString("statement"));
+                        ProfileInfo newperstmt = new ProfileInfo("Personal Statement ", currPF.getPS());
+                        itemAdapter.add(newperstmt);
+
+
                         //Experience:
-                        if (jsonObject.getString("experience") != "null") {
-                            this.experience= jsonObject.getString("experience");
-                            ProfileInfo newInfo = new ProfileInfo("Experience", this.experience);
-                            itemAdapter.add(newInfo);
-                        }
-                        else {
-                            ProfileInfo newInfo = new ProfileInfo("Experience ", " ");
-                            itemAdapter.add(newInfo);
-                        }
+                        currPF.setEXP(jsonObject.getString("experience"));
+                        ProfileInfo exps = new ProfileInfo("Experience ", currPF.getEXP());
+                        itemAdapter.add(exps);
 
                         //Skills:
-                        if (jsonObject.getString("skills") != "null") {
-                            this.skills = jsonObject.getString("skills");
-                            ProfileInfo newInfo = new ProfileInfo("Skills ", this.skills);
-                            itemAdapter.add(newInfo);
-                        }
-                        else {
-                            ProfileInfo newInfo = new ProfileInfo("Skills ", " ");
-                            itemAdapter.add(newInfo);
-                        }
+                        currPF.setSkills(jsonObject.getString("skills"));
+                        ProfileInfo skill = new ProfileInfo("Skills ", currPF.getSkills());
+                        itemAdapter.add(skills);
 
                         //Projects:
-                        if (jsonObject.getString("projects") != "null") {
-                            this.projects = jsonObject.getString("projects");
-                            ProfileInfo newInfo = new ProfileInfo("Projects ", this.projects);
-                            itemAdapter.add(newInfo);
-                        }
-                        else {
-                            ProfileInfo newInfo = new ProfileInfo("Projects ", " ");
-                            itemAdapter.add(newInfo);
-                        }
+                        currPF.setProjects(jsonObject.getString("projects"));
+                        ProfileInfo pr = new ProfileInfo("Projects ", currPF.getProjects());
+                        itemAdapter.add(pr);
 
                         count++;
                     }
@@ -467,6 +445,10 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
     //Methods to return UserPersonalinfo:
     public UserPersonal getUserPersonal(){
         return this.currUser;
+    }
+
+    public UserProfessional getUserProfessional() {
+        return this.currPF;
     }
 
     public void setUserID(String newID) {

@@ -68,6 +68,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Profile.ProfileActivity"/>
         </activity>
+        <activity
+            android:name=".Profile.ProfessionalEditActivity"
+            android:label="Profile Edit">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Profile.ProfileActivity"/>
+        </activity>
     </application>
 
 </manifest>
