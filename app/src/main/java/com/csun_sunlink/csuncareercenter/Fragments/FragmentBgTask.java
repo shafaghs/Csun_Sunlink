@@ -1,14 +1,11 @@
 package com.csun_sunlink.csuncareercenter.Fragments;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ListView;
 import com.csun_sunlink.csuncareercenter.R;
 import com.csun_sunlink.csuncareercenter.Search.ItemAdapter;
@@ -24,13 +21,12 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class FragmentBgTask extends AsyncTask<String, Void, String> {
+class FragmentBgTask extends AsyncTask<String, Void, String> {
     private Context ctx;
     private View rootView;
     private ListView listView;
@@ -123,7 +119,6 @@ public class FragmentBgTask extends AsyncTask<String, Void, String> {
                         int count = 0;
                         ItemAdapter itemAdapter;
                         itemAdapter = new ItemAdapter(ctx, R.layout.row_layout);
-                        //listView = (ListView) rootView.findViewById(R.id.job_listing_fragment);
                         listView.setAdapter(itemAdapter);
                         while (count < jsonArray.length()) {
                             jsonObject = jsonArray.getJSONObject(count);
@@ -145,7 +140,7 @@ public class FragmentBgTask extends AsyncTask<String, Void, String> {
                             if (diffInDays == 0)
                                 differenceDate = "Today";
                             else
-                                differenceDate = Integer.toString(diffInDays) + " d ago";
+                                differenceDate = Integer.toString(diffInDays) + "d ago";
 
                             companyName = jsonObject.getString("company_name");
                             companyCityName = jsonObject.getString("city_name");
