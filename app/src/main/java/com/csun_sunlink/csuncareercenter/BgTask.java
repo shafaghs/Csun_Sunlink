@@ -26,7 +26,7 @@ import org.json.JSONObject;
 class BgTask extends AsyncTask<String, Void, String> {
     private Context ctx;
     private View rootView;
-    private String userEmail;
+    private String userEmail,userPass,firstName,familyName,middleName;
 
     BgTask(Context ctx, View rootView) {
         this.ctx = ctx;
@@ -38,13 +38,14 @@ class BgTask extends AsyncTask<String, Void, String> {
         final String signUpUrl = "http://10.0.2.2/CsunSunlink/signUp.php";
         final String registerUrl = "http://10.0.2.2/CsunSunlink/register.php";
         final String loginUrl = "http://10.0.2.2/CsunSunlink/login.php";
-        String method, userPass;
+        String method;
         String result;
 
         method = params[0];
         switch (method) {
             case "signUp":
                 userEmail = params[1];
+                userPass = params[2];
                 try {
                     URL url = new URL(signUpUrl);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -74,6 +75,9 @@ class BgTask extends AsyncTask<String, Void, String> {
             case "register":
                 userEmail = params[1];
                 userPass = params[2];
+                firstName = params[3];
+                familyName = params[4];
+                middleName = params[5];
                 try {
                     URL url = new URL(registerUrl);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -84,6 +88,9 @@ class BgTask extends AsyncTask<String, Void, String> {
                     String date = (DateFormat.format("dd-MM-yyyy hh:mm:ss", new java.util.Date()).toString());
                     String data = URLEncoder.encode("userEmail", "UTF-8") + "=" + URLEncoder.encode(userEmail, "UTF-8") + "&" +
                             URLEncoder.encode("userPass", "UTF-8") + "=" + URLEncoder.encode(userPass, "UTF-8") + "&" +
+                            URLEncoder.encode("firstName", "UTF-8") + "=" + URLEncoder.encode(firstName, "UTF-8") + "&" +
+                            URLEncoder.encode("familyName", "UTF-8") + "=" + URLEncoder.encode(familyName, "UTF-8") + "&" +
+                            URLEncoder.encode("middleName", "UTF-8") + "=" + URLEncoder.encode(middleName, "UTF-8") + "&" +
                             URLEncoder.encode("date", "UTF-8") + "=" + URLEncoder.encode(date, "UTF-8");
                     bufferedWriter.write(data);
                     bufferedWriter.flush();
@@ -163,6 +170,7 @@ class BgTask extends AsyncTask<String, Void, String> {
             case "validEmail":
                 intent = new Intent(ctx, SignUpContinue.class);
                 intent.putExtra("EmailAddress", userEmail);
+                intent.putExtra("Password",userPass);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 ctx.startActivity(intent);
                 break;
