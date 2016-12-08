@@ -69,8 +69,17 @@ public class SearchDetail extends AppCompatActivity {
         saveJob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!userId.equals("")){
-
+                if (!userId.equals("") && !jobId.equals("")) {
+                    if (saveJob.getText().toString().equals("Save to Favorite")) {
+                        method = "saveJob";
+                        SearchDetailBgTask bgTask = new SearchDetailBgTask(ctx, rootView);
+                        bgTask.execute(method,jobId,userId);
+                    }
+                    if (saveJob.getText().toString().equals("Unsave")) {
+                        method = "unSaveJob";
+                        SearchDetailBgTask bgTask = new SearchDetailBgTask(ctx, rootView);
+                        bgTask.execute(method,jobId,userId);
+                    }
                 }
             }
         });
@@ -82,9 +91,10 @@ public class SearchDetail extends AppCompatActivity {
             }
         });
 
-        if (!jobId.equals("")) {
+        if (!jobId.equals("") && !userId.equals("")) {
+            method = "showJobDetail";
             SearchDetailBgTask bgTask = new SearchDetailBgTask(ctx, rootView);
-            bgTask.execute(jobId,address,differenceDate,companyId);
+            bgTask.execute(method, jobId, userId, address, differenceDate);
         }
 
         //DRAWER:
