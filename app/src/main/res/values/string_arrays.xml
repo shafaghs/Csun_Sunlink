@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="status">
+        <item> </item>
+        <item>Seeking Employment</item>
+        <item>Not Seeking Employment</item>
+    </string-array>
+
+    <string-array name="states">
+        <item> </item>
+        <item>All States</item>
+        <item>Alabama</item>
+        <item>Alaska </item>
+        <item>Arizona</item>
+        <item>Arkansas</item>
+        <item>California </item>
+        <item>Colorado </item>
+        <item>Connecticut </item>
+        <item>Delaware </item>
+        <item>Florida </item>
+        <item>Georgia </item>
+        <item>California </item>
+        <item>Hawaii</item>
+    </string-array>
+
+    <string-array name="work_auth_array">
+        <item> </item>
+        <item>US Citizen</item>
+        <item>1-766(Dream Act)</item>
+        <item>Permanent Resident</item>
+        <item>F-1 (student visa)</item>
+        <item>H-1 Visa</item>
+    </string-array>
+
+</resources>

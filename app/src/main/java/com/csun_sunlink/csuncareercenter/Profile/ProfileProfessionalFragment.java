@@ -18,6 +18,7 @@ public class ProfileProfessionalFragment extends Fragment {
 
     private View rootView;
     private Context ctx;
+    protected UserProfessional userCurr;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -28,7 +29,10 @@ public class ProfileProfessionalFragment extends Fragment {
 
         ProfileBgTask bgTask = new ProfileBgTask(ctx, listView);
         bgTask.execute("professionalFragment");
-
+        userCurr = bgTask.getUserProfessional();
         return view;
+    }
+    public UserProfessional getUserCurrPF(){
+        return this.userCurr;
     }
 }

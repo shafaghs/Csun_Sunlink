@@ -2,7 +2,9 @@ package com.csun_sunlink.csuncareercenter.Profile;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,10 +16,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.csun_sunlink.csuncareercenter.MenuDrawerAdapter;
 import com.csun_sunlink.csuncareercenter.R;
@@ -28,10 +33,14 @@ import com.csun_sunlink.csuncareercenter.R;
 
 public class ProfileActivity extends AppCompatActivity {
 
+    String currID;
     //Fragments
     FragmentTransaction transaction;
     ProfilePersonalFragment personalF;
+    ProfileProfessionalFragment profF;
+
     UserPersonal currPersonal;
+    UserProfessional currPF;
 
     //Buttons:
     Button edit;
@@ -42,11 +51,6 @@ public class ProfileActivity extends AppCompatActivity {
     RecyclerView.Adapter mAdapter;
     RecyclerView.LayoutManager mLayoutManager;
     DrawerLayout Drawer;
-    ActionBarDrawerToggle mDrawerToggle;
-
-    //KEYs for Serializable:
-    //public final static String SER_KEY= "personal";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +60,7 @@ public class ProfileActivity extends AppCompatActivity {
         //Fragments:
         personalF = new ProfilePersonalFragment();
         ProfileAcademicFragment academicF = new ProfileAcademicFragment();
-        ProfileProfessionalFragment profF = new ProfileProfessionalFragment();
+        profF = new ProfileProfessionalFragment();
 
         FragmentManager manager=getSupportFragmentManager();//create an instance of fragment manager
         transaction=manager.beginTransaction();//create an instance of Fragment-transaction
@@ -66,6 +70,17 @@ public class ProfileActivity extends AppCompatActivity {
         transaction.add(R.id.professional_frame_layout, profF, "Professsional");
         transaction.commit();
 
+        //TOP BAR:
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        String fName = pref.getString("first_name","");
+        String lName = pref.getString("family_name","");
+        String name = fName + " " +lName;
+        String email = pref.getString("user_email","");
+        currID = pref.getString("user_id","");
+        TextView newName = (TextView) findViewById(R.id.header_name_profile);
+        newName.setText(name);
+        TextView newEmail = (TextView) findViewById(R.id.header_degree_profile);
+        newEmail.setText(email);
         //Edit Buttons:
 
         //Profile:
@@ -81,7 +96,6 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
 
-
         //DRAWER:
         mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView);
         mRecyclerView.setHasFixedSize(true);
@@ -90,25 +104,6 @@ public class ProfileActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         Drawer = (DrawerLayout) findViewById(R.id.DrawerLayout);
-        mDrawerToggle = new ActionBarDrawerToggle(this,Drawer,toolbar, R.string.openDrawer,
-                R.string.closeDrawer){
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-                // Code here will execute once drawer is closed
-            }
-
-
-
-        }; // Drawer Toggle Object Made
-        Drawer.addDrawerListener(mDrawerToggle); // Drawer Listener set to the Drawer toggle
-        mDrawerToggle.syncState();               // Finally we set the drawer toggle sync State
 
 
     }
@@ -121,11 +116,21 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void editPersonal() {
+
         currPersonal = personalF.getUserCurr();
+        currPersonal.setUserID(currID);
         Intent intent = new Intent(ProfileActivity.this, PersonalEditActivity.class);
-       // Bundle mBundle = new Bundle();
-        //mBundle.putSerializable(SER_KEY, currPersonal);
         intent.putExtra("user", currPersonal);
+        startActivity(intent);
+
+    }
+
+    public void editProfessional() {
+
+        currPF = profF.getUserCurrPF();
+        currPF.setUserID(currID);
+        Intent intent = new Intent(ProfileActivity.this, ProfessionalEditActivity.class);
+        intent.putExtra("user", currPF);
         startActivity(intent);
 
     }
@@ -140,6 +145,9 @@ public class ProfileActivity extends AppCompatActivity {
                     case R.id.pmenu_personal:
                         editPersonal();
                         return true;
+                    case R.id.pmenu_professional:
+                        editProfessional();
+                        return true;
                     default:
                         return false;
                 }
@@ -147,5 +155,31 @@ public class ProfileActivity extends AppCompatActivity {
         });
         popup.show();
     }
+
+    //Toolbar Drawer Button:
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.drawer_b:
+                if(Drawer.isDrawerOpen(Gravity.LEFT))
+                    Drawer.closeDrawers();
+                else
+                    Drawer.openDrawer(Gravity.LEFT);
+
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
 }

@@ -1,5 +1,8 @@
 package com.csun_sunlink.csuncareercenter;
 
+
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,12 +12,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.csun_sunlink.csuncareercenter.Profile.ProfileActivity;
+import com.csun_sunlink.csuncareercenter.Search.SearchStart2;
+
 /**
  * Created by olgak on 11/21/16.
  * used to populated side menu adapter
  */
 
-public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.ViewHolder> {
+public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.ViewHolder>  {
 
         //Variables:
         private static final int TYPE_HEADER = 0;
@@ -26,6 +32,8 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.Vi
         private String name;
         private int profile;        //int Resource for header view profile picture
         private String email;
+        Context context;
+
 
 
 
@@ -37,7 +45,7 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.Vi
     int newProfile = R.drawable.defaultpicture;
 
 
-        public static class ViewHolder extends RecyclerView.ViewHolder {
+        public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
             int Holderid;
             TextView textView;
             ImageView imageView;
@@ -45,10 +53,12 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.Vi
             TextView Name;
             TextView email;
 
+            ItemClickListener clickListener;
+
 
             public ViewHolder(View itemView,int ViewType) {
                 super(itemView);
-
+                itemView.setOnClickListener(this);
                 if(ViewType == TYPE_ITEM) {
                     textView = (TextView) itemView.findViewById(R.id.rowText);
                     imageView = (ImageView) itemView.findViewById(R.id.rowIcon);
@@ -63,6 +73,13 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.Vi
                 }
             }
 
+            public void setClickListener(ItemClickListener itemClickListener) {
+                this.clickListener = itemClickListener;
+            }
+            @Override
+            public void onClick(View view) {
+                clickListener.onClick(view, getPosition(), false);
+            }
 
         }
 
@@ -108,6 +125,29 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.Vi
                 holder.Name.setText(newName);
                 holder.email.setText(newEmail);
             }
+            holder.setClickListener(new ItemClickListener() {
+                @Override
+                public void onClick(View view, int position, boolean isLongClick) {
+                      switch (position) {
+                          case 1:
+                              Intent intent = new Intent(view.getContext(),HomePage.class);
+                              view.getContext().startActivity(intent);
+                              break;
+                          case 2:
+                              Intent intent2 = new Intent(view.getContext(),ProfileActivity.class);
+                              view.getContext().startActivity(intent2);
+                              break;
+                          case 3:
+                              Intent intent3 = new Intent(view.getContext(),SearchStart2.class);
+                              view.getContext().startActivity(intent3);
+                              break;
+
+                          default:
+                              break;
+                      }
+
+                }
+            });
         }
 
         @Override
@@ -126,5 +166,7 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.Vi
         private boolean isPositionHeader(int position) {
             return position == 0;
         }
+
+
 
     }

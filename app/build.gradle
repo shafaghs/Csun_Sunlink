@@ -29,4 +29,5 @@ dependencies {
     compile 'joda-time:joda-time:2.9.6'
     compile project(':circleimageview-1.2.1')
     compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:recyclerview-v7:22+'
 }

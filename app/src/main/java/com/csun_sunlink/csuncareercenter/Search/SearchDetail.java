@@ -10,6 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,7 +23,7 @@ import com.csun_sunlink.csuncareercenter.R;
 public class SearchDetail extends AppCompatActivity {
     private TextView jobTitle, companyName, positionType, companyAdd, postedDate, jobDes, jobDuties, essentialSkills, desiredSkills;
     private Button saveJob, applyJob;
-    String jobId, address, method, differenceDate;
+    String jobId, address,method, differenceDate;
     private View rootView;
     private Context ctx;
     private String companyId;
@@ -53,7 +56,7 @@ public class SearchDetail extends AppCompatActivity {
         applyJob = (Button) findViewById(R.id.search_detail_apply_button);
 
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        final String userId = pref.getString("user_id", "");
+        final String userId = pref.getString("user_id","");
 
         jobId = getIntent().getExtras().getString("jobId");
         address = getIntent().getExtras().getString("address");
@@ -66,17 +69,8 @@ public class SearchDetail extends AppCompatActivity {
         saveJob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!userId.equals("") && !jobId.equals("")) {
-                    if (saveJob.getText().toString().equals("Save to Favorite")) {
-                        method = "saveJob";
-                        SearchDetailBgTask bgTask = new SearchDetailBgTask(ctx, rootView);
-                        bgTask.execute(method,jobId,userId);
-                    }
-                    if (saveJob.getText().toString().equals("Unsave")) {
-                        method = "unSaveJob";
-                        SearchDetailBgTask bgTask = new SearchDetailBgTask(ctx, rootView);
-                        bgTask.execute(method,jobId,userId);
-                    }
+                if(!userId.equals("")){
+
                 }
             }
         });
@@ -88,10 +82,9 @@ public class SearchDetail extends AppCompatActivity {
             }
         });
 
-        if (!jobId.equals("") && !userId.equals("")) {
-            method = "showJobDetail";
+        if (!jobId.equals("")) {
             SearchDetailBgTask bgTask = new SearchDetailBgTask(ctx, rootView);
-            bgTask.execute(method, jobId, userId, address, differenceDate);
+            bgTask.execute(jobId,address,differenceDate,companyId);
         }
 
         //DRAWER:
@@ -102,23 +95,29 @@ public class SearchDetail extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         Drawer = (DrawerLayout) findViewById(R.id.DrawerLayout);
-        mDrawerToggle = new ActionBarDrawerToggle(this, Drawer, toolbar, R.string.openDrawer,
-                R.string.closeDrawer) {
+     }
+    //Toolbar Drawer Button:
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
 
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-            }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.drawer_b:
+                if(Drawer.isDrawerOpen(Gravity.LEFT))
+                    Drawer.closeDrawers();
+                else
+                    Drawer.openDrawer(Gravity.LEFT);
 
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-                // Code here will execute once drawer is closed
-            }
+                return true;
 
-
-        }; // Drawer Toggle Object Made
-        Drawer.addDrawerListener(mDrawerToggle); // Drawer Listener set to the Drawer toggle
-        mDrawerToggle.syncState();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

@@ -1,7 +1,9 @@
 package com.csun_sunlink.csuncareercenter.Profile;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -36,6 +38,9 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
     String searchKey;
 
     UserPersonal currUser = new UserPersonal();
+    UserProfessional currPF = new UserProfessional();
+        private String currID;
+
 
     //Strings for Personal:
     private String first = "null";
@@ -74,6 +79,9 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... params) {
+
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(ctx);
+        setUserID(pref.getString("user_id",""));
         //PHP FILEs
         final String personalUrl = "http://10.0.2.2/CsunSunlink/personalFragment.php";
         final String academicUrl = "http://10.0.2.2/CsunSunlink/academicFragment.php";
@@ -90,7 +98,9 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
                     httpURLConnection.setDoOutput(true);
                     OutputStream outputStream = httpURLConnection.getOutputStream();
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                    String data = URLEncoder.encode("academic", "UTF-8") + "=" + URLEncoder.encode(searchKey, "UTF-8");
+                    String data = URLEncoder.encode("userID", "UTF-8") + "=" + URLEncoder.encode(this.currID, "UTF-8") + "&" +
+                            URLEncoder.encode("academic", "UTF-8") + "=" + URLEncoder.encode(searchKey, "UTF-8");
+
                     bufferedWriter.write(data);
                     bufferedWriter.flush();
                     bufferedWriter.close();
@@ -120,7 +130,8 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
                     httpURLConnection.setDoOutput(true);
                     OutputStream outputStream = httpURLConnection.getOutputStream();
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                    String data = URLEncoder.encode("personal", "UTF-8") + "=" + URLEncoder.encode(searchKey, "UTF-8");
+                    String data = URLEncoder.encode("userID", "UTF-8") + "=" + URLEncoder.encode(this.currID, "UTF-8") + "&" +
+                            URLEncoder.encode("personal", "UTF-8") + "=" + URLEncoder.encode(searchKey, "UTF-8");
                     bufferedWriter.write(data);
                     bufferedWriter.flush();
                     bufferedWriter.close();
@@ -150,7 +161,8 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
                     httpURLConnection.setDoOutput(true);
                     OutputStream outputStream = httpURLConnection.getOutputStream();
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                    String data = URLEncoder.encode("professional", "UTF-8") + "=" + URLEncoder.encode(searchKey, "UTF-8");
+                    String data = URLEncoder.encode("userID", "UTF-8") + "=" + URLEncoder.encode(this.currID, "UTF-8") + "&" +
+                            URLEncoder.encode("professional", "UTF-8") + "=" + URLEncoder.encode(searchKey, "UTF-8");
                     bufferedWriter.write(data);
                     bufferedWriter.flush();
                     bufferedWriter.close();
@@ -277,8 +289,7 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
 
                     while (count < jsonArray.length()) {
                         JSONObject jsonObject = jsonArray.getJSONObject(count);
-                        //ID:
-                        //currUser.setUserID(jsonObject.getString("user_id"));
+
 
                         //Name:
                         currUser.setFirstName(jsonObject.getString("first_name"));
@@ -342,47 +353,25 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
                     while (count < jsonArray.length()) {
                         JSONObject jsonObject = jsonArray.getJSONObject(count);
                         //Personal Statement:
-                        if (jsonObject.getString("statement") != "null"){
-                            this.pStatement = jsonObject.getString("statement");
-                            ProfileInfo newInfo = new ProfileInfo("Personal Statement", this.pStatement);
-                            itemAdapter.add(newInfo);
-                        }
-                        else {
-                            ProfileInfo newInfo = new ProfileInfo("Personal Statement ", " ");
-                            itemAdapter.add(newInfo);
-                        }
+                        currPF.setPS(jsonObject.getString("statement"));
+                        ProfileInfo newperstmt = new ProfileInfo("Personal Statement ", currPF.getPS());
+                        itemAdapter.add(newperstmt);
+
+
                         //Experience:
-                        if (jsonObject.getString("experience") != "null") {
-                            this.experience= jsonObject.getString("experience");
-                            ProfileInfo newInfo = new ProfileInfo("Experience", this.experience);
-                            itemAdapter.add(newInfo);
-                        }
-                        else {
-                            ProfileInfo newInfo = new ProfileInfo("Experience ", " ");
-                            itemAdapter.add(newInfo);
-                        }
+                        currPF.setEXP(jsonObject.getString("experience"));
+                        ProfileInfo exps = new ProfileInfo("Experience ", currPF.getEXP());
+                        itemAdapter.add(exps);
 
                         //Skills:
-                        if (jsonObject.getString("skills") != "null") {
-                            this.skills = jsonObject.getString("skills");
-                            ProfileInfo newInfo = new ProfileInfo("Skills ", this.skills);
-                            itemAdapter.add(newInfo);
-                        }
-                        else {
-                            ProfileInfo newInfo = new ProfileInfo("Skills ", " ");
-                            itemAdapter.add(newInfo);
-                        }
+                        currPF.setSkills(jsonObject.getString("skills"));
+                        ProfileInfo skill = new ProfileInfo("Skills ", currPF.getSkills());
+                        itemAdapter.add(skills);
 
                         //Projects:
-                        if (jsonObject.getString("projects") != "null") {
-                            this.projects = jsonObject.getString("projects");
-                            ProfileInfo newInfo = new ProfileInfo("Projects ", this.projects);
-                            itemAdapter.add(newInfo);
-                        }
-                        else {
-                            ProfileInfo newInfo = new ProfileInfo("Projects ", " ");
-                            itemAdapter.add(newInfo);
-                        }
+                        currPF.setProjects(jsonObject.getString("projects"));
+                        ProfileInfo pr = new ProfileInfo("Projects ", currPF.getProjects());
+                        itemAdapter.add(pr);
 
                         count++;
                     }
@@ -456,5 +445,13 @@ public class ProfileBgTask extends AsyncTask<String, Void, String> {
     //Methods to return UserPersonalinfo:
     public UserPersonal getUserPersonal(){
         return this.currUser;
+    }
+
+    public UserProfessional getUserProfessional() {
+        return this.currPF;
+    }
+
+    public void setUserID(String newID) {
+        this.currID = newID;
     }
 }

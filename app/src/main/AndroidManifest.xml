@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.csun_sunlink.csuncareercenter">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -36,7 +36,8 @@
             android:label="Sign Up"></activity>
         <activity
             android:name=".HomePage"
-            android:label="Home Page"></activity>
+            android:label="Home Page">
+        </activity>
         <activity
             android:name=".Search.SearchDetail"
             android:label="Search Detail">
@@ -61,15 +62,14 @@
                 android:value=".HomePage" />
         </activity>
         <activity
-            android:name=".Search.SearchStartTab"
-            android:label="@string/title_activity_search_start_tab"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".Profile.PersonalEditActivity"
+            android:label="Profile Edit">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".HomePage" />
+                android:value=".Profile.ProfileActivity"/>
         </activity>
         <activity
-            android:name=".Profile.PersonalEditActivity"
+            android:name=".Profile.ProfessionalEditActivity"
             android:label="Profile Edit">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
