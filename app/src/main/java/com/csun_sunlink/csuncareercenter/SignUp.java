@@ -12,8 +12,8 @@ import java.util.regex.Pattern;
 
 public class SignUp extends AppCompatActivity {
     private EditText signUpEmail,signUpPassword;
-    private TextView signUpEmailError,signUpPasswordError;
-    String signUpEmailText,signUpPasswordText,method="";
+    private TextView signUpEmailError,signUpPasswordError,signUpConfirmPassword;
+    String signUpEmailText,signUpPasswordText,signUpConfirmPasswordText,method="";
     private Context ctx;
     private View rootView;
 
@@ -33,6 +33,7 @@ public class SignUp extends AppCompatActivity {
 
         signUpEmail = (EditText) findViewById(R.id.sign_up_email);
         signUpPassword = (EditText) findViewById(R.id.sign_up_password);
+        signUpConfirmPassword = (EditText) findViewById(R.id.sign_up_confirm_password);
         signUpEmailError = (TextView) findViewById(R.id.sign_up_email_error);
         signUpPasswordError = (TextView) findViewById(R.id.sign_up_password_error);
 
@@ -44,41 +45,43 @@ public class SignUp extends AppCompatActivity {
                 pattern = Pattern.compile(EMAIL_PATTERN);
                 signUpEmailText = signUpEmail.getText().toString().trim();
                 signUpPasswordText = signUpPassword.getText().toString().trim();
-                if(signUpEmailText.equals("") && signUpPasswordText.equals("")){
-                    signUpEmailError.setVisibility(View.VISIBLE);
-                    signUpEmailError.setText(R.string.empty_email_error_message);
-                    signUpEmail.setBackgroundResource(R.drawable.error);
+                signUpConfirmPasswordText = signUpConfirmPassword.getText().toString().trim();
+
+                if(signUpPasswordText.equals("")){
                     signUpPasswordError.setVisibility(View.VISIBLE);
                     signUpPasswordError.setText(R.string.empty_password_error_message);
                     signUpPassword.setBackgroundResource(R.drawable.error);
                 }
-                else if(signUpEmailText.equals("")){
-                    signUpEmailError.setVisibility(View.VISIBLE);
-                    signUpEmailError.setText(R.string.empty_email_error_message);
-                    signUpEmail.setBackgroundResource(R.drawable.error);
-                }
-                else if(signUpPasswordText.equals("")){
+
+                if(signUpConfirmPasswordText.equals("")){
                     signUpPasswordError.setVisibility(View.VISIBLE);
                     signUpPasswordError.setText(R.string.empty_password_error_message);
-                    signUpPassword.setBackgroundResource(R.drawable.error);
+                    signUpConfirmPassword.setBackgroundResource(R.drawable.error);
                 }
+
+                if(signUpEmailText.equals("")){
+                    signUpEmailError.setVisibility(View.VISIBLE);
+                    signUpEmailError.setText(R.string.empty_email_error_message);
+                    signUpEmail.setBackgroundResource(R.drawable.error);}
                 else if(!checkFormat(signUpEmailText)){
                     signUpEmailError.setVisibility(View.VISIBLE);
                     signUpEmailError.setText(R.string.email_format_error);
-                    signUpEmail.setBackgroundResource(R.drawable.error);
+                    signUpEmail.setBackgroundResource(R.drawable.error);}
+                else if(!signUpPasswordText.equals("") && !signUpConfirmPasswordText.equals("") &&
+                        !signUpEmailText.equals("")){
+                    if(signUpPasswordText.equals(signUpConfirmPasswordText)){
+                        signUpEmail.setBackgroundResource(R.drawable.normal);
+                        signUpPassword.setBackgroundResource(R.drawable.normal);
+                        method = "signUp";
+                        BgTask bgTask = new BgTask(ctx,rootView);
+                        bgTask.execute(method,signUpEmailText,signUpPasswordText);
+                    }
+                    else{
+                        signUpPasswordError.setVisibility(View.VISIBLE);
+                        signUpPasswordError.setText(R.string.same_value);
+                    }
                 }
-                else if (!signUpPasswordText.equals("123")){
-                    signUpPasswordError.setVisibility(View.VISIBLE);
-                    signUpPasswordError.setText(R.string.password_incorrect_error);
-                    signUpPassword.setBackgroundResource(R.drawable.error);
-                }
-                else{
-                    signUpEmail.setBackgroundResource(R.drawable.normal);
-                    signUpPassword.setBackgroundResource(R.drawable.normal);
-                    method = "signUp";
-                    BgTask bgTask = new BgTask(ctx,rootView);
-                    bgTask.execute(method,signUpEmailText);
-                }
+
             }
         });
     }

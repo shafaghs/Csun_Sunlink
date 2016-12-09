@@ -21,6 +21,13 @@ import android.view.View;
 import com.csun_sunlink.csuncareercenter.MenuDrawerAdapter;
 import com.csun_sunlink.csuncareercenter.R;
 
+import static android.graphics.Color.BLACK;
+import static android.graphics.Color.BLUE;
+import static android.graphics.Color.GRAY;
+import static android.graphics.Color.RED;
+import static android.graphics.Color.WHITE;
+import static android.graphics.Color.YELLOW;
+
 public class SearchStart2 extends AppCompatActivity {
 
     private static String userId;
@@ -61,6 +68,7 @@ public class SearchStart2 extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Saved Jobs"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setSelectedTabIndicatorHeight(10);
+        tabLayout.setTabTextColors(BLUE,WHITE);
 
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);

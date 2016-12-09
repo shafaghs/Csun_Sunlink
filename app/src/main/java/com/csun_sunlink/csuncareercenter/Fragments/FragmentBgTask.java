@@ -115,7 +115,7 @@ class FragmentBgTask extends AsyncTask<String, Void, String> {
                 case "jobListing":
                     try {
                         String companyCityName, companyState, companyCountry, jobId;
-                        String jobTitle, postedDate, companyName, differenceDate, companyId;
+                        String jobTitle, postedDate, companyName, differenceDate, companyId,companyUrl;
                         int count = 0;
                         ItemAdapter itemAdapter;
                         itemAdapter = new ItemAdapter(ctx, R.layout.row_layout);
@@ -146,6 +146,8 @@ class FragmentBgTask extends AsyncTask<String, Void, String> {
                             companyCityName = jsonObject.getString("city_name");
                             companyState = jsonObject.getString("state_name");
                             companyCountry = jsonObject.getString("country_name");
+                            companyUrl = jsonObject.getString("company_url");
+
                             jobId = jsonObject.getString("job_id");
                             StringBuilder address = new StringBuilder();
                             address.append(companyCityName).append(",");
@@ -153,11 +155,12 @@ class FragmentBgTask extends AsyncTask<String, Void, String> {
                                 address.append(companyState).append(",");
 
                             }
-                            address.append("\n").append(companyCountry).append(".");
+                            address.append(companyCountry).append(".");
                             String encodedImage= jsonObject.getString("company_logo");
                             byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
                             Bitmap companyLogo = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                            ItemInfo itemInfo = new ItemInfo(jobId, jobTitle, companyName, differenceDate, address.toString(), companyId,companyLogo);
+                            ItemInfo itemInfo = new ItemInfo(jobId, jobTitle, companyName, differenceDate,
+                                    address.toString(), companyId,companyLogo,companyUrl);
                             itemAdapter.add(itemInfo);
                             count++;
                         }

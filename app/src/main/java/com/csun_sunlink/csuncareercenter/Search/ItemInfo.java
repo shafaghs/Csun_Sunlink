@@ -5,11 +5,11 @@ import android.graphics.Bitmap;
 public class ItemInfo {
 
     private String jobTitle,jobDuties,jobSummary,essentialSkills,postedDate,companyName,
-            companyAddress,jobId,companyId;
+            companyAddress,jobId,companyId,companyUrl;
     private Bitmap companyLogo;
 
     public ItemInfo(String mJobId, String mJobTitle, String mCompanyName, String mPostedDate,
-                    String mCompanyAddress,String companyId,Bitmap companyLogo) {
+                    String mCompanyAddress,String companyId,Bitmap companyLogo,String companyUrl) {
         this.jobId = mJobId;
         this.jobTitle = mJobTitle;
         this.companyName = mCompanyName;
@@ -17,6 +17,7 @@ public class ItemInfo {
         this.companyAddress = mCompanyAddress;
         this.companyId=companyId;
         this.companyLogo=companyLogo;
+        this.companyUrl=companyUrl;
     }
 
     Bitmap getCompanyLogo() {
@@ -25,6 +26,10 @@ public class ItemInfo {
 
     String getCompanyId() {
         return companyId;
+    }
+
+    String getCompanyUrl() {
+        return companyUrl;
     }
 
     String getJobId() {

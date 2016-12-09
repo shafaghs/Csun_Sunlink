@@ -113,7 +113,7 @@ class SearchStartBgTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String finalResult) {
-        String companyCityName, companyState, companyCountry, jobId;
+        String companyCityName, companyState, companyCountry, jobId, companyUrl;
         String jobTitle, postedDate, companyName, companyId;
         ListView listView;
         String differenceDate;
@@ -168,6 +168,8 @@ class SearchStartBgTask extends AsyncTask<String, Void, String> {
                         companyCountry = jsonObject.getString("country_name");
                         jobId = jsonObject.getString("job_id");
                         companyId = jsonObject.getString("company_id");
+                        companyUrl = jsonObject.getString("company_url");
+
                         StringBuilder address = new StringBuilder();
                         address.append(companyCityName).append(",");
                         if (!companyState.equals("null")) {
@@ -184,7 +186,7 @@ class SearchStartBgTask extends AsyncTask<String, Void, String> {
                             companyLogo = null;
 
                         ItemInfo itemInfo = new ItemInfo(jobId, jobTitle, companyName, differenceDate,
-                                address.toString(), companyId, companyLogo);
+                                address.toString(), companyId, companyLogo,companyUrl);
                         itemAdapter.add(itemInfo);
                         count++;
                     } catch (JSONException e) {
@@ -229,6 +231,7 @@ class SearchStartBgTask extends AsyncTask<String, Void, String> {
                         companyCountry = jsonObject.getString("country_name");
                         jobId = jsonObject.getString("job_id");
                         companyId = jsonObject.getString("company_id");
+                        companyUrl = jsonObject.getString("company_url");
                         StringBuilder address = new StringBuilder();
                         address.append(companyCityName).append(",");
                         if (!companyState.equals("null")) {
@@ -241,7 +244,7 @@ class SearchStartBgTask extends AsyncTask<String, Void, String> {
                         Bitmap companyLogo = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
                         ItemInfo itemInfo = new ItemInfo(jobId, jobTitle, companyName, differenceDate,
-                                address.toString(), companyId, companyLogo);
+                                address.toString(), companyId, companyLogo,companyUrl);
                         itemAdapter.add(itemInfo);
                         count++;
                     } catch (JSONException e) {

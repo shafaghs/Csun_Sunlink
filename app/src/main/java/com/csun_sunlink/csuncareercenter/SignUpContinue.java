@@ -9,9 +9,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class SignUpContinue extends AppCompatActivity {
-    String signUpPasswordText,signUpConfirmPasswordText,signUpEmailText;
+    String firstNameText, familyNameText, middleNameText;
+    String signUpEmailText, signUpPasswordText;
     TextView error;
-    EditText signUpPassword,signUpConfirmPassword;
+    EditText firstName, familyName, middleName;
     private Context ctx;
     private View rootView;
 
@@ -26,34 +27,35 @@ public class SignUpContinue extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
 
         TextView email = (TextView) findViewById(R.id.sign_up_con_email);
-        if(extras != null){
+        if (extras != null) {
             email.setText(extras.getString("EmailAddress"));
             signUpEmailText = extras.getString("EmailAddress");
+            signUpPasswordText = extras.getString("Password");
         }
 
         Button submitButton = (Button) findViewById(R.id.sign_up_con_submit);
-        signUpPassword = (EditText) findViewById(R.id.sign_up_con_password);
-        signUpConfirmPassword = (EditText) findViewById(R.id.sign_up_con_confirm_password);
+        firstName = (EditText) findViewById(R.id.sign_up_con_first_name);
+        familyName = (EditText) findViewById(R.id.sign_up_con_family_name);
+        middleName = (EditText) findViewById(R.id.sign_up_con_middle_name);
         error = (TextView) findViewById(R.id.sign_up_con_error);
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signUpPasswordText = signUpPassword.getText().toString().trim();
-                signUpConfirmPasswordText = signUpConfirmPassword.getText().toString().trim();
-                if(signUpPasswordText.equals("") || signUpConfirmPasswordText.equals("")){
+                firstNameText = firstName.getText().toString().trim();
+                familyNameText = familyName.getText().toString().trim();
+                middleNameText = middleName.getText().toString().trim();
+
+                if (firstNameText.equals("") || familyNameText.equals("")) {
                     error.setVisibility(View.VISIBLE);
-                    error.setText(R.string.Both_filled);
-                }else if(!signUpPasswordText.equals(signUpConfirmPasswordText)){
-                    error.setVisibility(View.VISIBLE);
-                    error.setText(R.string.same_value);
-                }else if(signUpPasswordText.length() != 6 || signUpConfirmPasswordText.length() !=6){
-                    error.setVisibility(View.VISIBLE);
-                    error.setText(R.string.password_length);
-                }else{
+                    error.setText("Fields with * should be filled.");
+                } else {
+                    if(middleNameText.equals("")){
+                        middleNameText = "0";
+                    }
                     String method = "register";
-                    BgTask bgTask = new BgTask(ctx,rootView);
-                    bgTask.execute(method,signUpEmailText,signUpPasswordText);
+                    BgTask bgTask = new BgTask(ctx, rootView);
+                    bgTask.execute(method, signUpEmailText, signUpPasswordText,firstNameText,familyNameText,middleNameText);
                 }
             }
         });

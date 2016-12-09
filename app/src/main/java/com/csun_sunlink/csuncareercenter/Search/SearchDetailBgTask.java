@@ -183,7 +183,7 @@ class SearchDetailBgTask extends AsyncTask<String, Void, String> {
                     assert jsonObject != null;
                     jobTitleTextView.setText(jsonObject.getString("job_title"));
                     companyNameTextView.setText(jsonObject.getString("company_name"));
-                    positionTypeTextView.setText("part time");
+                    positionTypeTextView.setText("Full time");
                     companyAddTextView.setText(address);
                     if (!differenceDate.equals("Today")){
                         String newDifferenceDate = differenceDate.replaceAll("[\\D]", "")+" days ago";
@@ -192,7 +192,6 @@ class SearchDetailBgTask extends AsyncTask<String, Void, String> {
                     else
                         postedDateTextView.setText(differenceDate);
                     jobDesTextView.setText(jsonObject.getString("job_summary"));
-
 
                     String duty = jsonObject.getString("job_duties");
                     if (!duty.equals("0")) {
@@ -217,7 +216,6 @@ class SearchDetailBgTask extends AsyncTask<String, Void, String> {
                         desiredSkillsTextView.setVisibility(View.VISIBLE);
                         desiredSkillsTextView.setText(replacedDesiredSkills);
                     }
-
 
                     String savedJob = jsonObject.getString("saved_job");
                     if (savedJob.equals("alreadySaved")) {
