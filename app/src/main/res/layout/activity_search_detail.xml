@@ -107,7 +107,7 @@
                     android:textAllCaps="false"
                     android:textSize="14sp"
                     android:layout_marginStart="5dp"
-                    style="@style/ButtonStyleFillIn"/>
+                    style="@style/ButtonStyleEmptyIn"/>
 
                 <Button
                     android:id="@+id/search_detail_apply_button"

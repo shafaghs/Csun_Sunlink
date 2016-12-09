@@ -112,9 +112,14 @@ public class SearchStart2 extends AppCompatActivity {
         });
 
         searchView = (SearchView) findViewById(R.id.search_start_searchView);
+        searchView.setIconifiedByDefault(true);
+        searchView.setSubmitButtonEnabled(true);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextChange(String newText) {
+            public boolean onQueryTextChange(String newText) {return false;}
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
                 String method = "searchJob";
                 searchKey = searchView.getQuery().toString();
                 SharedPreferences.Editor editor = pref.edit();
@@ -123,11 +128,6 @@ public class SearchStart2 extends AppCompatActivity {
                 SearchStartBgTask bgTask = new SearchStartBgTask(ctx, rootView);
                 bgTask.execute(method, searchKey);
                 return false;
-            }
-
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return true;
             }
         });
 

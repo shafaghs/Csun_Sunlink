@@ -3,7 +3,11 @@ package com.csun_sunlink.csuncareercenter.Search;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +37,7 @@ import java.util.Calendar;
 class SearchStartBgTask extends AsyncTask<String, Void, String> {
     private Context ctx;
     private View rootView;
+    private String searchKey;
 
     SearchStartBgTask(Context ctx, View rootView) {
         this.ctx = ctx;
@@ -43,7 +48,7 @@ class SearchStartBgTask extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
         final String searchUrl = "http://10.0.2.2/CsunSunlink/search.php";
         final String savedJobUrl = "http://10.0.2.2/CsunSunlink/savedJob.php";
-        String method, userId, searchKey, result;
+        String method, userId, result;
         method = params[0];
         switch (method) {
             case "showSavedJob":
@@ -124,6 +129,7 @@ class SearchStartBgTask extends AsyncTask<String, Void, String> {
         ItemAdapter itemAdapter;
         int count = 0;
         TextView txt = (TextView) rootView.findViewById(R.id.section_label_tab2);
+        TextView txt1 = (TextView) rootView.findViewById(R.id.section_label_tab1);
         try {
             jsonObj = new JSONObject(finalResult);
             jsonArray = jsonObj.getJSONArray("server_res");
@@ -198,6 +204,14 @@ class SearchStartBgTask extends AsyncTask<String, Void, String> {
                 txt.setText(answerMethod);
                 break;
             case "searchJob":
+                String text = "Search result for: "+searchKey;
+                int searchKeyLength = searchKey.length();
+                int start = 19;
+                int end = 19+searchKeyLength;
+                Spannable WordtoSpan = new SpannableString(text);
+                int color = ctx.getResources().getColor(R.color.colorAccent);
+                WordtoSpan.setSpan(new ForegroundColorSpan(color), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                txt1.setText(WordtoSpan);
                 itemAdapter = new ItemAdapter(ctx, R.layout.row_layout);
                 listView = (ListView) rootView.findViewById(R.id.search_result_list_tab1);
                 listView.setAdapter(itemAdapter);
