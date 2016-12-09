@@ -36,6 +36,8 @@ public class TabFragment2 extends Fragment {
                 bundle.putString("address", address);
                 String postedDate = ((TextView) view.findViewById(R.id.search_posted_date)).getText().toString();
                 bundle.putString("postedDate", postedDate);
+                String companyUrl = ((TextView) view.findViewById(R.id.search_company_url)).getText().toString();
+                bundle.putString("companyUrl", companyUrl);
                 Intent intent = new Intent(ctx, SearchDetail.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
