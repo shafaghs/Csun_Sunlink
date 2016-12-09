@@ -149,7 +149,9 @@ class BgTask extends AsyncTask<String, Void, String> {
         Intent intent;
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(ctx.getApplicationContext());
         SharedPreferences.Editor editor = pref.edit();
-        String method = "empty", firstName, familyName,email,userId;
+        editor.clear();
+        editor.apply();
+        String method = "empty",email,userId;
         JSONObject jsonObj;
         JSONObject jsonObject=null;
         JSONArray jsonArray;
@@ -175,8 +177,18 @@ class BgTask extends AsyncTask<String, Void, String> {
                 ctx.startActivity(intent);
                 break;
             case "registeredSuccessfully":
+                try {
+                    userId=jsonObject.getString("user_id");
+                    editor.putString("user_id", userId);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 intent = new Intent(ctx, HomePage.class);
                 intent.putExtra("EmailAddress", userEmail);
+                editor.putString("user_email", userEmail);
+                editor.putString("first_name", firstName);
+                editor.putString("family_name", familyName);
+                editor.apply();
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 ctx.startActivity(intent);
                 break;
@@ -197,6 +209,7 @@ class BgTask extends AsyncTask<String, Void, String> {
                     editor.putString("first_name", firstName);
                     editor.putString("family_name", familyName);
                     editor.putString("user_id", userId);
+                    editor.apply();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
