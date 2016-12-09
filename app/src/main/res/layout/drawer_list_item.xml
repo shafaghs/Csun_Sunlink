@@ -4,7 +4,7 @@
     android:paddingTop="3dp"
     android:paddingBottom="3dp"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/colorPrimary"
     android:orientation="horizontal">
 
 

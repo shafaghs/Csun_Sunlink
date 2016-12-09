@@ -79,6 +79,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Profile.ProfileActivity"/>
         </activity>
+        <activity android:name=".EventDetail"
+            android:label="Event Detail">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomePage" />
+
+        </activity>
     </application>
 
 </manifest>
