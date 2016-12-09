@@ -3,7 +3,7 @@ package com.csun_sunlink.csuncareercenter;
 import android.view.View;
 
 /**
- * Created by bigmatt76 on 12/5/16.
+ * Created by olgak on 12/5/16.
  */
 
 public interface ItemClickListener {

@@ -4,7 +4,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/jobopp"
+    android:background="@drawable/career1"
     tools:context="com.csun_sunlink.csuncareercenter.MainActivity"
     android:layout_gravity="bottom"
     android:gravity="bottom"

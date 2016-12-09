@@ -33,13 +33,14 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.Vi
         private int profile;        //int Resource for header view profile picture
         private String email;
         Context context;
+    SharedPreferences pref;
 
 
 
 
-    String titles[] = {"Home","Profile","Search","My Career Center","Resources","Settings"};
+    String titles[] = {"Home","Profile","Search","My Career Center","Resources","Settings", "Log Out"};
     //Testing Purposes:
-        int icons[] = {R.drawable.ic_home_white_48dp,R.drawable.ic_person_white_48dp,R.drawable.ic_search_white_48dp,R.drawable.ic_business_center_white_48dp,R.drawable.ic_library_books_white_48dp, R.drawable.ic_settings_white_48dp};
+        int icons[] = {R.drawable.icon_home,R.drawable.icon_profile,R.drawable.icon_search,R.drawable.icon_career_center,R.drawable.icon_resource, R.drawable.icon_setting, R.drawable.icon_exit};
     String newName;
     String newEmail;
     int newProfile = R.drawable.default_profile;
@@ -92,7 +93,7 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.Vi
 
         @Override
         public MenuDrawerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(parent.getContext());
+            pref = PreferenceManager.getDefaultSharedPreferences(parent.getContext());
             String fName = pref.getString("first_name","");
             String lName = pref.getString("family_name","");
             String name = fName + " " +lName;
@@ -141,6 +142,11 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.Vi
                               Intent intent3 = new Intent(view.getContext(),SearchStart2.class);
                               view.getContext().startActivity(intent3);
                               break;
+                          case 7:
+                              logout(view);
+                              Intent intent7 = new Intent(view.getContext(), MainActivity.class);
+                              view.getContext().startActivity(intent7);
+                              break;
 
                           default:
                               break;
@@ -163,10 +169,15 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.Vi
             return TYPE_ITEM;
         }
 
-        private boolean isPositionHeader(int position) {
+    private boolean isPositionHeader(int position) {
             return position == 0;
         }
 
+    public  void logout(View view){
 
+            SharedPreferences.Editor editor = pref.edit();
+            editor.clear();
+            editor.commit();
+    }
 
     }
