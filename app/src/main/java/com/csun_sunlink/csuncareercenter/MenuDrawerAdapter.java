@@ -42,7 +42,7 @@ public class MenuDrawerAdapter extends RecyclerView.Adapter<MenuDrawerAdapter.Vi
         int icons[] = {R.drawable.ic_home_white_48dp,R.drawable.ic_person_white_48dp,R.drawable.ic_search_white_48dp,R.drawable.ic_business_center_white_48dp,R.drawable.ic_library_books_white_48dp, R.drawable.ic_settings_white_48dp};
     String newName;
     String newEmail;
-    int newProfile = R.drawable.defaultpicture;
+    int newProfile = R.drawable.default_profile;
 
 
         public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
