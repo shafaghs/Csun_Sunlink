@@ -21,6 +21,13 @@ import android.view.View;
 import com.csun_sunlink.csuncareercenter.MenuDrawerAdapter;
 import com.csun_sunlink.csuncareercenter.R;
 
+import static android.graphics.Color.BLACK;
+import static android.graphics.Color.BLUE;
+import static android.graphics.Color.GRAY;
+import static android.graphics.Color.RED;
+import static android.graphics.Color.WHITE;
+import static android.graphics.Color.YELLOW;
+
 public class SearchStart2 extends AppCompatActivity {
 
     private static String userId;
@@ -61,6 +68,7 @@ public class SearchStart2 extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Saved Jobs"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setSelectedTabIndicatorHeight(10);
+        tabLayout.setTabTextColors(BLUE,WHITE);
 
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
@@ -70,7 +78,7 @@ public class SearchStart2 extends AppCompatActivity {
         if(viewPager.getCurrentItem()==0 && !searchKey.equals("")){
             method = "searchJob";
             SearchStartBgTask bgTask = new SearchStartBgTask(ctx, rootView);
-            bgTask.execute(method, userId);
+            bgTask.execute(method, searchKey);
         }
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -82,7 +90,7 @@ public class SearchStart2 extends AppCompatActivity {
                     if(!searchKey.equals("")){
                         method = "searchJob";
                         SearchStartBgTask bgTask = new SearchStartBgTask(ctx, rootView);
-                        bgTask.execute(method, userId);
+                        bgTask.execute(method, searchKey);
                     }
                 }
                 if(tab.getPosition()==1){
@@ -142,7 +150,7 @@ public class SearchStart2 extends AppCompatActivity {
             Log.w("onresume",searchKey);
             method = "searchJob";
             SearchStartBgTask bgTask = new SearchStartBgTask(ctx, rootView);
-            bgTask.execute(method, userId);
+            bgTask.execute(method, searchKey);
         }
     }
 
@@ -154,7 +162,7 @@ public class SearchStart2 extends AppCompatActivity {
         if(!searchKey.equals("")){
             method = "searchJob";
             SearchStartBgTask bgTask = new SearchStartBgTask(ctx, rootView);
-            bgTask.execute(method, userId);
+            bgTask.execute(method, searchKey);
         }
     }
 
@@ -166,7 +174,7 @@ public class SearchStart2 extends AppCompatActivity {
         if(!searchKey.equals("")){
             method = "searchJob";
             SearchStartBgTask bgTask = new SearchStartBgTask(ctx, rootView);
-            bgTask.execute(method, userId);
+            bgTask.execute(method, searchKey);
         }
     }
 

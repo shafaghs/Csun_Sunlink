@@ -1,7 +1,9 @@
 package com.csun_sunlink.csuncareercenter.Search;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
@@ -23,7 +25,7 @@ import com.csun_sunlink.csuncareercenter.R;
 public class SearchDetail extends AppCompatActivity {
     private TextView jobTitle, companyName, positionType, companyAdd, postedDate, jobDes, jobDuties, essentialSkills, desiredSkills;
     private Button saveJob, applyJob;
-    String jobId, address,method, differenceDate;
+    String jobId, address, method, differenceDate, companyUrl;
     private View rootView;
     private Context ctx;
     private String companyId;
@@ -56,12 +58,13 @@ public class SearchDetail extends AppCompatActivity {
         applyJob = (Button) findViewById(R.id.search_detail_apply_button);
 
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        final String userId = pref.getString("user_id","");
+        final String userId = pref.getString("user_id", "");
 
         jobId = getIntent().getExtras().getString("jobId");
         address = getIntent().getExtras().getString("address");
         differenceDate = getIntent().getExtras().getString("postedDate");
         companyId = getIntent().getExtras().getString("companyId");
+        companyUrl = getIntent().getExtras().getString("companyUrl");
 
         rootView = findViewById(android.R.id.content);
         ctx = this.getApplicationContext();
@@ -69,8 +72,17 @@ public class SearchDetail extends AppCompatActivity {
         saveJob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!userId.equals("")){
-
+                if (!userId.equals("") && !jobId.equals("")) {
+                    if (saveJob.getText().toString().equals("Save to Favorite")) {
+                        method = "saveJob";
+                        SearchDetailBgTask bgTask = new SearchDetailBgTask(ctx, rootView);
+                        bgTask.execute(method, jobId, userId);
+                    }
+                    if (saveJob.getText().toString().equals("Unsave")) {
+                        method = "unSaveJob";
+                        SearchDetailBgTask bgTask = new SearchDetailBgTask(ctx, rootView);
+                        bgTask.execute(method, jobId, userId);
+                    }
                 }
             }
         });
@@ -78,13 +90,18 @@ public class SearchDetail extends AppCompatActivity {
         applyJob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (!companyUrl.equals("")) {
+                    Uri uri = Uri.parse(companyUrl); // missing 'http://' will cause crashed
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+                }
             }
         });
 
-        if (!jobId.equals("")) {
+        if (!jobId.equals("") && !userId.equals("")) {
+            method = "showJobDetail";
             SearchDetailBgTask bgTask = new SearchDetailBgTask(ctx, rootView);
-            bgTask.execute(jobId,address,differenceDate,companyId);
+            bgTask.execute(method, jobId, userId, address, differenceDate);
         }
 
         //DRAWER:
@@ -95,7 +112,8 @@ public class SearchDetail extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         Drawer = (DrawerLayout) findViewById(R.id.DrawerLayout);
-     }
+    }
+
     //Toolbar Drawer Button:
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -109,7 +127,7 @@ public class SearchDetail extends AppCompatActivity {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.drawer_b:
-                if(Drawer.isDrawerOpen(Gravity.LEFT))
+                if (Drawer.isDrawerOpen(Gravity.LEFT))
                     Drawer.closeDrawers();
                 else
                     Drawer.openDrawer(Gravity.LEFT);

@@ -113,7 +113,7 @@ class SearchStartBgTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String finalResult) {
-        String companyCityName, companyState, companyCountry, jobId;
+        String companyCityName, companyState, companyCountry, jobId, companyUrl;
         String jobTitle, postedDate, companyName, companyId;
         ListView listView;
         String differenceDate;
@@ -134,7 +134,7 @@ class SearchStartBgTask extends AsyncTask<String, Void, String> {
         }
         switch (answerMethod) {
             case "savedJob":
-                txt.setText("&#8226;");
+                txt.setText("");
                 itemAdapter = new ItemAdapter(ctx, R.layout.row_layout);
                 listView = (ListView) rootView.findViewById(R.id.search_result_list_tab2);
                 listView.setAdapter(itemAdapter);
@@ -168,6 +168,8 @@ class SearchStartBgTask extends AsyncTask<String, Void, String> {
                         companyCountry = jsonObject.getString("country_name");
                         jobId = jsonObject.getString("job_id");
                         companyId = jsonObject.getString("company_id");
+                        companyUrl = jsonObject.getString("company_url");
+
                         StringBuilder address = new StringBuilder();
                         address.append(companyCityName).append(",");
                         if (!companyState.equals("null")) {
@@ -176,11 +178,15 @@ class SearchStartBgTask extends AsyncTask<String, Void, String> {
                         address.append(companyCountry).append(".");
 
                         String encodedImage = jsonObject.getString("company_logo");
-                        byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
-                        Bitmap companyLogo = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                        Bitmap companyLogo;
+                        if(!encodedImage.equals("noImage")){
+                            byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
+                            companyLogo = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                        }else
+                            companyLogo = null;
 
                         ItemInfo itemInfo = new ItemInfo(jobId, jobTitle, companyName, differenceDate,
-                                address.toString(), companyId, companyLogo);
+                                address.toString(), companyId, companyLogo,companyUrl);
                         itemAdapter.add(itemInfo);
                         count++;
                     } catch (JSONException e) {
@@ -225,6 +231,7 @@ class SearchStartBgTask extends AsyncTask<String, Void, String> {
                         companyCountry = jsonObject.getString("country_name");
                         jobId = jsonObject.getString("job_id");
                         companyId = jsonObject.getString("company_id");
+                        companyUrl = jsonObject.getString("company_url");
                         StringBuilder address = new StringBuilder();
                         address.append(companyCityName).append(",");
                         if (!companyState.equals("null")) {
@@ -237,7 +244,7 @@ class SearchStartBgTask extends AsyncTask<String, Void, String> {
                         Bitmap companyLogo = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
                         ItemInfo itemInfo = new ItemInfo(jobId, jobTitle, companyName, differenceDate,
-                                address.toString(), companyId, companyLogo);
+                                address.toString(), companyId, companyLogo,companyUrl);
                         itemAdapter.add(itemInfo);
                         count++;
                     } catch (JSONException e) {

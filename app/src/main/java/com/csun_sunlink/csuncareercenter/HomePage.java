@@ -68,12 +68,6 @@ public class HomePage extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        //Infosessions:
-        mImageAdapter = new ImageAdapter(this);
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mImageAdapter);
-
-
         //Main Menu Buttons:
         //Profile:
         prflButton =(ImageButton)findViewById(R.id.profile_button);

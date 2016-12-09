@@ -33,7 +33,11 @@
         </activity>
         <activity
             android:name=".SignUpContinue"
-            android:label="Sign Up"></activity>
+            android:label="Sign Up Continue">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SignUp" />
+        </activity>
         <activity
             android:name=".HomePage"
             android:label="Home Page">

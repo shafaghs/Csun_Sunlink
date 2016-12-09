@@ -153,7 +153,7 @@ class SearchDetailBgTask extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String finalResult) {
         TextView jobTitleTextView, companyNameTextView, positionTypeTextView, companyAddTextView,
                 postedDateTextView, jobDesTextView, jobDutiesTextView, essentialSkillsTextView, desiredSkillsTextView;
-        JSONObject jsonObj = null;
+        JSONObject jsonObj;
         JSONArray jsonArray;
         JSONObject jsonObject = null;
         String answerMethod = "empty";
@@ -180,35 +180,61 @@ class SearchDetailBgTask extends AsyncTask<String, Void, String> {
                 desiredSkillsTextView = (TextView) rootView.findViewById(R.id.search_detail_des_detail);
                 ImageView imageView = (ImageView) rootView.findViewById(R.id.company_logo);
                 try {
+                    assert jsonObject != null;
                     jobTitleTextView.setText(jsonObject.getString("job_title"));
                     companyNameTextView.setText(jsonObject.getString("company_name"));
-                    positionTypeTextView.setText("part time");
+                    positionTypeTextView.setText("Full time");
                     companyAddTextView.setText(address);
-                    if (!differenceDate.equals("Today"))
-                        postedDateTextView.setText(differenceDate + "ays ago");
+                    if (!differenceDate.equals("Today")){
+                        String newDifferenceDate = differenceDate.replaceAll("[\\D]", "")+" days ago";
+                        postedDateTextView.setText(newDifferenceDate);
+                    }
                     else
                         postedDateTextView.setText(differenceDate);
                     jobDesTextView.setText(jsonObject.getString("job_summary"));
+
                     String duty = jsonObject.getString("job_duties");
-                    String replacedStr = duty.replace("*", "\u2022");
-                    jobDutiesTextView.setText(replacedStr);
-                    essentialSkillsTextView.setText(jsonObject.getString("essential_skills"));
-                    desiredSkillsTextView.setText(jsonObject.getString("desired_skills"));
+                    if (!duty.equals("0")) {
+                        rootView.findViewById(R.id.search_detail_job_duty).setVisibility(View.VISIBLE);
+                        String replacedDuty = duty.replace("*", "\u2022");
+                        jobDutiesTextView.setVisibility(View.VISIBLE);
+                        jobDutiesTextView.setText(replacedDuty);
+                    }
+
+                    String essentialSkills = jsonObject.getString("essential_skills");
+                    if (!essentialSkills.equals("0")) {
+                        rootView.findViewById(R.id.search_detail_essential_skills).setVisibility(View.VISIBLE);
+                        String replacedEssentialSkills = essentialSkills.replace("*", "\u2022");
+                        essentialSkillsTextView.setVisibility(View.VISIBLE);
+                        essentialSkillsTextView.setText(replacedEssentialSkills);
+                    }
+
+                    String desiredSkills = jsonObject.getString("desired_skills");
+                    if (!desiredSkills.equals("0")) {
+                        rootView.findViewById(R.id.search_detail_desired_skills).setVisibility(View.VISIBLE);
+                        String replacedDesiredSkills = desiredSkills.replace("*", "\u2022");
+                        desiredSkillsTextView.setVisibility(View.VISIBLE);
+                        desiredSkillsTextView.setText(replacedDesiredSkills);
+                    }
+
                     String savedJob = jsonObject.getString("saved_job");
                     if (savedJob.equals("alreadySaved")) {
                         saveJob.setText(R.string.un_save);
                     } else if (savedJob.equals("notSavedBefore")) {
                         saveJob.setText(R.string.save_to_favorit);
                     }
+
                     String encodedImage = jsonObject.getString("company_logo");
-                    byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
-                    Bitmap companyLogo = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                    imageView.setImageBitmap(companyLogo);
+                    if (encodedImage != null) {
+                        byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
+                        Bitmap companyLogo = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                        imageView.setImageBitmap(companyLogo);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 break;
-            case "deletedSuccessfully":;
+            case "deletedSuccessfully":
                 saveJob.setText(R.string.save_to_favorit);
                 break;
             case "savedSuccessfully":

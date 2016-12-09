@@ -52,6 +52,7 @@ public class ItemAdapter extends ArrayAdapter {
             itemHolder.jobId = (TextView)row.findViewById(R.id.search_job_id);
             itemHolder.companyId = (TextView)row.findViewById(R.id.search_company_id);
             itemHolder.companyLogo = (ImageView)row.findViewById(R.id.job_listing_fragment_company_logo);
+            itemHolder.companyUrl = (TextView)row.findViewById(R.id.search_company_url);
 
             row.setTag(itemHolder);
         }
@@ -67,11 +68,12 @@ public class ItemAdapter extends ArrayAdapter {
         itemHolder.jobId.setText(itemInfo.getJobId());
         itemHolder.companyId.setText(itemInfo.getCompanyId());
         itemHolder.companyLogo.setImageBitmap(itemInfo.getCompanyLogo());
+        itemHolder.companyUrl.setText(itemInfo.getCompanyUrl());
         return row;
     }
 
     private static class ItemHolder{
-        TextView jobTitle,companyName,companyArea,postedDate,jobId,companyId;
+        TextView jobTitle,companyName,companyArea,postedDate,jobId,companyId,companyUrl;
         ImageView companyLogo;
     }
 }
